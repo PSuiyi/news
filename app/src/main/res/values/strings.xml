@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">news</string>
+    <string name="app_name">颐龄</string>
+    <string name="tab_one">首页</string>
+    <string name="tab_two">热门视频</string>
+    <string name="tab_three">图片集锦</string>
+    <string name="tab_four">我的</string>
 </resources>

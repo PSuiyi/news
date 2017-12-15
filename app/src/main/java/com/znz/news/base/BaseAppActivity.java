@@ -3,7 +3,7 @@ package com.znz.news.base;
 import android.os.Bundle;
 
 import com.znz.compass.znzlibray.base.BaseActivity;
-import com.znz.jobs.api.ApiModel;
+import com.znz.news.api.ApiModel;
 
 /**
  * Date： 2017/9/4 2017

@@ -10,8 +10,8 @@ import com.znz.compass.znzlibray.base.BaseListFragment;
 import com.znz.compass.znzlibray.bean.BaseZnzBean;
 import com.znz.compass.znzlibray.common.ZnzConstants;
 import com.znz.compass.znzlibray.utils.StringUtil;
-import com.znz.jobs.R;
-import com.znz.jobs.api.ApiModel;
+import com.znz.news.R;
+import com.znz.news.api.ApiModel;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
