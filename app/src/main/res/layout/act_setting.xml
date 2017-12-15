@@ -12,23 +12,28 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <com.znz.compass.znzlibray.views.rowview.ZnzRowGroupView
-            android:id="@+id/commonRowGroup"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/distance_view" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.znz.compass.znzlibray.views.rowview.ZnzRowGroupView
+                android:id="@+id/commonRowGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/distance_view" />
+
+            <TextView
+                android:id="@+id/tvLogOut"
+                style="@style/BtnStyle"
+                android:layout_width="match_parent"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:padding="@dimen/distance_view"
+                android:text="退出登录" />
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <TextView
-        android:id="@+id/tvLogOut"
-        style="@style/TitleTextStyle"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:background="@color/yellow"
-        android:gravity="center"
-        android:padding="@dimen/distance_view"
-        android:text="退出登录" />
-
 </LinearLayout>

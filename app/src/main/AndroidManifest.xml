@@ -24,6 +24,8 @@
         <activity android:name=".ui.TabHomeAct" />
         <activity android:name=".ui.setting.SettingAct" />
         <activity android:name=".ui.video.VideoDetailAct" />
+        <activity android:name=".ui.mine.MineFavAct" />
+        <activity android:name=".ui.mine.MineInfoAct" />
     </application>
 
 </manifest>

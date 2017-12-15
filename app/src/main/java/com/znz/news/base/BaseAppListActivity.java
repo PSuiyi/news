@@ -40,11 +40,6 @@ public abstract class BaseAppListActivity<T> extends BaseListActivity<T> {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mModel != null) {

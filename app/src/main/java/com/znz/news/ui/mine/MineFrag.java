@@ -60,6 +60,7 @@ public class MineFrag extends BaseAppFragment {
                 .withEnableLongLine(true)
                 .withEnableArraw(true)
                 .withOnClickListener(v -> {
+                    gotoActivity(MineFavAct.class);
                 })
                 .build());
         rowDescriptionList.add(new ZnzRowDescription.Builder()
