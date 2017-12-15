@@ -10,4 +10,10 @@
         <item name="cardElevation">2dp</item>
         <item name="cardUseCompatPadding">true</item>
     </style>
+
+    <style name="LineVerGreen">
+        <item name="android:layout_width">4dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:background">@color/green</item>
+    </style>
 </resources>

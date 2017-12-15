@@ -59,8 +59,9 @@ public class Constants {
 
     public interface MultiType {
         int Section = 0;
-        int HomeMenu = 2;
-        int HomeAdv = 3;
+        int Article = 2;
+        int Video = 3;
+        int Picture = 4;
 
     }
 
