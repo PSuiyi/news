@@ -1,10 +1,10 @@
-package com.znz.news.ui.video;
+package com.znz.news.ui.common;
 
 import android.support.v7.widget.RecyclerView;
 
 import com.znz.news.R;
-import com.znz.news.adapter.VideoAdapter;
-import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.adapter.DemoAdapter;
+import com.znz.news.base.BaseAppListActivity;
 
 /**
  * Date： 2017/12/15 2017
@@ -12,7 +12,7 @@ import com.znz.news.base.BaseAppListFragment;
  * Description：
  */
 
-public class VideoFrag extends BaseAppListFragment {
+public class DemoListAct extends BaseAppListActivity {
     @Override
     protected int[] getLayoutResource() {
         return new int[]{R.layout.common_list_layout_withnav, 1};
@@ -25,7 +25,7 @@ public class VideoFrag extends BaseAppListFragment {
 
     @Override
     protected void initializeNavigation() {
-
+        setTitleName("");
     }
 
     @Override
@@ -35,7 +35,7 @@ public class VideoFrag extends BaseAppListFragment {
 
     @Override
     protected void initializeView() {
-        adapter = new VideoAdapter(dataList);
+        adapter = new DemoAdapter(dataList);
         rvRefresh.setAdapter(adapter);
     }
 

@@ -15,7 +15,7 @@
     <dimen name="distance_top">0dp</dimen>
 
     <!--textsize navsize etc.-->
-    <dimen name="text_small_size">12sp</dimen>
+    <dimen name="text_small_size">18sp</dimen>
     <dimen name="text_size">22sp</dimen>
     <dimen name="text_larger_size">17sp</dimen>
     <dimen name="title_size">24sp</dimen>

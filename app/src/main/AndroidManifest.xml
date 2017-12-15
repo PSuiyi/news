@@ -23,6 +23,7 @@
         <activity android:name=".ui.login.LoginAct" />
         <activity android:name=".ui.TabHomeAct" />
         <activity android:name=".ui.setting.SettingAct" />
+        <activity android:name=".ui.video.VideoDetailAct" />
     </application>
 
 </manifest>

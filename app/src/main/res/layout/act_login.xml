@@ -16,6 +16,8 @@
         android:orientation="vertical"
         android:padding="@dimen/distance_view">
 
+
+
     </LinearLayout>
 
 </LinearLayout>
