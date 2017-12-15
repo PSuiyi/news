@@ -2,15 +2,25 @@ package com.znz.news.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
 import com.znz.compass.znzlibray.bean.BaseZnzBean;
+import com.znz.compass.znzlibray.views.nine.NineGridView;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
 import com.znz.news.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 public class PictureAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
+
+    @Bind(R.id.tvTitle)
+    TextView tvTitle;
+    @Bind(R.id.nineGrid)
+    NineGridView nineGrid;
 
     public PictureAdapter(@Nullable List dataList) {
         super(R.layout.item_lv_picture, dataList);
@@ -19,6 +29,12 @@ public class PictureAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, BaseZnzBean bean) {
         setOnItemClickListener(this);
+
+        List<String> urls = new ArrayList<>();
+        urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
+        urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
+        urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
+        nineGrid.setList(urls);
     }
 
     @Override

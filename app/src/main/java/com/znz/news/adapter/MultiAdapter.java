@@ -3,6 +3,7 @@ package com.znz.news.adapter;
 import android.os.Bundle;
 import android.view.View;
 
+import com.znz.compass.znzlibray.views.nine.NineGridView;
 import com.znz.compass.znzlibray.views.recyclerview.BaseMultiItemQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
@@ -11,6 +12,7 @@ import com.znz.news.bean.MultiBean;
 import com.znz.news.common.Constants;
 import com.znz.news.ui.login.LoginAct;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +43,12 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
             case Constants.MultiType.Video:
                 break;
             case Constants.MultiType.Picture:
+                NineGridView nineGrid = helper.getView(R.id.nineGrid);
+                List<String> urls = new ArrayList<>();
+                urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
+                urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
+                urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
+                nineGrid.setList(urls);
                 break;
         }
     }

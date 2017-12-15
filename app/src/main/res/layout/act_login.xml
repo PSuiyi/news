@@ -10,14 +10,112 @@
 
     <include layout="@layout/include_common_network_status" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/distance_view">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <View style="@style/WeightView" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher" />
+
+        <View style="@style/WeightView" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/distance_divider"
+                    android:src="@mipmap/shouji" />
+
+                <com.znz.compass.znzlibray.views.EditTextWithDel
+                    android:id="@+id/etUserName"
+                    style="@style/EditPhoneStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="手机号"
+                    android:paddingBottom="@dimen/distance_view"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="@dimen/distance_view"
+                    android:paddingTop="@dimen/distance_view"
+                    android:textSize="@dimen/title_size" />
+
+            </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_view"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="15dp">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/distance_divider"
+                    android:src="@mipmap/yanzhengma" />
+
+                <com.znz.compass.znzlibray.views.EditTextWithDel
+                    android:id="@+id/etPsd"
+                    style="@style/EditPasswordStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="验证码"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="@dimen/distance_view"
+                    android:paddingBottom="@dimen/distance_view"
+                    android:paddingRight="@dimen/distance_view"
+                    android:textSize="@dimen/title_size" />
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:text="获取验证码" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLogin"
+            style="@style/BtnStyle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="@dimen/distance_view"
+            android:text="下一步"
+            android:textColor="@color/white" />
+
+
+        <View style="@style/WeightView" />
     </LinearLayout>
+
 
 </LinearLayout>
