@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/video_height"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/default_image_rect" />
+
+
+    <TextView
+        style="@style/TitleTextStyle"
+        android:padding="@dimen/distance_view"
+        android:text="看这个视频能让我笑一整天，哈哈哈哈哈哈哈..." />
+
+
+</LinearLayout>

@@ -26,6 +26,7 @@
         <activity android:name=".ui.video.VideoDetailAct" />
         <activity android:name=".ui.mine.MineFavAct" />
         <activity android:name=".ui.mine.MineInfoAct" />
+        <activity android:name=".ui.common.SearchCommonActivity" />
     </application>
 
 </manifest>

@@ -26,7 +26,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="@dimen/video_height"
                 android:layout_marginTop="@dimen/distance_divider"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/default_image_rect" />

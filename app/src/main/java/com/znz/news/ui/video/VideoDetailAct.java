@@ -1,6 +1,7 @@
 package com.znz.news.ui.video;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.znz.news.R;
 import com.znz.news.adapter.CommentAdapter;
@@ -13,6 +14,9 @@ import com.znz.news.base.BaseAppListActivity;
  */
 
 public class VideoDetailAct extends BaseAppListActivity {
+
+    private View header;
+
     @Override
     protected int[] getLayoutResource() {
         return new int[]{R.layout.common_list_layout_withnav, 1};
@@ -37,6 +41,9 @@ public class VideoDetailAct extends BaseAppListActivity {
     protected void initializeView() {
         adapter = new CommentAdapter(dataList);
         rvRefresh.setAdapter(adapter);
+
+        header = View.inflate(activity, R.layout.header_video, null);
+        adapter.addHeaderView(header);
     }
 
     @Override
