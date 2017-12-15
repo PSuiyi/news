@@ -44,6 +44,6 @@
             android:id="@+id/radioButton4"
             style="@style/main_tab_bottom"
             android:drawableTop="@drawable/tab_main_4"
-            android:text="@string/tab_three" />
+            android:text="@string/tab_four" />
     </RadioGroup>
 </LinearLayout>

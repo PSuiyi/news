@@ -2,4 +2,12 @@
     <style name="AppSplash" parent="AppTheme">
         <item name="android:windowBackground">@mipmap/spalsh</item>
     </style>
+
+    <!--卡片风格-->
+    <style name="CardStyle">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">2dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
 </resources>

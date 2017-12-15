@@ -50,8 +50,7 @@
         android:singleLine="true"
         android:text="@string/app_name"
         android:textColor="@color/gray80"
-        android:textSize="@dimen/nav_size"
-        android:textStyle="bold" />
+        android:textSize="@dimen/nav_size" />
 
     <LinearLayout
         android:id="@+id/llNavRight"
