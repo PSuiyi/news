@@ -68,6 +68,7 @@ dependencies {
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
     compile 'org.aspectj:aspectjrt:1.8.9'
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+    compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile deps.supportAnnotations
     compile deps.recyclerviewV7
     compile deps.appcompatV7
