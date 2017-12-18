@@ -15,7 +15,7 @@ import com.znz.news.base.BaseAppListActivity;
 public class CommentListAct extends BaseAppListActivity {
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.common_list_layout_withnav, 1};
+        return new int[]{R.layout.act_comment_list, 1};
     }
 
     @Override

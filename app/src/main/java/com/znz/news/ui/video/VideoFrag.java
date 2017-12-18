@@ -15,7 +15,7 @@ import com.znz.news.base.BaseAppListFragment;
 public class VideoFrag extends BaseAppListFragment {
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.common_list_layout_withnav, 1};
+        return new int[]{R.layout.common_list_layout_withnav, 2};
     }
 
     @Override
@@ -25,7 +25,8 @@ public class VideoFrag extends BaseAppListFragment {
 
     @Override
     protected void initializeNavigation() {
-
+        znzToolBar.setSearchHint("搜您想要的视频内容");
+        znzToolBar.setEnableEdit(false);
     }
 
     @Override
