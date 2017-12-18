@@ -1,5 +1,6 @@
 package com.znz.news.ui.mine;
 
+import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 
 /**
@@ -11,7 +12,7 @@ import com.znz.news.base.BaseAppActivity;
 public class MineInfoAct extends BaseAppActivity {
     @Override
     protected int[] getLayoutResource() {
-        return new int[0];
+        return new int[]{R.layout.act_mine_info, 1};
     }
 
     @Override
@@ -21,7 +22,7 @@ public class MineInfoAct extends BaseAppActivity {
 
     @Override
     protected void initializeNavigation() {
-
+        setTitleName("个人资料");
     }
 
     @Override

@@ -27,6 +27,9 @@
         <activity android:name=".ui.mine.MineFavAct" />
         <activity android:name=".ui.mine.MineInfoAct" />
         <activity android:name=".ui.common.SearchCommonActivity" />
+        <activity android:name=".ui.login.AuthAct" />
+        <activity android:name=".ui.login.PsdSettingAct" />
+        <activity android:name=".ui.login.RegisterAct" />
     </application>
 
 </manifest>

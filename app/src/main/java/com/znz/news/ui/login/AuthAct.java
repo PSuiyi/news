@@ -16,34 +16,30 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Date： 2017/12/15 2017
+ * Date： 2017/12/18 2017
  * User： PSuiyi
  * Description：
  */
 
-public class LoginAct extends BaseAppActivity {
-    @Bind(R.id.etUserName)
-    EditTextWithDel etUserName;
-    @Bind(R.id.etPsd)
-    EditTextWithDel etPsd;
-    @Bind(R.id.tvCode)
-    TextView tvCode;
-    @Bind(R.id.tvLogin)
-    TextView tvLogin;
+public class AuthAct extends BaseAppActivity {
     @Bind(R.id.znzToolBar)
     ZnzToolBar znzToolBar;
     @Bind(R.id.znzRemind)
     ZnzRemind znzRemind;
     @Bind(R.id.llNetworkStatus)
     LinearLayout llNetworkStatus;
-    @Bind(R.id.tvRegister)
-    TextView tvRegister;
-    @Bind(R.id.tvForget)
-    TextView tvForget;
+    @Bind(R.id.etUserName)
+    EditTextWithDel etUserName;
+    @Bind(R.id.etPsd)
+    EditTextWithDel etPsd;
+    @Bind(R.id.tvCode)
+    TextView tvCode;
+    @Bind(R.id.tvSubmit)
+    TextView tvSubmit;
 
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.act_login};
+        return new int[]{R.layout.act_auth, 1};
     }
 
     @Override
@@ -53,7 +49,7 @@ public class LoginAct extends BaseAppActivity {
 
     @Override
     protected void initializeNavigation() {
-
+        setTitleName("找回密码");
     }
 
     @Override
@@ -73,18 +69,13 @@ public class LoginAct extends BaseAppActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tvCode, R.id.tvLogin, R.id.tvRegister, R.id.tvForget})
+    @OnClick({R.id.tvCode, R.id.tvSubmit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvCode:
                 break;
-            case R.id.tvLogin:
-                break;
-            case R.id.tvRegister:
-                gotoActivity(RegisterAct.class);
-                break;
-            case R.id.tvForget:
-                gotoActivity(AuthAct.class);
+            case R.id.tvSubmit:
+                gotoActivity(PsdSettingAct.class);
                 break;
         }
     }

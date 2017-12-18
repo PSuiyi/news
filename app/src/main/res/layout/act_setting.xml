@@ -32,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_margin="20dp"
                 android:gravity="center"
-                android:padding="@dimen/distance_view"
                 android:text="退出登录" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

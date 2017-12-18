@@ -1,5 +1,6 @@
 package com.znz.news.ui.login;
 
+import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 
 /**
@@ -11,7 +12,7 @@ import com.znz.news.base.BaseAppActivity;
 public class RegisterAct extends BaseAppActivity {
     @Override
     protected int[] getLayoutResource() {
-        return new int[0];
+        return new int[]{R.layout.act_register};
     }
 
     @Override

@@ -29,7 +29,7 @@
                 android:id="@+id/nineGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distance_divider"
+                android:layout_marginTop="@dimen/distance_view"
                 app:nine_enable_one_min_width="true"
                 app:nine_enable_preview="false" />
         </LinearLayout>
