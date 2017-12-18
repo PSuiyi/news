@@ -106,14 +106,32 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/distance_view"
-        android:paddingTop="@dimen/distance_view">
+        android:background="@color/white">
 
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/llMore"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TitleTextStyle"
+                android:layout_margin="@dimen/distance_view"
+                android:background="@drawable/bg_more"
+                android:ems="1"
+                android:text="更多" />
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

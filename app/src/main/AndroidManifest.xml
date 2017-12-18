@@ -33,6 +33,7 @@
         <activity android:name=".ui.login.PsdAuthAct" />
         <activity android:name=".ui.picture.PictureDetailAct" />
         <activity android:name=".ui.picture.CommentListAct" />
+        <activity android:name=".ui.home.TypeListAct" />
     </application>
 
 </manifest>
