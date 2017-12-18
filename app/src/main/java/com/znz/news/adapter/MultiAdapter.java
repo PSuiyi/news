@@ -26,6 +26,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
     public MultiAdapter(List dataList) {
         super(dataList);
         addItemType(Constants.MultiType.Section, R.layout.item_lv_section);
+        addItemType(Constants.MultiType.Top, R.layout.item_lv_top);
         addItemType(Constants.MultiType.Article, R.layout.item_lv_article);
         addItemType(Constants.MultiType.Video, R.layout.item_lv_video);
         addItemType(Constants.MultiType.Picture, R.layout.item_lv_picture);
@@ -37,6 +38,8 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
         switch (bean.getItemType()) {
             case Constants.MultiType.Section:
                 helper.setText(R.id.tvSection, bean.getSection());
+                break;
+            case Constants.MultiType.Top:
                 break;
             case Constants.MultiType.Article:
                 break;
@@ -62,6 +65,8 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                     gotoActivity(LoginAct.class);
                     return;
                 }
+                break;
+            case Constants.MultiType.Top:
                 break;
             case Constants.MultiType.Article:
                 if (!mDataManager.isLogin()) {

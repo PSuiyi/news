@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:clipChildren="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_common_navigation" />
+
+    <include layout="@layout/include_common_remind" />
+
+    <include layout="@layout/include_common_network_status" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/distance_view"
+            android:src="@mipmap/guanbi" />
+
+        <TextView
+            style="@style/TitleWhiteTextStyle"
+            android:layout_marginBottom="@dimen/distance_view"
+            android:paddingLeft="@dimen/distance_view"
+            android:paddingRight="@dimen/distance_view"
+            android:text="吊车很忙，亮出北京“城市天际线”。" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/datu1" />
+
+
+            <TextView
+                style="@style/TitleWhiteTextStyle"
+                android:layout_gravity="bottom"
+                android:background="@color/gray50"
+                android:padding="@dimen/distance_view"
+                android:text="1/4说起“垃圾食品”，我们脑子里总会蹦出汉堡薯条大辣翅，炸鸡可乐大辣条，烤肠披萨方便面。" />
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/distance_view">
+
+            <TextView
+                style="@style/TitleWhiteTextStyle"
+                android:layout_weight="1"
+                android:background="@drawable/bg_comment_gray"
+                android:drawableLeft="@mipmap/xiepinglunbai"
+                android:drawablePadding="@dimen/distance_divider"
+                android:paddingBottom="4dp"
+                android:paddingLeft="@dimen/distance_view"
+                android:paddingRight="@dimen/distance_view"
+                android:paddingTop="4dp"
+                android:text="写评论" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/distance_view">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/pinglunbai" />
+
+                <TextView
+                    style="@style/DotStyle"
+                    android:layout_marginLeft="20dp"
+                    android:text="12" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/liulanbai" />
+
+                <TextView
+                    style="@style/DotStyle"
+                    android:layout_marginLeft="20dp"
+                    android:text="12" />
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/shoucangbai" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

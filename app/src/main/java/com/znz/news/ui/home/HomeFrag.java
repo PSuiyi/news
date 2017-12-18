@@ -26,6 +26,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected void initializeVariate() {
+        dataList.add(new MultiBean(Constants.MultiType.Top));
         dataList.add(new MultiBean(Constants.MultiType.Article));
         dataList.add(new MultiBean(Constants.MultiType.Video));
         dataList.add(new MultiBean(Constants.MultiType.Picture));

@@ -31,7 +31,7 @@ public class PsdAuthAct extends BaseAppActivity {
 
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.act_psd_setting, 1};
+        return new int[]{R.layout.act_psd_auth, 1};
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PsdAuthAct extends BaseAppActivity {
 
     @Override
     protected void initializeNavigation() {
-        setTitleName("设置密码");
+        setTitleName("修改密码");
     }
 
     @Override
@@ -63,6 +63,6 @@ public class PsdAuthAct extends BaseAppActivity {
 
     @OnClick(R.id.tvSubmit)
     public void onViewClicked() {
-        gotoActivityWithClearStack(LoginAct.class);
+        gotoActivityWithClearStack(PsdSettingAct.class);
     }
 }

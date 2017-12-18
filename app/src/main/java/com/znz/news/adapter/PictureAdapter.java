@@ -9,6 +9,7 @@ import com.znz.compass.znzlibray.views.nine.NineGridView;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
 import com.znz.news.R;
+import com.znz.news.ui.picture.PictureDetailAct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +40,6 @@ public class PictureAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        gotoActivity(PictureDetailAct.class);
     }
 }

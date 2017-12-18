@@ -2,7 +2,7 @@
 <resources>
     <!--系统样式-->
     <color name="colorPrimary">@color/status_color</color>
-    <color name="colorPrimaryDark">@color/status_color</color>
+    <color name="colorPrimaryDark">@color/black</color>
     <color name="colorAccent">@color/status_color</color>
     <color name="status_color">@color/red</color>
 

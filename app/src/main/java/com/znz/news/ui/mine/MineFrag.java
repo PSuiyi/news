@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Date： 2017/12/15 2017
@@ -34,6 +35,8 @@ public class MineFrag extends BaseAppFragment {
     LinearLayout llNetworkStatus;
     @Bind(R.id.commonRowGroup)
     ZnzRowGroupView commonRowGroup;
+    @Bind(R.id.llMineInfo)
+    LinearLayout llMineInfo;
     private ArrayList<ZnzRowDescription> rowDescriptionList;
 
     @Override
@@ -98,5 +101,10 @@ public class MineFrag extends BaseAppFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.llMineInfo)
+    public void onViewClicked() {
+        gotoActivity(MineInfoAct.class);
     }
 }

@@ -5,7 +5,6 @@ package com.znz.news.common;
  */
 
 
-
 public class Constants {
 
     /**
@@ -62,7 +61,7 @@ public class Constants {
         int Article = 2;
         int Video = 3;
         int Picture = 4;
-
+        int Top = 5;
     }
 
     public interface TreeType {

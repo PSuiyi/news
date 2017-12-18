@@ -52,7 +52,7 @@
     </style>
 
     <style name="TextDrawableStyle" parent="TextStyle">
-        <item name="android:drawablePadding">3dp</item>
+        <item name="android:drawablePadding">6dp</item>
     </style>
 
     <style name="TextDrawableWhiteStyle" parent="TextDrawableStyle">

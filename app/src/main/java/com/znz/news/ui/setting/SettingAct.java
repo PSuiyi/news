@@ -8,6 +8,7 @@ import com.znz.compass.znzlibray.views.rowview.ZnzRowGroupView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 import com.znz.news.ui.login.LoginAct;
+import com.znz.news.ui.login.PsdAuthAct;
 import com.znz.news.utils.DataCleanManager;
 
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class SettingAct extends BaseAppActivity {
                 .withTitle("修改密码")
                 .withEnableArraw(true)
                 .withOnClickListener(v -> {
-
+                    gotoActivity(PsdAuthAct.class);
                 })
                 .build());
         commonRowGroup.notifyDataChanged(rowDescriptionList);

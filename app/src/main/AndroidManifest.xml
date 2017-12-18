@@ -30,6 +30,8 @@
         <activity android:name=".ui.login.AuthAct" />
         <activity android:name=".ui.login.PsdSettingAct" />
         <activity android:name=".ui.login.RegisterAct" />
+        <activity android:name=".ui.login.PsdAuthAct" />
+        <activity android:name=".ui.picture.PictureDetailAct" />
     </application>
 
 </manifest>
