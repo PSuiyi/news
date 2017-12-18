@@ -32,8 +32,8 @@
         <item name="android:layout_gravity">right|top</item>
         <item name="android:background">@drawable/bg_dot</item>
         <item name="android:paddingBottom">0dp</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">1dp</item>
