@@ -89,7 +89,6 @@
                             <TextView
                                 style="@style/TextGrayStyle"
                                 android:layout_marginLeft="@dimen/distance_divider"
-                                android:background="@null"
                                 android:text="搜索" />
 
                         </LinearLayout>
