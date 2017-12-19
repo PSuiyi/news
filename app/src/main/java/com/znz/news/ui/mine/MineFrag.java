@@ -12,6 +12,7 @@ import com.znz.compass.znzlibray.views.rowview.ZnzRowDescription;
 import com.znz.compass.znzlibray.views.rowview.ZnzRowGroupView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppFragment;
+import com.znz.news.ui.setting.HelpAct;
 import com.znz.news.ui.setting.SettingAct;
 
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class MineFrag extends BaseAppFragment {
                 .withIconResId(R.mipmap.wenti)
                 .withEnableArraw(true)
                 .withOnClickListener(v -> {
+                    gotoActivity(HelpAct.class);
                 })
                 .build());
         rowDescriptionList.add(new ZnzRowDescription.Builder()
