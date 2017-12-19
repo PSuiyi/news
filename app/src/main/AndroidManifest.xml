@@ -34,6 +34,7 @@
         <activity android:name=".ui.picture.PictureDetailAct" />
         <activity android:name=".ui.picture.CommentListAct" />
         <activity android:name=".ui.home.TypeListAct" />
+        <activity android:name=".ui.setting.HelpAct" />
     </application>
 
 </manifest>

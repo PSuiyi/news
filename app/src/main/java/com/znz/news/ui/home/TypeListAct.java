@@ -25,7 +25,7 @@ public class TypeListAct extends BaseAppListActivity {
 
     @Override
     protected void initializeNavigation() {
-        setTitleName("");
+        setTitleName("内容分类");
     }
 
     @Override

@@ -14,7 +14,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/distance_view">
@@ -36,15 +35,20 @@
                     style="@style/TitleTextStyle"
                     android:text="分类简介分类简介分类简介分类简介" />
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
         </LinearLayout>
+
+        <View style="@style/Line" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/distance_divider"
+            android:paddingLeft="@dimen/distance_view"
+            android:paddingRight="7dp"
+            android:paddingTop="@dimen/distance_divider" />
 
     </LinearLayout>
 
-    <View style="@style/Line" />
+    <View style="@style/LineDivider" />
 </LinearLayout>

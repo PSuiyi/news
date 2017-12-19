@@ -24,17 +24,19 @@
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <View style="@style/Line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="@dimen/distance_view">
 
         <TextView
             android:id="@+id/tvComment"
             style="@style/TextStyle"
-            android:layout_width="match_parent"
             android:layout_weight="1"
             android:background="@drawable/bg_comment_white"
             android:drawableLeft="@mipmap/xiepinglunhei"
@@ -46,6 +48,47 @@
             android:paddingTop="4dp"
             android:text="写评论..."
             android:textSize="20sp" />
-    </LinearLayout>
 
+        <FrameLayout
+            android:id="@+id/flComment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/distance_view">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/pinglunhei" />
+
+            <TextView
+                style="@style/DotStyle"
+                android:layout_marginLeft="20dp"
+                android:text="12" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/liulanhei" />
+
+            <TextView
+                style="@style/DotStyle"
+                android:layout_marginLeft="20dp"
+                android:text="12" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/ivFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/shoucanghei" />
+    </LinearLayout>
 </LinearLayout>
