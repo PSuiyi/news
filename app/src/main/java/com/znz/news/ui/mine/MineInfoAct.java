@@ -1,7 +1,23 @@
 package com.znz.news.ui.mine;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.znz.compass.znzlibray.views.ZnzRemind;
+import com.znz.compass.znzlibray.views.ZnzToolBar;
+import com.znz.compass.znzlibray.views.gallery.inter.IPhotoSelectCallback;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+import com.znz.news.ui.common.EditValueAct;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Date： 2017/12/15 2017
@@ -10,6 +26,25 @@ import com.znz.news.base.BaseAppActivity;
  */
 
 public class MineInfoAct extends BaseAppActivity {
+    @Bind(R.id.znzToolBar)
+    ZnzToolBar znzToolBar;
+    @Bind(R.id.znzRemind)
+    ZnzRemind znzRemind;
+    @Bind(R.id.llNetworkStatus)
+    LinearLayout llNetworkStatus;
+    @Bind(R.id.ivUserHeader)
+    ImageView ivUserHeader;
+    @Bind(R.id.llUserHeader)
+    LinearLayout llUserHeader;
+    @Bind(R.id.tvNickName)
+    TextView tvNickName;
+    @Bind(R.id.llNickName)
+    LinearLayout llNickName;
+    @Bind(R.id.tvSign)
+    TextView tvSign;
+    @Bind(R.id.llSign)
+    LinearLayout llSign;
+
     @Override
     protected int[] getLayoutResource() {
         return new int[]{R.layout.act_mine_info, 1};
@@ -33,5 +68,55 @@ public class MineInfoAct extends BaseAppActivity {
     @Override
     protected void loadDataFromServer() {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.llUserHeader, R.id.llNickName, R.id.llSign})
+    public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
+        switch (view.getId()) {
+            case R.id.llUserHeader:
+                mDataManager.openPhotoSelectSingle(activity, new IPhotoSelectCallback() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<String> photoList) {
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                }, true);
+                break;
+            case R.id.llNickName:
+                bundle.putString("type", "修改昵称");
+                gotoActivity(EditValueAct.class, bundle);
+                break;
+            case R.id.llSign:
+                bundle.putString("type", "修改签名");
+                gotoActivity(EditValueAct.class, bundle);
+                break;
+        }
     }
 }
