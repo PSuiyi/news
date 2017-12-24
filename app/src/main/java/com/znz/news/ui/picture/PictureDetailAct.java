@@ -1,6 +1,8 @@
 package com.znz.news.ui.picture;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -10,7 +12,11 @@ import android.widget.TextView;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
+import com.znz.news.adapter.ViewPageAdapter;
 import com.znz.news.base.BaseAppActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,6 +43,10 @@ public class PictureDetailAct extends BaseAppActivity {
     FrameLayout flComment;
     @Bind(R.id.ivFav)
     ImageView ivFav;
+    @Bind(R.id.commonViewPager)
+    ViewPager commonViewPager;
+
+    private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected int[] getLayoutResource() {
@@ -55,7 +65,13 @@ public class PictureDetailAct extends BaseAppActivity {
 
     @Override
     protected void initializeView() {
+        fragmentList.add(new PictureDetailFrag());
+        fragmentList.add(new PictureDetailFrag());
+        fragmentList.add(new PictureDetailFrag());
+        fragmentList.add(new PictureDetailFrag());
 
+        commonViewPager.setAdapter(new ViewPageAdapter(getSupportFragmentManager(), fragmentList));
+        commonViewPager.setOffscreenPageLimit(fragmentList.size());
     }
 
     @Override

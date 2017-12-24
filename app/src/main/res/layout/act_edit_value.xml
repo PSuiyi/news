@@ -21,13 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/distance_view">
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/etValue"
                 style="@style/EditStyle"
                 android:hint="请输入昵称"
+                android:padding="@dimen/distance_view"
                 android:visibility="gone" />
 
             <com.znz.compass.znzlibray.views.EditTextWithLimit

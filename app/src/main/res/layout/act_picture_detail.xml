@@ -32,18 +32,15 @@
             android:paddingRight="@dimen/distance_view"
             android:text="吊车很忙，亮出北京“城市天际线”。" />
 
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageView
+            <android.support.v4.view.ViewPager
+                android:id="@+id/commonViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/datu1" />
-
+                android:layout_height="match_parent" />
 
             <TextView
                 style="@style/TitleWhiteTextStyle"
@@ -51,8 +48,8 @@
                 android:background="@color/gray50"
                 android:padding="@dimen/distance_view"
                 android:text="1/4说起“垃圾食品”，我们脑子里总会蹦出汉堡薯条大辣翅，炸鸡可乐大辣条，烤肠披萨方便面。" />
-        </FrameLayout>
 
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
