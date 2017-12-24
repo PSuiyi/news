@@ -8,6 +8,7 @@ import com.znz.news.R;
 import com.znz.news.adapter.CoverFlowAdapter;
 import com.znz.news.adapter.PictureAdapter;
 import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.view.CoverFlowLayoutManger;
 import com.znz.news.view.RecyclerCoverFlow;
 
 import java.util.ArrayList;
@@ -62,6 +63,17 @@ public class PictureFrag extends BaseAppListFragment {
         li.add(new BaseZnzBean());
         li.add(new BaseZnzBean());
         coverFlowAdapter = new CoverFlowAdapter(li);
+        rvCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
+            @Override
+            public void onItemSelected(int position) {
+                if (position == dataList.size() - 1) {
+                    rvCoverFlow.scrollToPosition(1);
+                }
+                if (position == 0) {
+                    rvCoverFlow.scrollToPosition(dataList.size() - 2);
+                }
+            }
+        });
         rvCoverFlow.setAdapter(coverFlowAdapter);
     }
 

@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:hint="手机号"
                     android:paddingBottom="@dimen/distance_divider"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="@dimen/distance_divider"
                     android:paddingRight="@dimen/distance_view"
                     android:paddingTop="@dimen/distance_divider"
                     android:textSize="@dimen/title_size" />
@@ -82,13 +82,14 @@
 
                 <com.znz.compass.znzlibray.views.EditTextWithDel
                     android:id="@+id/etPsd"
-                    style="@style/EditPasswordStyle"
+                    style="@style/EditStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="验证码"
+                    android:inputType="number"
                     android:paddingBottom="@dimen/distance_divider"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="@dimen/distance_divider"
                     android:paddingRight="@dimen/distance_view"
                     android:paddingTop="@dimen/distance_divider"
                     android:textSize="@dimen/title_size" />

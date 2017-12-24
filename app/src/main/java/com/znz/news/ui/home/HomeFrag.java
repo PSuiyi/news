@@ -16,6 +16,8 @@ import com.znz.news.common.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bingoogolapple.bgabanner.BGABanner;
+
 /**
  * Date： 2017/12/15 2017
  * User： PSuiyi
@@ -27,6 +29,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     private View header;
     private RecyclerView rvType;
     private LinearLayout llMore;
+    private BGABanner mBanner;
 
     private List<BaseZnzBean> typeList = new ArrayList<>();
     private TypeHorizontalAdapter typeAdapter;
@@ -88,6 +91,27 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
         typeAdapter = new TypeHorizontalAdapter(typeList);
         rvType.setAdapter(typeAdapter);
+
+        mBanner = bindViewById(header, R.id.mBanner);
+
+        mBanner.setAdapter((banner, itemView, model, position) -> {
+
+        });
+
+
+//        mBanner.setDelegate((banner, itemView, model, position) -> {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("url", advList.get(position).getUrl());
+//            bundle.putString("title", advList.get(position).getName());
+//            gotoActivity(WebViewAct.class, bundle);
+//        });
+
+
+        List<String> advUrls = new ArrayList<>();
+        List<String> advTitles = new ArrayList<>();
+
+        mBanner.setData(R.mipmap.banner);
+//        mBanner.setData(advUrls, advTitles);
     }
 
     @Override

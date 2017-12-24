@@ -65,6 +65,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
             case Constants.MultiType.Section:
                 break;
             case Constants.MultiType.Top:
+                gotoActivity(ArticleDetailAct.class);
                 break;
             case Constants.MultiType.Article:
                 gotoActivity(ArticleDetailAct.class);

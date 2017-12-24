@@ -21,4 +21,6 @@
         android:layout_marginTop="@dimen/distance_view"
         android:scaleType="centerCrop"
         android:src="@mipmap/wenzhangpeitu1" />
+
+    <View style="@style/Line" />
 </LinearLayout>

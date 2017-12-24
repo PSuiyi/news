@@ -38,6 +38,7 @@
         <activity android:name=".ui.common.EditValueAct" />
         <activity android:name=".ui.home.ArticleDetailAct" />
         <activity android:name=".ui.home.ResultAct" />
+        <activity android:name=".ui.common.WebViewAct" />
     </application>
 
 </manifest>
