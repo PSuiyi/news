@@ -7,6 +7,7 @@ import com.znz.compass.znzlibray.bean.BaseZnzBean;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
 import com.znz.news.R;
+import com.znz.news.ui.home.ResultAct;
 
 import java.util.List;
 
@@ -23,5 +24,6 @@ public class TypeSecondAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHol
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        gotoActivity(ResultAct.class);
     }
 }

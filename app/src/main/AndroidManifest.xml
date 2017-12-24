@@ -36,6 +36,8 @@
         <activity android:name=".ui.home.TypeListAct" />
         <activity android:name=".ui.setting.HelpAct" />
         <activity android:name=".ui.common.EditValueAct" />
+        <activity android:name=".ui.home.ArticleDetailAct" />
+        <activity android:name=".ui.home.ResultAct" />
     </application>
 
 </manifest>

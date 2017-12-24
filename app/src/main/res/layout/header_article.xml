@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/distance_view">
+
+    <TextView
+        style="@style/TitleTextStyle"
+        android:text="网传“十大垃圾食品”误导了多少中国父母" />
+
+    <TextView
+        style="@style/TextStyle"
+        android:layout_marginTop="@dimen/distance_view"
+        android:text="科学营养界一惯的说法是：没有垃圾的食品，只有垃圾的吃法。 说起“垃圾食品”，我们脑子里总会蹦出汉堡薯条大辣翅，炸鸡可乐大辣条，烤肠披萨方便面。" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_view"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/wenzhangpeitu1" />
+</LinearLayout>

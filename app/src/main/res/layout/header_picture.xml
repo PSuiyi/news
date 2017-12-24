@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TitleTextStyle"
+        android:padding="@dimen/distance_view"
+        android:text="吊车很忙，亮出北京“城市天际线”。" />
+
+    <com.znz.news.view.RecyclerCoverFlow
+        android:id="@+id/rvCoverFlow"
+        android:layout_width="match_parent"
+        android:layout_height="210dp" />
+
+    <TextView
+        style="@style/TextGrayStyle"
+        android:maxLines="2"
+        android:padding="@dimen/distance_view"
+        android:text="科学营养界的说法：没有垃圾的食品，只有垃圾的吃法。 " />
+
+    <View style="@style/Line" />
+</LinearLayout>

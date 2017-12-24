@@ -10,7 +10,9 @@ import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
 import com.znz.news.R;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.common.Constants;
-import com.znz.news.ui.login.LoginAct;
+import com.znz.news.ui.home.ArticleDetailAct;
+import com.znz.news.ui.picture.PictureDetailAct;
+import com.znz.news.ui.video.VideoDetailAct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,36 +63,17 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
         Bundle bundle = new Bundle();
         switch (bean.getItemType()) {
             case Constants.MultiType.Section:
-                if (!mDataManager.isLogin()) {
-                    gotoActivity(LoginAct.class);
-                    return;
-                }
                 break;
             case Constants.MultiType.Top:
                 break;
             case Constants.MultiType.Article:
-                if (!mDataManager.isLogin()) {
-                    gotoActivity(LoginAct.class);
-                    return;
-                }
-//                bundle.putString("id", bean.getArticleBean().getId());
-//                gotoActivity(ArticleDetailAct.class, bundle);
+                gotoActivity(ArticleDetailAct.class);
                 break;
             case Constants.MultiType.Video:
-                if (!mDataManager.isLogin()) {
-                    gotoActivity(LoginAct.class);
-                    return;
-                }
-//                bundle.putString("post_id", bean.getPostBean().getId());
-//                gotoActivity(PostDetailAct.class, bundle);
+                gotoActivity(VideoDetailAct.class);
                 break;
             case Constants.MultiType.Picture:
-                if (!mDataManager.isLogin()) {
-                    gotoActivity(LoginAct.class);
-                    return;
-                }
-//                bundle.putString("id", bean.getActivityBean().getId());
-//                gotoActivity(ActivityDetailAct.class, bundle);
+                gotoActivity(PictureDetailAct.class);
                 break;
 
         }
