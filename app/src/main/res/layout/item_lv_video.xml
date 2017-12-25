@@ -29,7 +29,15 @@
                 android:layout_height="@dimen/video_height"
                 android:layout_marginTop="@dimen/distance_view"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/default_image_rect" />
+                android:src="@mipmap/default_image_rect"
+                android:visibility="gone" />
+
+            <com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer
+                android:id="@+id/detailPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/video_height"
+                android:layout_marginTop="@dimen/distance_view"
+                android:visibility="visible" />
 
         </LinearLayout>
 

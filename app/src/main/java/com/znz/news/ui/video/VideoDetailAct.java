@@ -161,9 +161,10 @@ public class VideoDetailAct extends BaseAppListActivity {
 
         HttpImageView ivImage = new HttpImageView(activity);
         ivImage.setImageResource(R.mipmap.default_image_rect);
+        ivImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         gsyVideoOption.setThumbImageView(ivImage)
-                .setUrl("http://baobab.wdjcdn.com/14564977406580.mp4")
+                .setUrl("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
                 .build(detailPlayer);
     }
 
