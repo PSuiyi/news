@@ -54,7 +54,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distance_view"
                 android:orientation="vertical"
                 android:padding="@dimen/distance_view">
 
@@ -71,14 +70,158 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
                     android:scaleType="fitCenter"
                     android:src="@mipmap/pic1" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
                     android:scaleType="fitCenter"
                     android:src="@mipmap/pic2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_view"
+                android:orientation="vertical"
+                android:padding="@dimen/distance_view">
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:text="2.	如何查看更多内容分类？"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:layout_marginTop="@dimen/distance_view"
+                    android:text="轻轻侧滑一级分类专区，可查看更多一级分类；点击某个一级分类图标，可直接进入该内容一级分类专区；点击【更多】直接进入『所有分类列表界面』，点击各分类，可直接进入该内容分类专区。示意图如下：" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic3" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_view"
+                android:orientation="vertical"
+                android:padding="@dimen/distance_view">
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:text="3.	如何使用收藏功能？"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:layout_marginTop="@dimen/distance_view"
+                    android:text="点击收藏图标，收藏图标变亮，即完成该内容的收藏；再次点击已经变亮收藏图标，收藏图标置灰，即完成该内容的取消收藏。示意图如下：" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic5" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_view"
+                android:orientation="vertical"
+                android:padding="@dimen/distance_view">
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:text="4.	热门图片中如何查看更多图片？"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:layout_marginTop="@dimen/distance_view"
+                    android:text="轻轻左右侧滑图片，可实现更多图片的切换查看。示意图如下：" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic7" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic8" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_view"
+                android:orientation="vertical"
+                android:padding="@dimen/distance_view">
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:text="5.	如何实现个人信息的修改？"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:layout_marginTop="@dimen/distance_view"
+                    android:text="点击【我的】直接进入『个人中心界面』点击相应操作，完成相关信息的修改。示意图如下：" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic9" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic10" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic11" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="@dimen/distance_divider"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic12" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

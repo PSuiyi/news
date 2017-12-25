@@ -30,7 +30,6 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     private View header;
     private RecyclerView rvType;
     private LinearLayout llMore;
-    private LinearLayout llSearch;
     private BGABanner mBanner;
 
     private List<BaseZnzBean> typeList = new ArrayList<>();
@@ -38,7 +37,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.frag_home};
+        return new int[]{R.layout.frag_home, 2};
     }
 
     @Override
@@ -64,7 +63,11 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected void initializeNavigation() {
-
+        znzToolBar.setSearchHint("搜索");
+        znzToolBar.setEnableEdit(false);
+        znzToolBar.setOnSearchClickListener(v -> {
+            gotoActivity(SearchCommonActivity.class);
+        });
     }
 
     @Override
@@ -81,16 +84,12 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         adapter.addHeaderView(header);
 
         llMore = bindViewById(header, R.id.llMore);
-        llSearch = bindViewById(header, R.id.llSearch);
         rvType = bindViewById(header, R.id.rvType);
 
         llMore.setOnClickListener(v -> {
             gotoActivity(TypeListAct.class);
         });
 
-        llSearch.setOnClickListener(v -> {
-            gotoActivity(SearchCommonActivity.class);
-        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

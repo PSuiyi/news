@@ -6,109 +6,17 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/mBanner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="1dp">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:contentScrim="@color/nav_backgroud"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-            <cn.bingoogolapple.bgabanner.BGABanner
-                android:id="@+id/mBanner"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:banner_pageChangeDuration="1000"
-                app:banner_pointAutoPlayAble="true"
-                app:banner_pointContainerBackground="@android:color/transparent"
-                app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-                app:banner_pointTopBottomMargin="15dp"
-                app:banner_tipTextSize="0dp"
-                app:banner_transitionEffect="alpha" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/nav_height"
-                android:background="@color/trans"
-                android:elevation="2dp"
-                android:visibility="visible"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:layout_collapseMode="pin">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/distance_view"
-                        android:paddingRight="@dimen/distance_view">
-
-                        <LinearLayout
-                            android:id="@+id/llNavLeft"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/home_menu_height"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="@dimen/distance_view"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:visibility="visible">
-
-
-                            <ImageView
-                                android:id="@+id/ivSearchRight2"
-                                android:layout_width="50dp"
-                                android:layout_height="22dp"
-                                android:scaleType="fitCenter"
-                                android:src="@mipmap/logo_top" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/llSearch"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/home_menu_height"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/bg_search_white"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/sousuo" />
-
-                            <TextView
-                                style="@style/TextGrayStyle"
-                                android:layout_marginLeft="@dimen/distance_divider"
-                                android:text="搜索"
-                                android:textSize="@dimen/text_small_size" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/line"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@drawable/toolbar_shadow" />
-                </LinearLayout>
-
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+        android:layout_height="100dp"
+        app:banner_pageChangeDuration="1000"
+        app:banner_pointAutoPlayAble="true"
+        app:banner_pointContainerBackground="@android:color/transparent"
+        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+        app:banner_pointTopBottomMargin="15dp"
+        app:banner_tipTextSize="0dp"
+        app:banner_transitionEffect="alpha" />
 
     <FrameLayout
         android:layout_width="match_parent"
