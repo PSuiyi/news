@@ -17,7 +17,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,7 +101,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvLogin"
+            android:id="@+id/tvSubmit"
             style="@style/BtnStyle"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

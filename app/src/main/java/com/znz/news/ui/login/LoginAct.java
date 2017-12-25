@@ -10,6 +10,7 @@ import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+import com.znz.news.ui.TabHomeAct;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -53,7 +54,7 @@ public class LoginAct extends BaseAppActivity {
 
     @Override
     protected void initializeNavigation() {
-
+        setSwipeBackEnable(false);
     }
 
     @Override
@@ -79,6 +80,7 @@ public class LoginAct extends BaseAppActivity {
             case R.id.tvCode:
                 break;
             case R.id.tvLogin:
+                gotoActivity(TabHomeAct.class);
                 break;
             case R.id.tvRegister:
                 gotoActivity(RegisterAct.class);

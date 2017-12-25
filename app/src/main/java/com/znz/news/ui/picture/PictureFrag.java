@@ -75,6 +75,7 @@ public class PictureFrag extends BaseAppListFragment {
             }
         });
         rvCoverFlow.setAdapter(coverFlowAdapter);
+        rvCoverFlow.scrollToPosition(3);
     }
 
     @Override

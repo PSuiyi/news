@@ -66,7 +66,7 @@ public class SearchCommonActivity extends BaseAppActivity implements TextWatcher
     protected void initializeView() {
         fragmentManager.beginTransaction().add(R.id.container, fragment).commit();
         fragmentUtil.mContent = fragment;
-        znzToolBar.setSearchHint("请输入树名/古树地址搜索");
+        znzToolBar.setSearchHint("搜您想要的内容");
         znzToolBar.getSerachEditText().addTextChangedListener(this);
         /**
          * 设置回车键的文案

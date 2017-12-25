@@ -12,6 +12,7 @@ import com.znz.news.adapter.TypeHorizontalAdapter;
 import com.znz.news.base.BaseAppListFragment;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.common.Constants;
+import com.znz.news.ui.common.SearchCommonActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     private View header;
     private RecyclerView rvType;
     private LinearLayout llMore;
+    private LinearLayout llSearch;
     private BGABanner mBanner;
 
     private List<BaseZnzBean> typeList = new ArrayList<>();
@@ -79,10 +81,15 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         adapter.addHeaderView(header);
 
         llMore = bindViewById(header, R.id.llMore);
+        llSearch = bindViewById(header, R.id.llSearch);
         rvType = bindViewById(header, R.id.rvType);
 
         llMore.setOnClickListener(v -> {
             gotoActivity(TypeListAct.class);
+        });
+
+        llSearch.setOnClickListener(v -> {
+            gotoActivity(SearchCommonActivity.class);
         });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);

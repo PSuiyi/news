@@ -29,7 +29,7 @@ public class CoverFlowAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, BaseZnzBean bean) {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDataManager.getDeviceWidth(mContext) - DipUtil.dip2px(20), ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mDataManager.getDeviceWidth(mContext) - DipUtil.dip2px(50), ViewGroup.LayoutParams.WRAP_CONTENT);
         ivImage.setLayoutParams(layoutParams);
         ivImage.loadRectImage("https://upload-images.jianshu.io/upload_images/5787221-e5190d98fe4ecfdd.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240");
     }

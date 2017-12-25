@@ -39,6 +39,7 @@
         <activity android:name=".ui.home.ArticleDetailAct" />
         <activity android:name=".ui.home.ResultAct" />
         <activity android:name=".ui.common.WebViewAct" />
+        <activity android:name=".ui.common.AgreementAct" />
     </application>
 
 </manifest>
