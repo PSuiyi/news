@@ -29,22 +29,25 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="@dimen/distance_view">
+        android:paddingBottom="@dimen/distance_divider"
+        android:paddingLeft="@dimen/distance_view"
+        android:paddingRight="@dimen/distance_view"
+        android:paddingTop="@dimen/distance_divider">
 
-        <TextView
-            android:id="@+id/tvComment"
-            style="@style/TextStyle"
+        <EditText
+            android:id="@+id/etComment"
+            style="@style/EditSingleStyle"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:background="@drawable/bg_comment_white"
             android:drawableLeft="@mipmap/xiepinglunhei"
             android:drawablePadding="@dimen/distance_divider"
             android:gravity="center_vertical"
+            android:hint="写评论..."
             android:paddingBottom="4dp"
             android:paddingLeft="@dimen/distance_view"
             android:paddingRight="@dimen/distance_view"
             android:paddingTop="4dp"
-            android:text="写评论..."
             android:textSize="20sp" />
     </LinearLayout>
 

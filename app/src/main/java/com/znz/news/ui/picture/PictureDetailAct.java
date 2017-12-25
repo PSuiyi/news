@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
@@ -37,8 +36,6 @@ public class PictureDetailAct extends BaseAppActivity {
     LinearLayout llNetworkStatus;
     @Bind(R.id.ivBack)
     ImageView ivBack;
-    @Bind(R.id.tvComment)
-    TextView tvComment;
     @Bind(R.id.flComment)
     FrameLayout flComment;
     @Bind(R.id.ivFav)
@@ -86,14 +83,11 @@ public class PictureDetailAct extends BaseAppActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ivBack, R.id.tvComment, R.id.flComment, R.id.ivFav})
+    @OnClick({R.id.ivBack, R.id.flComment, R.id.ivFav})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivBack:
                 finish();
-                break;
-            case R.id.tvComment:
-
                 break;
             case R.id.flComment:
                 gotoActivity(CommentListAct.class);

@@ -61,9 +61,9 @@
             android:paddingRight="@dimen/distance_view"
             android:paddingTop="@dimen/distance_divider">
 
-            <TextView
-                android:id="@+id/tvComment"
-                style="@style/TextWhiteStyle"
+            <EditText
+                android:id="@+id/etComment"
+                style="@style/EditSingleStyle"
                 android:layout_weight="1"
                 android:background="@drawable/bg_comment_gray"
                 android:drawableLeft="@mipmap/xiepinglunbai"
@@ -73,7 +73,7 @@
                 android:paddingLeft="@dimen/distance_view"
                 android:paddingRight="@dimen/distance_view"
                 android:paddingTop="4dp"
-                android:text="写评论..."
+                android:hint="写评论..."
                 android:textSize="20sp" />
 
             <FrameLayout

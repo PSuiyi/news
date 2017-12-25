@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import com.znz.news.R;
 import com.znz.news.adapter.VideoAdapter;
 import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.ui.common.SearchCommonActivity;
 
 /**
  * Date： 2017/12/15 2017
@@ -27,6 +28,9 @@ public class VideoFrag extends BaseAppListFragment {
     protected void initializeNavigation() {
         znzToolBar.setSearchHint("搜您想要的视频内容");
         znzToolBar.setEnableEdit(false);
+        znzToolBar.setOnSearchClickListener(v -> {
+            gotoActivity(SearchCommonActivity.class);
+        });
     }
 
     @Override

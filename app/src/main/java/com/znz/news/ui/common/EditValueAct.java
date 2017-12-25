@@ -80,5 +80,6 @@ public class EditValueAct extends BaseAppActivity {
 
     @OnClick(R.id.tvSubmit)
     public void onViewClicked() {
+        finish();
     }
 }

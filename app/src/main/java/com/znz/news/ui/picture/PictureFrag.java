@@ -8,6 +8,7 @@ import com.znz.news.R;
 import com.znz.news.adapter.CoverFlowAdapter;
 import com.znz.news.adapter.PictureAdapter;
 import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.ui.common.SearchCommonActivity;
 import com.znz.news.view.CoverFlowLayoutManger;
 import com.znz.news.view.RecyclerCoverFlow;
 
@@ -40,6 +41,9 @@ public class PictureFrag extends BaseAppListFragment {
     protected void initializeNavigation() {
         znzToolBar.setSearchHint("搜您想要的图片内容");
         znzToolBar.setEnableEdit(false);
+        znzToolBar.setOnSearchClickListener(v -> {
+            gotoActivity(SearchCommonActivity.class);
+        });
     }
 
     @Override
@@ -75,7 +79,7 @@ public class PictureFrag extends BaseAppListFragment {
             }
         });
         rvCoverFlow.setAdapter(coverFlowAdapter);
-        rvCoverFlow.scrollToPosition(3);
+        rvCoverFlow.scrollToPosition(2);
     }
 
     @Override

@@ -11,11 +11,11 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/default_image_rect" />
 
-
     <TextView
         style="@style/TitleTextStyle"
         android:padding="@dimen/distance_view"
         android:text="看这个视频能让我笑一整天，哈哈哈哈哈哈哈..." />
 
+    <View style="@style/Line" />
 
 </LinearLayout>

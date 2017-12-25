@@ -11,6 +11,7 @@ import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
 import com.znz.news.R;
+import com.znz.news.ui.picture.PictureDetailAct;
 
 import java.util.List;
 
@@ -36,6 +37,6 @@ public class CoverFlowAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHold
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        gotoActivity(PictureDetailAct.class);
     }
 }

@@ -57,16 +57,20 @@
 
                         <LinearLayout
                             android:id="@+id/llNavLeft"
-                            android:layout_width="70dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/home_menu_height"
                             android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/distance_view"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:visibility="visible">
 
+
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:id="@+id/ivSearchRight2"
+                                android:layout_width="50dp"
+                                android:layout_height="22dp"
+                                android:scaleType="fitCenter"
                                 android:src="@mipmap/logo_top" />
 
                         </LinearLayout>
