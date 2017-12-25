@@ -11,6 +11,12 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/default_image_rect" />
 
+    <com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/detailPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/video_height"
+        android:visibility="gone" />
+
     <TextView
         style="@style/TitleTextStyle"
         android:padding="@dimen/distance_view"

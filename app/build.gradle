@@ -55,4 +55,5 @@ dependencies {
     compile project(':lib_news')
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile deps.cardviewV7
+    compile project(':lib_video')
 }

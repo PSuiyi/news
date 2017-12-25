@@ -1,1 +1,1 @@
-include ':app', ':lib_news'
+include ':app', ':lib_news', ':lib_video'

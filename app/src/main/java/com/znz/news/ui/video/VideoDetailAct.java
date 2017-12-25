@@ -1,5 +1,6 @@
 package com.znz.news.ui.video;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,14 @@ import android.widget.LinearLayout;
 
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
+import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
+import com.znz.libvideo.listener.SampleListener;
+import com.znz.libvideo.videoplayer.builder.GSYVideoOptionBuilder;
+import com.znz.libvideo.videoplayer.listener.LockClickListener;
+import com.znz.libvideo.videoplayer.utils.Debuger;
+import com.znz.libvideo.videoplayer.utils.OrientationUtils;
+import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
+import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
@@ -43,6 +52,12 @@ public class VideoDetailAct extends BaseAppListActivity {
     ImageView ivFav;
     private View header;
 
+    private OrientationUtils orientationUtils;
+    private boolean isPlay;
+    private boolean isPause;
+    protected StandardGSYVideoPlayer detailPlayer;
+    protected GSYVideoOptionBuilder gsyVideoOption;
+
     @Override
     protected int[] getLayoutResource() {
         return new int[]{R.layout.act_video_detail, 1};
@@ -70,6 +85,87 @@ public class VideoDetailAct extends BaseAppListActivity {
 
         header = View.inflate(activity, R.layout.header_video, null);
         adapter.addHeaderView(header);
+
+        detailPlayer = bindViewById(header, R.id.detailPlayer);
+
+        //外部辅助的旋转，帮助全屏
+        orientationUtils = new OrientationUtils(this, detailPlayer);
+        //初始化不打开外部的旋转
+        orientationUtils.setEnable(false);
+
+//        resolveNormalVideoUI();
+
+        detailPlayer.getFullscreenButton().setOnClickListener(v -> {
+            //直接横屏
+            orientationUtils.resolveByClick();
+
+            //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+            detailPlayer.startWindowFullscreen(activity, true, true);
+        });
+
+        gsyVideoOption = new GSYVideoOptionBuilder();
+        gsyVideoOption.setIsTouchWiget(true)
+                .setRotateViewAuto(false)
+                .setLockLand(false)
+                .setShowFullAnimation(false)
+                .setNeedLockFull(true)
+                .setSeekRatio(1)
+                .setCacheWithPlay(false)
+                .setStandardVideoAllCallBack(new SampleListener() {
+                    @Override
+                    public void onPrepared(String url, Object... objects) {
+                        Debuger.printfError("***** onPrepared **** " + objects[0]);
+                        Debuger.printfError("***** onPrepared **** " + objects[1]);
+                        super.onPrepared(url, objects);
+                        //开始播放了才能旋转和全屏
+                        orientationUtils.setEnable(true);
+                        isPlay = true;
+                    }
+
+                    @Override
+                    public void onEnterFullscreen(String url, Object... objects) {
+                        super.onEnterFullscreen(url, objects);
+                        Debuger.printfError("***** onEnterFullscreen **** " + objects[0]);//title
+                        Debuger.printfError("***** onEnterFullscreen **** " + objects[1]);//当前全屏player
+                    }
+
+                    @Override
+                    public void onAutoComplete(String url, Object... objects) {
+                        super.onAutoComplete(url, objects);
+                    }
+
+                    @Override
+                    public void onClickStartError(String url, Object... objects) {
+                        super.onClickStartError(url, objects);
+                    }
+
+                    @Override
+                    public void onQuitFullscreen(String url, Object... objects) {
+                        super.onQuitFullscreen(url, objects);
+                        Debuger.printfError("***** onQuitFullscreen **** " + objects[0]);//title
+                        Debuger.printfError("***** onQuitFullscreen **** " + objects[1]);//当前非全屏player
+                        if (orientationUtils != null) {
+                            orientationUtils.backToProtVideo();
+                        }
+                    }
+                })
+                .setLockClickListener(new LockClickListener() {
+                    @Override
+                    public void onClick(View view, boolean lock) {
+                        if (orientationUtils != null) {
+                            //配合下方的onConfigurationChanged
+                            orientationUtils.setEnable(!lock);
+                        }
+                    }
+                });
+
+
+        HttpImageView ivImage = new HttpImageView(activity);
+        ivImage.setImageResource(R.mipmap.default_image_rect);
+
+        gsyVideoOption.setThumbImageView(ivImage)
+                .setUrl("http://baobab.wdjcdn.com/14564977406580.mp4")
+                .build(detailPlayer);
     }
 
     @Override
@@ -100,6 +196,49 @@ public class VideoDetailAct extends BaseAppListActivity {
             case R.id.flComment:
                 gotoActivity(CommentListAct.class);
                 break;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isPause = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isPause = false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (orientationUtils != null) {
+            orientationUtils.backToProtVideo();
+        }
+
+        if (StandardGSYVideoPlayer.backFromWindowFull(this)) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isPlay) {
+            GSYVideoPlayer.releaseAllVideos();
+        }
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //如果旋转了就全屏
+        if (isPlay && !isPause) {
+            detailPlayer.onConfigurationChanged(this, newConfig, orientationUtils);
         }
     }
 }
