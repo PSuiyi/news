@@ -68,12 +68,6 @@ public class GSYVideoOptionBuilder {
     //当前全屏是否锁定全屏
     protected boolean mLockLand = false;
 
-    //是否直播模式
-    protected boolean mIsLiveMode = false;
-
-
-    protected boolean mIsVerMode = false;
-
     //循环
     protected boolean mLooping = false;
 
@@ -234,20 +228,6 @@ public class GSYVideoOptionBuilder {
         return this;
     }
 
-    /**
-     * 是否直播模式
-     * 默认 false
-     */
-    public GSYVideoOptionBuilder setIsLiveMode(boolean isLiveMode) {
-        this.mIsLiveMode = isLiveMode;
-        return this;
-    }
-
-
-    public GSYVideoOptionBuilder setIsVerMode(boolean verMode) {
-        this.mIsVerMode = verMode;
-        return this;
-    }
 
     /**
      * 是否需要显示流量提示,默认true
@@ -549,8 +529,6 @@ public class GSYVideoOptionBuilder {
         }
         gsyVideoPlayer.setRotateViewAuto(mRotateViewAuto);
         gsyVideoPlayer.setLockLand(mLockLand);
-        gsyVideoPlayer.setLiveMode(mIsLiveMode);
-        gsyVideoPlayer.setVerMode(mIsVerMode);
         gsyVideoPlayer.setSpeed(mSpeed, mSounchTouch);
         gsyVideoPlayer.setHideKey(mHideKey);
         gsyVideoPlayer.setIsTouchWiget(mIsTouchWiget);

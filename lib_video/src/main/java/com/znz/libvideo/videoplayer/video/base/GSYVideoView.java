@@ -238,6 +238,7 @@ public abstract class GSYVideoView extends GSYTextureRenderView implements GSYMe
         mScreenWidth = getActivityContext().getResources().getDisplayMetrics().widthPixels;
         mScreenHeight = getActivityContext().getResources().getDisplayMetrics().heightPixels;
         mAudioManager = (AudioManager) getActivityContext().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+
     }
 
     protected void initInflate(Context context) {

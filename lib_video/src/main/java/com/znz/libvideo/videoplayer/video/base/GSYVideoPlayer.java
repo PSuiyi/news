@@ -8,7 +8,7 @@ import android.util.AttributeSet;
  * Created by shuyu on 2016/11/11.
  */
 
-public abstract class GSYVideoPlayer extends GSYBaseVideoPlayer{
+public abstract class GSYVideoPlayer extends GSYBaseVideoPlayer {
 
     public GSYVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);

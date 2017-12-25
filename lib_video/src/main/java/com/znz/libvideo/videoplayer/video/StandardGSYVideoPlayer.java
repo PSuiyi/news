@@ -87,11 +87,6 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
         super(context, fullFlag);
     }
 
-    public StandardGSYVideoPlayer(Context context, Boolean fullFlag, Boolean isLive) {
-        super(context, fullFlag);
-        mIsLiveMode = isLive;
-    }
-
     public StandardGSYVideoPlayer(Context context) {
         super(context);
     }
@@ -128,11 +123,7 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
      */
     @Override
     public int getLayoutId() {
-        if (mIfCurrentIsFullscreen && mIsLiveMode) {
-            return R.layout.video_layout_standard_land;
-        } else {
-            return R.layout.video_layout_standard;
-        }
+        return R.layout.video_layout_standard;
     }
 
     /**
@@ -352,11 +343,6 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
             setViewShowState(mLockScreen, VISIBLE);
             return;
         }
-
-        if (mIsVerMode) {
-            return;
-        }
-
         if (mCurrentState == CURRENT_STATE_PREPAREING) {
             if (mBottomContainer != null) {
                 if (mBottomContainer.getVisibility() == View.VISIBLE) {
@@ -402,21 +388,10 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
 
     @Override
     protected void hideAllWidget() {
+        setViewShowState(mBottomContainer, INVISIBLE);
         setViewShowState(mTopContainer, INVISIBLE);
-        if (mIsLiveMode) {
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-        } else {
-            setViewShowState(mBottomProgressBar, VISIBLE);
-        }
-
-        //如果是竖屏模式不消失
-        if (mIsVerMode) {
-            setViewShowState(mBottomContainer, VISIBLE);
-            setViewShowState(mStartButton, VISIBLE);
-        } else {
-            setViewShowState(mBottomContainer, INVISIBLE);
-            setViewShowState(mStartButton, INVISIBLE);
-        }
+        setViewShowState(mBottomProgressBar, VISIBLE);
+        setViewShowState(mStartButton, INVISIBLE);
     }
 
 
@@ -424,17 +399,14 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToNormal() {
         Debuger.printfLog("changeUiToNormal");
 
-        if (mIsLiveMode) {
-            handleLiveShowState(true);
-        } else {
-            setViewShowState(mTopContainer, VISIBLE);
-            setViewShowState(mBottomContainer, VISIBLE);
-            setViewShowState(mStartButton, VISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, VISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, INVISIBLE);
+        setViewShowState(mStartButton, VISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, VISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
+
         updateStartImage();
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
@@ -445,17 +417,13 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToPreparingShow() {
         Debuger.printfLog("changeUiToPreparingShow");
 
-        if (mIsLiveMode) {
-            handleLiveShowState(false);
-        } else {
-            setViewShowState(mTopContainer, VISIBLE);
-            setViewShowState(mBottomContainer, VISIBLE);
-            setViewShowState(mStartButton, INVISIBLE);
-            setViewShowState(mLoadingProgressBar, VISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, VISIBLE);
+        setViewShowState(mStartButton, INVISIBLE);
+        setViewShowState(mLoadingProgressBar, VISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ENDownloadView enDownloadView = (ENDownloadView) mLoadingProgressBar;
@@ -469,17 +437,14 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToPlayingShow() {
         Debuger.printfLog("changeUiToPlayingShow");
 
-        if (mIsLiveMode) {
-            handleLiveShowState(true);
-        } else {
-            setViewShowState(mTopContainer, VISIBLE);
-            setViewShowState(mBottomContainer, VISIBLE);
-            setViewShowState(mStartButton, VISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, VISIBLE);
+        setViewShowState(mStartButton, VISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
+
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
         }
@@ -490,17 +455,13 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToPauseShow() {
         Debuger.printfLog("changeUiToPauseShow");
 
-        if (mIsLiveMode) {
-            handleLiveShowState(false);
-        } else {
-            setViewShowState(mTopContainer, VISIBLE);
-            setViewShowState(mBottomContainer, VISIBLE);
-            setViewShowState(mStartButton, VISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, VISIBLE);
+        setViewShowState(mStartButton, VISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
@@ -513,17 +474,13 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToPlayingBufferingShow() {
         Debuger.printfLog("changeUiToPlayingBufferingShow");
 
-        if (mIsLiveMode) {
-            handleLiveShowState(true);
-        } else {
-            setViewShowState(mTopContainer, VISIBLE);
-            setViewShowState(mBottomContainer, VISIBLE);
-            setViewShowState(mStartButton, INVISIBLE);
-            setViewShowState(mLoadingProgressBar, VISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, VISIBLE);
+        setViewShowState(mStartButton, INVISIBLE);
+        setViewShowState(mLoadingProgressBar, VISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ENDownloadView enDownloadView = (ENDownloadView) mLoadingProgressBar;
@@ -537,17 +494,13 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToCompleteShow() {
         Debuger.printfLog("changeUiToCompleteShow");
 
-        if (mIsLiveMode) {
-            handleLiveShowState(false);
-        } else {
-            setViewShowState(mTopContainer, VISIBLE);
-            setViewShowState(mBottomContainer, VISIBLE);
-            setViewShowState(mStartButton, VISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, VISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, VISIBLE);
+        setViewShowState(mStartButton, VISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, VISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
@@ -555,22 +508,17 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
         updateStartImage();
     }
 
-
     @Override
     protected void changeUiToError() {
         Debuger.printfLog("changeUiToError");
 
-        if (mIsLiveMode) {
-            handleLiveShowState(false);
-        } else {
-            setViewShowState(mTopContainer, INVISIBLE);
-            setViewShowState(mBottomContainer, INVISIBLE);
-            setViewShowState(mStartButton, VISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, INVISIBLE);
+        setViewShowState(mStartButton, VISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
@@ -582,17 +530,13 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToPrepareingClear() {
         Debuger.printfLog("changeUiToPrepareingClear");
 
-        if (mIsLiveMode) {
-            handleLiveClearState();
-        } else {
-            setViewShowState(mTopContainer, INVISIBLE);
-            setViewShowState(mBottomContainer, INVISIBLE);
-            setViewShowState(mStartButton, INVISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, INVISIBLE);
+        setViewShowState(mStartButton, INVISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
@@ -602,11 +546,7 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToPlayingClear() {
         Debuger.printfLog("changeUiToPlayingClear");
         changeUiToClear();
-        if (mIsLiveMode) {
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-        } else {
-            setViewShowState(mBottomProgressBar, VISIBLE);
-        }
+        setViewShowState(mBottomProgressBar, VISIBLE);
     }
 
     protected void changeUiToPauseClear() {
@@ -619,17 +559,13 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToPlayingBufferingClear() {
         Debuger.printfLog("changeUiToPlayingBufferingClear");
 
-        if (mIsLiveMode) {
-            handleLiveClearState();
-        } else {
-            setViewShowState(mTopContainer, INVISIBLE);
-            setViewShowState(mBottomContainer, INVISIBLE);
-            setViewShowState(mStartButton, INVISIBLE);
-            setViewShowState(mLoadingProgressBar, VISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, VISIBLE);
-            setViewShowState(mLockScreen, GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, INVISIBLE);
+        setViewShowState(mStartButton, INVISIBLE);
+        setViewShowState(mLoadingProgressBar, VISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, VISIBLE);
+        setViewShowState(mLockScreen, GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ENDownloadView enDownloadView = (ENDownloadView) mLoadingProgressBar;
@@ -643,17 +579,13 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToClear() {
         Debuger.printfLog("changeUiToClear");
 
-        if (mIsLiveMode) {
-            handleLiveClearState();
-        } else {
-            setViewShowState(mTopContainer, INVISIBLE);
-            setViewShowState(mBottomContainer, INVISIBLE);
-            setViewShowState(mStartButton, INVISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-            setViewShowState(mBottomProgressBar, INVISIBLE);
-            setViewShowState(mLockScreen, GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, INVISIBLE);
+        setViewShowState(mStartButton, INVISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, INVISIBLE);
+        setViewShowState(mBottomProgressBar, INVISIBLE);
+        setViewShowState(mLockScreen, GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
@@ -663,63 +595,18 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
     protected void changeUiToCompleteClear() {
         Debuger.printfLog("changeUiToCompleteClear");
 
-        if (mIsLiveMode) {
-            handleLiveClearState();
-        } else {
-            setViewShowState(mTopContainer, INVISIBLE);
-            setViewShowState(mBottomContainer, INVISIBLE);
-            setViewShowState(mStartButton, VISIBLE);
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, VISIBLE);
-            setViewShowState(mBottomProgressBar, VISIBLE);
-            setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
-        }
+        setViewShowState(mTopContainer, INVISIBLE);
+        setViewShowState(mBottomContainer, INVISIBLE);
+        setViewShowState(mStartButton, VISIBLE);
+        setViewShowState(mLoadingProgressBar, INVISIBLE);
+        setViewShowState(mThumbImageViewLayout, VISIBLE);
+        setViewShowState(mBottomProgressBar, VISIBLE);
+        setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
 
         if (mLoadingProgressBar instanceof ENDownloadView) {
             ((ENDownloadView) mLoadingProgressBar).reset();
         }
         updateStartImage();
-    }
-
-    /**
-     * 处理直播状态的界面显示
-     */
-    private void handleLiveShowState(boolean isPlaying) {
-        setViewShowState(mTopContainer, GONE);
-
-        setViewShowState(mBottomContainer, VISIBLE);
-        setViewShowState(mStartButton, INVISIBLE);
-        setViewShowState(mProgressBar, INVISIBLE);
-        setViewShowState(mTotalTimeTextView, INVISIBLE);
-        setViewShowState(mCurrentTimeTextView, INVISIBLE);
-        mBottomContainer.setBackgroundResource(R.color.trans);
-
-        if (isPlaying) {
-            setViewShowState(mLoadingProgressBar, INVISIBLE);
-            setViewShowState(mThumbImageViewLayout, INVISIBLE);
-        } else {
-            setViewShowState(mLoadingProgressBar, VISIBLE);
-            setViewShowState(mThumbImageViewLayout, VISIBLE);
-        }
-
-        setViewShowState(mBottomProgressBar, GONE);
-        setViewShowState(mLockScreen, (mIfCurrentIsFullscreen && mNeedLockFull) ? VISIBLE : GONE);
-    }
-
-    private void handleLiveClearState() {
-        setViewShowState(mTopContainer, INVISIBLE);
-
-        setViewShowState(mBottomContainer, VISIBLE);
-        setViewShowState(mStartButton, INVISIBLE);
-        setViewShowState(mProgressBar, INVISIBLE);
-        setViewShowState(mTotalTimeTextView, INVISIBLE);
-        setViewShowState(mCurrentTimeTextView, INVISIBLE);
-        mBottomContainer.setBackgroundResource(R.color.trans);
-
-        setViewShowState(mLoadingProgressBar, INVISIBLE);
-        setViewShowState(mThumbImageViewLayout, INVISIBLE);
-        setViewShowState(mBottomProgressBar, INVISIBLE);
-        setViewShowState(mLockScreen, GONE);
     }
 
     /**

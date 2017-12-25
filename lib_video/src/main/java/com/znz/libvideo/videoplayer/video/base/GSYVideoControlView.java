@@ -249,7 +249,7 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
 
         if (mLockScreen != null) {
             mLockScreen.setVisibility(GONE);
-            mLockScreen.setOnClickListener(new View.OnClickListener() {
+            mLockScreen.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mCurrentState == CURRENT_STATE_AUTO_COMPLETE ||
@@ -347,7 +347,7 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
 
 
     @Override
-    protected void setSmallVideoTextureView(View.OnTouchListener onTouchListener) {
+    protected void setSmallVideoTextureView(OnTouchListener onTouchListener) {
         super.setSmallVideoTextureView(onTouchListener);
         //小窗口播放停止了也可以移动
         mThumbImageViewLayout.setOnTouchListener(onTouchListener);
@@ -821,7 +821,6 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
         if (mLockCurScreen) {
             mLockScreen.setImageResource(R.drawable.unlock);
             mLockCurScreen = false;
-
         } else {
             mLockScreen.setImageResource(R.drawable.lock);
             mLockCurScreen = true;
@@ -1111,10 +1110,6 @@ public abstract class GSYVideoControlView extends GSYVideoView implements View.O
      */
     public ImageView getBackButton() {
         return mBackButton;
-    }
-
-    public ViewGroup getmBottomContainer() {
-        return mBottomContainer;
     }
 
 

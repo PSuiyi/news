@@ -70,11 +70,6 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
     //当前全屏是否锁定全屏
     protected boolean mLockLand = false;
 
-    //是否直播模式
-    protected boolean mIsLiveMode = false;
-
-    protected boolean mIsVerMode = false;
-
     //小窗口关闭按键
     protected View mSmallClose;
 
@@ -82,7 +77,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
     protected OrientationUtils mOrientationUtils;
 
     //全屏返回监听，如果设置了，默认返回无效
-    protected View.OnClickListener mBackFromFullScreenListener;
+    protected OnClickListener mBackFromFullScreenListener;
 
     public GSYBaseVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -133,7 +128,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
         }
         if (mSmallClose != null) {
             mSmallClose.setVisibility(VISIBLE);
-            mSmallClose.setOnClickListener(new View.OnClickListener() {
+            mSmallClose.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     hideSmallVideo();
@@ -266,7 +261,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
      * 全屏
      */
     protected void resolveFullVideoShow(Context context, final GSYBaseVideoPlayer gsyVideoPlayer, final FrameLayout frameLayout) {
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) gsyVideoPlayer.getLayoutParams();
+        LayoutParams lp = (LayoutParams) gsyVideoPlayer.getLayoutParams();
         lp.setMargins(0, 0, 0, 0);
         lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -389,7 +384,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
             if (mShowFullAnimation) {
                 TransitionManager.beginDelayedTransition(vp);
 
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) gsyVideoPlayer.getLayoutParams();
+                LayoutParams lp = (LayoutParams) gsyVideoPlayer.getLayoutParams();
                 lp.setMargins(mListItemRect[0], mListItemRect[1], 0, 0);
                 lp.width = mListItemSize[0];
                 lp.height = mListItemSize[1];
@@ -518,13 +513,8 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
                 constructor = (Constructor<GSYBaseVideoPlayer>) GSYBaseVideoPlayer.this.getClass().getConstructor(Context.class);
                 gsyVideoPlayer = constructor.newInstance(getActivityContext());
             } else {
-                if (mIsLiveMode) {
-                    constructor = (Constructor<GSYBaseVideoPlayer>) GSYBaseVideoPlayer.this.getClass().getConstructor(Context.class, Boolean.class, Boolean.class);
-                    gsyVideoPlayer = constructor.newInstance(getActivityContext(), true, true);
-                } else {
-                    constructor = (Constructor<GSYBaseVideoPlayer>) GSYBaseVideoPlayer.this.getClass().getConstructor(Context.class, Boolean.class);
-                    gsyVideoPlayer = constructor.newInstance(getActivityContext(), true);
-                }
+                constructor = (Constructor<GSYBaseVideoPlayer>) GSYBaseVideoPlayer.this.getClass().getConstructor(Context.class, Boolean.class);
+                gsyVideoPlayer = constructor.newInstance(getActivityContext(), true);
             }
 
             gsyVideoPlayer.setId(FULLSCREEN_ID);
@@ -535,7 +525,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
 
             if (gsyVideoPlayer.getFullscreenButton() != null) {
                 gsyVideoPlayer.getFullscreenButton().setImageResource(getShrinkImageRes());
-                gsyVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+                gsyVideoPlayer.getFullscreenButton().setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mBackFromFullScreenListener == null) {
@@ -549,7 +539,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
 
             if (gsyVideoPlayer.getBackButton() != null) {
                 gsyVideoPlayer.getBackButton().setVisibility(VISIBLE);
-                gsyVideoPlayer.getBackButton().setOnClickListener(new View.OnClickListener() {
+                gsyVideoPlayer.getBackButton().setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mBackFromFullScreenListener == null) {
@@ -561,12 +551,12 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
                 });
             }
 
-            final FrameLayout.LayoutParams lpParent = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            final LayoutParams lpParent = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             final FrameLayout frameLayout = new FrameLayout(context);
             frameLayout.setBackgroundColor(Color.BLACK);
 
             if (mShowFullAnimation) {
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(getWidth(), getHeight());
+                LayoutParams lp = new LayoutParams(getWidth(), getHeight());
                 lp.setMargins(mListItemRect[0], mListItemRect[1], 0, 0);
                 frameLayout.addView(gsyVideoPlayer, lp);
                 vp.addView(frameLayout, lpParent);
@@ -578,7 +568,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
                     }
                 }, 300);
             } else {
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(getWidth(), getHeight());
+                LayoutParams lp = new LayoutParams(getWidth(), getHeight());
                 frameLayout.addView(gsyVideoPlayer, lp);
                 vp.addView(frameLayout, lpParent);
                 gsyVideoPlayer.setVisibility(INVISIBLE);
@@ -620,10 +610,10 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
             GSYBaseVideoPlayer gsyVideoPlayer = constructor.newInstance(getActivityContext());
             gsyVideoPlayer.setId(SMALL_ID);
 
-            FrameLayout.LayoutParams lpParent = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            LayoutParams lpParent = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             FrameLayout frameLayout = new FrameLayout(mContext);
 
-            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(size.x, size.y);
+            LayoutParams lp = new LayoutParams(size.x, size.y);
             int marginLeft = CommonUtil.getScreenWidth(mContext) - size.x;
             int marginTop = CommonUtil.getScreenHeight(mContext) - size.y;
 
@@ -726,19 +716,6 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
     }
 
 
-    /**
-     * 设置是否直播模式
-     *
-     * @param liveMode
-     */
-    public void setLiveMode(boolean liveMode) {
-        this.mIsLiveMode = liveMode;
-    }
-
-    public void setVerMode(boolean verMode) {
-        this.mIsVerMode = verMode;
-    }
-
     public boolean isRotateWithSystem() {
         return mRotateWithSystem;
     }
@@ -782,7 +759,7 @@ public abstract class GSYBaseVideoPlayer extends GSYVideoControlView {
      * 全屏返回监听，如果设置了，默认返回动作无效
      * 包含返回键和全屏返回按键，前提是这两个按键存在
      */
-    public void setBackFromFullScreenListener(View.OnClickListener backFromFullScreenListener) {
+    public void setBackFromFullScreenListener(OnClickListener backFromFullScreenListener) {
         this.mBackFromFullScreenListener = backFromFullScreenListener;
     }
 

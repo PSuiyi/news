@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,12 +51,15 @@ public class VideoDetailAct extends BaseAppListActivity {
     FrameLayout flComment;
     @Bind(R.id.ivFav)
     ImageView ivFav;
+    @Bind(R.id.detailPlayer)
+    StandardGSYVideoPlayer detailPlayer;
+    @Bind(R.id.etComment)
+    EditText etComment;
     private View header;
 
     private OrientationUtils orientationUtils;
     private boolean isPlay;
     private boolean isPause;
-    protected StandardGSYVideoPlayer detailPlayer;
     protected GSYVideoOptionBuilder gsyVideoOption;
 
     @Override
@@ -82,11 +86,6 @@ public class VideoDetailAct extends BaseAppListActivity {
     protected void initializeView() {
         adapter = new CommentAdapter(dataList);
         rvRefresh.setAdapter(adapter);
-
-        header = View.inflate(activity, R.layout.header_video, null);
-        adapter.addHeaderView(header);
-
-        detailPlayer = bindViewById(header, R.id.detailPlayer);
 
         //外部辅助的旋转，帮助全屏
         orientationUtils = new OrientationUtils(this, detailPlayer);

@@ -30,7 +30,7 @@
 
             <View style="@style/WeightView" />
 
-            <ImageView
+            <com.znz.compass.znzlibray.views.imageloder.HttpImageView
                 android:id="@+id/ivUserHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

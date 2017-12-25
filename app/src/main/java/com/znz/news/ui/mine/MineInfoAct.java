@@ -2,13 +2,13 @@ package com.znz.news.ui.mine;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.compass.znzlibray.views.gallery.inter.IPhotoSelectCallback;
+import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 import com.znz.news.ui.common.EditValueAct;
@@ -33,7 +33,7 @@ public class MineInfoAct extends BaseAppActivity {
     @Bind(R.id.llNetworkStatus)
     LinearLayout llNetworkStatus;
     @Bind(R.id.ivUserHeader)
-    ImageView ivUserHeader;
+    HttpImageView ivUserHeader;
     @Bind(R.id.llUserHeader)
     LinearLayout llUserHeader;
     @Bind(R.id.tvNickName)
@@ -90,7 +90,9 @@ public class MineInfoAct extends BaseAppActivity {
 
                     @Override
                     public void onSuccess(List<String> photoList) {
-
+                        if (!photoList.isEmpty()) {
+                            ivUserHeader.loadHeaderImage(photoList.get(0));
+                        }
                     }
 
                     @Override

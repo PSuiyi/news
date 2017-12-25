@@ -11,6 +11,7 @@ android {
         versionCode 100
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -33,7 +34,7 @@ android {
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 //这里修改apk文件名
-                def fileName = "HelloJobs_v${defaultConfig.versionName}${releaseTime()}.apk"
+                def fileName = "颐龄_v${defaultConfig.versionName}${releaseTime()}.apk"
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }

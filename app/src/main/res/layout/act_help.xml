@@ -18,30 +18,68 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/distance_view">
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/TitleTextStyle"
-                android:text="1.	忘记密码怎么办？"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/help_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/distance_view">
 
-            <TextView
-                style="@style/TitleTextStyle"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/dianhua" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distance_view"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TitleGrayTextStyle"
+                        android:text="服务热线" />
+
+                    <TextView
+                        style="@style/TitleTextStyle"
+                        android:layout_marginLeft="4dp"
+                        android:text="4000-06-06-06" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance_view"
-                android:text="点击『登陆界面』中的【忘记密码？】进入『找回密码界面』输入注册时候的“手机号”，填写获取的“验证码”，验证身份后，输入新密码，再次用新密码登陆即可。示意图如下：" />
+                android:orientation="vertical"
+                android:padding="@dimen/distance_view">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/pic1" />
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:text="1.	忘记密码怎么办？"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/pic2" />
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:layout_marginTop="@dimen/distance_view"
+                    android:text="点击『登陆界面』中的【忘记密码？】进入『找回密码界面』输入注册时候的“手机号”，填写获取的“验证码”，验证身份后，输入新密码，再次用新密码登陆即可。示意图如下：" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic1" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/pic2" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
