@@ -45,7 +45,7 @@ public class CoverFlowLayoutManger extends RecyclerView.LayoutManager {
     /**
      * Item间隔与item宽的比例
      */
-    private float mIntervalRatio = 0.1f;
+    private float mIntervalRatio = 0.2f;
 
     private float mIntervalRatio1 = 0.95f;
 

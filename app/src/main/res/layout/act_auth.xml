@@ -90,7 +90,7 @@
         <TextView
             android:id="@+id/tvSubmit"
             style="@style/BtnStyle"
-            android:layout_marginTop="@dimen/distance_view"
+            android:layout_marginTop="20dp"
             android:text="下一步"
             android:textColor="@color/white" />
     </LinearLayout>

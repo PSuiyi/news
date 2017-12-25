@@ -29,7 +29,7 @@ public class ArticleDetailAct extends BaseAppListActivity {
 
     @Override
     protected void initializeNavigation() {
-        setTitleName("视频详情");
+        setTitleName("文章详情");
     }
 
     @Override

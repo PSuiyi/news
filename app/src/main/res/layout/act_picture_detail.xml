@@ -56,7 +56,10 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="@dimen/distance_view">
+            android:paddingBottom="@dimen/distance_divider"
+            android:paddingLeft="@dimen/distance_view"
+            android:paddingRight="@dimen/distance_view"
+            android:paddingTop="@dimen/distance_divider">
 
             <TextView
                 android:id="@+id/tvComment"
