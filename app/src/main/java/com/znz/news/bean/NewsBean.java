@@ -8,7 +8,7 @@ import com.znz.compass.znzlibray.bean.BaseZnzBean;
  * Description：
  */
 
-class NewsBean extends BaseZnzBean{
+public class NewsBean extends BaseZnzBean{
 
     /**
      * addTime : 1513658827

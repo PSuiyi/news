@@ -38,6 +38,10 @@ public class ApiModel extends BaseModel {
         request(apiService.requestLogin(params), znzHttpListener, LODING_PD);
     }
 
+    public void requestCheckPsd(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestCheckPsd(params), znzHttpListener, LODING_PD);
+    }
+
     public void requestNewsDetail(Map<String, String> params, ZnzHttpListener znzHttpListener) {
         request(apiService.requestNewsDetail(params), znzHttpListener, LODING_LODING);
     }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.utils.StringUtil;
@@ -49,7 +48,6 @@ public class RegisterAct extends BaseAppActivity {
     TextView tvAgreement;
 
     private CountDownTimer timer;
-    private String code;
     private boolean isClickCode;
 
     @Override
@@ -117,9 +115,6 @@ public class RegisterAct extends BaseAppActivity {
                             }
                         };
                         timer.start();
-                        JSONObject jsonObject = JSON.parseObject(response.getString("object"));
-                        code = jsonObject.getString("vstatus");
-//                        mDataManager.setValueToView(etCode, code);
                     }
 
                     @Override

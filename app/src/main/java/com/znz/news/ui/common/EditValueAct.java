@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.views.EditTextWithLimit;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
@@ -80,6 +81,20 @@ public class EditValueAct extends BaseAppActivity {
 
     @OnClick(R.id.tvSubmit)
     public void onViewClicked() {
-        finish();
+        switch (type) {
+            case "修改昵称":
+                if (StringUtil.isBlank(mDataManager.getValueFromView(etValue))) {
+                    mDataManager.showToast("请输入昵称");
+                    return;
+                }
+
+                break;
+            case "修改签名":
+                if (StringUtil.isBlank(mDataManager.getValueFromView(etValueMulti))) {
+                    mDataManager.showToast("请输入签名");
+                    return;
+                }
+                break;
+        }
     }
 }

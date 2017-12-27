@@ -3,12 +3,17 @@ package com.znz.news.ui.video;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.znz.libvideo.videoplayer.GSYVideoManager;
 import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.VideoAdapter;
 import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.ui.common.SearchCommonActivity;
+
+import okhttp3.ResponseBody;
+import rx.Observable;
 
 /**
  * Date： 2017/12/15 2017
@@ -16,7 +21,7 @@ import com.znz.news.ui.common.SearchCommonActivity;
  * Description：
  */
 
-public class VideoFrag extends BaseAppListFragment {
+public class VideoFrag extends BaseAppListFragment<NewsBean> {
     @Override
     protected int[] getLayoutResource() {
         return new int[]{R.layout.common_list_layout_withnav, 2};
@@ -24,7 +29,6 @@ public class VideoFrag extends BaseAppListFragment {
 
     @Override
     protected void initializeVariate() {
-
     }
 
     @Override
@@ -87,8 +91,14 @@ public class VideoFrag extends BaseAppListFragment {
     }
 
     @Override
-    protected void onRefreshSuccess(String response) {
+    protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        return mModel.requestNewsList(params);
+    }
 
+    @Override
+    protected void onRefreshSuccess(String response) {
+        dataList.addAll(JSONArray.parseArray(responseJson.getString("lists"), NewsBean.class));
+        adapter.notifyDataSetChanged();
     }
 
     @Override

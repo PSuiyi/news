@@ -10,6 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
@@ -24,6 +26,9 @@ import com.znz.news.R;
 import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
 import com.znz.news.ui.picture.CommentListAct;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,6 +66,7 @@ public class VideoDetailAct extends BaseAppListActivity {
     private boolean isPlay;
     private boolean isPause;
     protected GSYVideoOptionBuilder gsyVideoOption;
+    private String id;
 
     @Override
     protected int[] getLayoutResource() {
@@ -69,7 +75,9 @@ public class VideoDetailAct extends BaseAppListActivity {
 
     @Override
     protected void initializeVariate() {
-
+        if (getIntent().hasExtra("id")) {
+            id = getIntent().getStringExtra("id");
+        }
     }
 
     @Override
@@ -170,7 +178,14 @@ public class VideoDetailAct extends BaseAppListActivity {
 
     @Override
     protected void loadDataFromServer() {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("contentId", id);
+        mModel.requestNewsDetail(params, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                super.onSuccess(response);
+            }
+        });
     }
 
     @Override

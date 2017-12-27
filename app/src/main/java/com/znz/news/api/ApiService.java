@@ -37,4 +37,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("banner/list")
     Observable<ResponseBody> requestBannerList(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("user/verify/password")
+    Observable<ResponseBody> requestCheckPsd(@FieldMap Map<String, String> params);
 }

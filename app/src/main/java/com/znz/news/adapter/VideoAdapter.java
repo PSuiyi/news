@@ -1,11 +1,11 @@
 package com.znz.news.adapter;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.znz.compass.znzlibray.bean.BaseZnzBean;
 import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
@@ -13,13 +13,14 @@ import com.znz.libvideo.listener.SampleListener;
 import com.znz.libvideo.videoplayer.builder.GSYVideoOptionBuilder;
 import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.news.R;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.ui.video.VideoDetailAct;
 
 import java.util.List;
 
 import butterknife.Bind;
 
-public class VideoAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
+public class VideoAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
 
     @Bind(R.id.tvTitle)
     TextView tvTitle;
@@ -34,7 +35,7 @@ public class VideoAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder> 
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BaseZnzBean bean) {
+    protected void convert(BaseViewHolder helper, NewsBean bean) {
         setOnItemClickListener(this);
 
         HttpImageView ivImage = new HttpImageView(mContext);
@@ -86,6 +87,8 @@ public class VideoAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder> 
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        gotoActivity(VideoDetailAct.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", bean.getContentId());
+        gotoActivity(VideoDetailAct.class, bundle);
     }
 }

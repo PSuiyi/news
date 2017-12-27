@@ -8,6 +8,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
@@ -15,7 +17,9 @@ import com.znz.news.adapter.ViewPageAdapter;
 import com.znz.news.base.BaseAppActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,6 +48,7 @@ public class PictureDetailAct extends BaseAppActivity {
     ViewPager commonViewPager;
 
     private List<Fragment> fragmentList = new ArrayList<>();
+    private String id;
 
     @Override
     protected int[] getLayoutResource() {
@@ -52,7 +57,9 @@ public class PictureDetailAct extends BaseAppActivity {
 
     @Override
     protected void initializeVariate() {
-
+        if (getIntent().hasExtra("id")) {
+            id = getIntent().getStringExtra("id");
+        }
     }
 
     @Override
@@ -73,7 +80,14 @@ public class PictureDetailAct extends BaseAppActivity {
 
     @Override
     protected void loadDataFromServer() {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("contentId", id);
+        mModel.requestNewsDetail(params, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                super.onSuccess(response);
+            }
+        });
     }
 
     @Override

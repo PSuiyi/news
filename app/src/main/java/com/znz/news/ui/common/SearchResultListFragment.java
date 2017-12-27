@@ -59,43 +59,6 @@ public class SearchResultListFragment extends BaseAppListFragment {
 
     @Override
     protected void initializeView() {
-//        adapter = new MultiAdapter(dataList);
-//        rvCommonRefresh.setLayoutManager(new LinearLayoutManager(activity));
-//        rvCommonRefresh.setAdapter(adapter);
-//
-//        switch (mDataManager.readTempData(Constants.SearchType.SEARCHTYPE)) {
-//            case "首页":
-//                llResult.setVisibility(View.GONE);
-//                break;
-//            case "电话会议":
-//                llResult.setVisibility(View.VISIBLE);
-//                tvResult.setText("电话会议搜索结果");
-//                break;
-//            case "用户列表":
-//                llResult.setVisibility(View.VISIBLE);
-//                tvResult.setText("用户搜索结果");
-//                break;
-//            case "专题研究":
-//                llResult.setVisibility(View.VISIBLE);
-//                tvResult.setText("专题研究搜索结果");
-//                break;
-//            case "圈子":
-//                llResult.setVisibility(View.VISIBLE);
-//                tvResult.setText("相关圈子");
-//                break;
-//            case "动态":
-//                llResult.setVisibility(View.VISIBLE);
-//                tvResult.setText("相关动态");
-//                break;
-//            case "路演":
-//                llResult.setVisibility(View.VISIBLE);
-//                tvResult.setText("相关路演");
-//                break;
-//            case "分析师":
-//                llResult.setVisibility(View.VISIBLE);
-//                tvResult.setText("相关分析师");
-//                break;
-//        }
     }
 
     @Override

@@ -1,14 +1,15 @@
 package com.znz.news.adapter;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.znz.compass.znzlibray.bean.BaseZnzBean;
 import com.znz.compass.znzlibray.views.nine.NineGridView;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
 import com.znz.news.R;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.ui.picture.PictureDetailAct;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class PictureAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
+public class PictureAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
 
     @Bind(R.id.tvTitle)
     TextView tvTitle;
@@ -28,7 +29,7 @@ public class PictureAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BaseZnzBean bean) {
+    protected void convert(BaseViewHolder helper, NewsBean bean) {
         setOnItemClickListener(this);
 
         List<String> urls = new ArrayList<>();
@@ -40,6 +41,8 @@ public class PictureAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        gotoActivity(PictureDetailAct.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", bean.getContentId());
+        gotoActivity(PictureDetailAct.class, bundle);
     }
 }

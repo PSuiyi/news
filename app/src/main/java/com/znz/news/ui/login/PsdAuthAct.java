@@ -4,10 +4,17 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
+import com.znz.compass.znzlibray.utils.StringUtil;
+import com.znz.compass.znzlibray.views.EditTextWithDel;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,6 +35,8 @@ public class PsdAuthAct extends BaseAppActivity {
     LinearLayout llNetworkStatus;
     @Bind(R.id.tvSubmit)
     TextView tvSubmit;
+    @Bind(R.id.etPsd)
+    EditTextWithDel etPsd;
 
     @Override
     protected int[] getLayoutResource() {
@@ -63,6 +72,19 @@ public class PsdAuthAct extends BaseAppActivity {
 
     @OnClick(R.id.tvSubmit)
     public void onViewClicked() {
-        gotoActivityWithClearStack(PsdSettingAct.class);
+        if (StringUtil.isBlank(mDataManager.getValueFromView(etPsd))) {
+            mDataManager.showToast("请输入密码");
+            return;
+        }
+
+        Map<String, String> params = new HashMap<>();
+        params.put("password", mDataManager.getValueFromView(etPsd));
+        mModel.requestCheckPsd(params, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                super.onSuccess(response);
+                gotoActivityWithClearStack(PsdSettingAct.class);
+            }
+        });
     }
 }

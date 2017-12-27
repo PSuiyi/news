@@ -3,11 +3,13 @@ package com.znz.news.ui.picture;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.alibaba.fastjson.JSONArray;
 import com.znz.compass.znzlibray.bean.BaseZnzBean;
 import com.znz.news.R;
 import com.znz.news.adapter.CoverFlowAdapter;
 import com.znz.news.adapter.PictureAdapter;
 import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.ui.common.SearchCommonActivity;
 import com.znz.news.view.CoverFlowLayoutManger;
 import com.znz.news.view.RecyclerCoverFlow;
@@ -15,13 +17,16 @@ import com.znz.news.view.RecyclerCoverFlow;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import rx.Observable;
+
 /**
  * Date： 2017/12/15 2017
  * User： PSuiyi
  * Description：
  */
 
-public class PictureFrag extends BaseAppListFragment {
+public class PictureFrag extends BaseAppListFragment<NewsBean> {
 
     private View header;
     private RecyclerCoverFlow rvCoverFlow;
@@ -88,8 +93,14 @@ public class PictureFrag extends BaseAppListFragment {
     }
 
     @Override
-    protected void onRefreshSuccess(String response) {
+    protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        return mModel.requestNewsList(params);
+    }
 
+    @Override
+    protected void onRefreshSuccess(String response) {
+        dataList.addAll(JSONArray.parseArray(responseJson.getString("lists"), NewsBean.class));
+        adapter.notifyDataSetChanged();
     }
 
     @Override
