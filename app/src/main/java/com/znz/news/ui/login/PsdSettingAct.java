@@ -4,10 +4,17 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
+import com.znz.compass.znzlibray.utils.StringUtil;
+import com.znz.compass.znzlibray.views.EditTextWithDel;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,6 +35,12 @@ public class PsdSettingAct extends BaseAppActivity {
     LinearLayout llNetworkStatus;
     @Bind(R.id.tvSubmit)
     TextView tvSubmit;
+    @Bind(R.id.etPsd)
+    EditTextWithDel etPsd;
+    @Bind(R.id.etPsdNew)
+    EditTextWithDel etPsdNew;
+    private String phone;
+    private String code;
 
     @Override
     protected int[] getLayoutResource() {
@@ -36,7 +49,12 @@ public class PsdSettingAct extends BaseAppActivity {
 
     @Override
     protected void initializeVariate() {
-
+        if (getIntent().hasExtra("code")) {
+            code = getIntent().getStringExtra("code");
+        }
+        if (getIntent().hasExtra("phone")) {
+            phone = getIntent().getStringExtra("phone");
+        }
     }
 
     @Override
@@ -63,6 +81,34 @@ public class PsdSettingAct extends BaseAppActivity {
 
     @OnClick(R.id.tvSubmit)
     public void onViewClicked() {
-        gotoActivityWithClearStack(LoginAct.class);
+        if (StringUtil.isBlank(mDataManager.getValueFromView(etPsd))) {
+            mDataManager.showToast("请输入密码");
+            return;
+        }
+        if (StringUtil.isBlank(mDataManager.getValueFromView(etPsdNew))) {
+            mDataManager.showToast("请输入新密码");
+            return;
+        }
+        if (mDataManager.getValueFromView(etPsd).equals(mDataManager.getValueFromView(etPsdNew))) {
+            mDataManager.showToast("密码输入不一致");
+            return;
+        }
+        Map<String, String> param = new HashMap<>();
+        param.put("password", mDataManager.getValueFromView(etPsd));
+        param.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
+        param.put("code", code);
+        param.put("mobile", phone);
+        mModel.requestRegister(param, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                gotoActivityWithClearStack(LoginAct.class);
+            }
+
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
+            }
+        });
     }
 }

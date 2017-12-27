@@ -31,12 +31,10 @@ public class ZnzApplication extends MultiDexApplication {
         //设置网络访问请求链接
         if (StringUtil.isBlank(dataManager.readTempData(ZnzConstants.SERVICE_IP))) {
             if (ZnzConstants.APP_DEBUG) {
-                dataManager.saveTempData(ZnzConstants.SERVICE_IP, "http://syapi.znzkj.net/");//测试环境
+                dataManager.saveTempData(ZnzConstants.SERVICE_IP, "http://newsapi.meirituan.cn:8080/");//测试环境
             } else {
-                dataManager.saveTempData(ZnzConstants.SERVICE_IP, "http://23.236.76.7:8083/");//正式环境
+                dataManager.saveTempData(ZnzConstants.SERVICE_IP, "http://newsapi.meirituan.cn:8080/");//正式环境
             }
-//            dataManager.saveTempData(ZnzConstants.SERVICE_IP, "http://10.40.253.203/");//本地环境
-//            dataManager.saveTempData(ZnzConstants.SERVICE_IP, "http://tyapi.znzkj.net/");//测试环境
         }
 
         //设置前后台监听

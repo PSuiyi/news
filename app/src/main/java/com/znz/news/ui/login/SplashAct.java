@@ -2,6 +2,7 @@ package com.znz.news.ui.login;
 
 import android.content.Intent;
 
+import com.znz.compass.znzlibray.common.ZnzConstants;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 import com.znz.news.ui.TabHomeAct;
@@ -36,18 +37,16 @@ public class SplashAct extends BaseAppActivity {
         Observable.timer(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnCompleted(() -> {
-//                    if (!mDataManager.readBooleanTempData(ZnzConstants.IS_APP_OPEND)) {
-////                        gotoActivity(WelcomeAct.class);
-//                        mDataManager.saveBooleanTempData(ZnzConstants.IS_APP_OPEND, true);
-//                    } else {
-//                        if (mDataManager.isLogin()) {
-//                            gotoActivity(TabHomeActivity.class);
-//                        } else {
-//                            gotoActivity(LoginAct.class);
-//                        }
-//                    }
-
-                    gotoActivity(TabHomeAct.class);
+                    if (!mDataManager.readBooleanTempData(ZnzConstants.IS_APP_OPEND)) {
+                        gotoActivity(WelcomeAct.class);
+                        mDataManager.saveBooleanTempData(ZnzConstants.IS_APP_OPEND, true);
+                    } else {
+                        if (mDataManager.isLogin()) {
+                            gotoActivity(TabHomeAct.class);
+                        } else {
+                            gotoActivity(LoginAct.class);
+                        }
+                    }
                     finish();
                 })
                 .subscribe();

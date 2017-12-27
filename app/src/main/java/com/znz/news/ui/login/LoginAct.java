@@ -5,12 +5,22 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.common.ZnzConstants;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
+import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.views.EditTextWithDel;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+import com.znz.news.bean.UserBean;
 import com.znz.news.ui.TabHomeAct;
+import com.znz.news.utils.AppUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,7 +69,9 @@ public class LoginAct extends BaseAppActivity {
 
     @Override
     protected void initializeView() {
-
+        if (!StringUtil.isBlank(mDataManager.readTempData(ZnzConstants.ACCOUNT))) {
+            etUserName.setText(mDataManager.readTempData(ZnzConstants.ACCOUNT));
+        }
     }
 
     @Override
@@ -80,6 +92,38 @@ public class LoginAct extends BaseAppActivity {
             case R.id.tvCode:
                 break;
             case R.id.tvLogin:
+                if (StringUtil.isBlank(mDataManager.getValueFromView(etUserName))) {
+                    mDataManager.showToast("请输入手机号");
+                    return;
+                }
+                if (!StringUtil.isMobile(mDataManager.getValueFromView(etUserName))) {
+                    mDataManager.showToast("请输入正确的手机号");
+                    return;
+                }
+                if (StringUtil.isBlank(mDataManager.getValueFromView(etPsd))) {
+                    mDataManager.showToast("请输入密码");
+                    return;
+                }
+                Map<String, String> params = new HashMap<>();
+                params.put("mobile", mDataManager.getValueFromView(etUserName));
+                params.put("password", mDataManager.getValueFromView(etPsd));
+                mModel.requestLogin(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        UserBean bean = JSON.parseObject(responseOriginal.getString("object"), UserBean.class);
+                        mDataManager.saveBooleanTempData(ZnzConstants.IS_LOGIN, true);
+                        mDataManager.saveTempData(ZnzConstants.ACCESS_TOKEN, bean.getToken());
+                        AppUtils.getInstance(context).saveUserData(bean);
+                        gotoActivity(TabHomeAct.class);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
                 gotoActivity(TabHomeAct.class);
                 break;
             case R.id.tvRegister:

@@ -9,9 +9,6 @@ import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 
 import java.util.Map;
 
-import okhttp3.ResponseBody;
-import rx.Observable;
-
 /**
  * Date： 2017/12/11 2017
  * User： PSuiyi
@@ -26,18 +23,20 @@ public class ApiModel extends BaseModel {
         apiService = ZnzRetrofitUtil.getInstance().createService(ApiService.class);
     }
 
-    public void checkPhone(Map<String, String> params, ZnzHttpListener znzHttpListener) {
-        params.put("request_code", "00011");
-        request(apiService.post(params), znzHttpListener);
+    public void requestCode(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestCode(params), znzHttpListener, LODING_PD);
     }
 
-    public Observable<ResponseBody> requestVideoList(Map<String, String> params) {
-        params.put("request_code", "30000");
-        return apiService.post(params);
+    public void requestRegister(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestRegister(params), znzHttpListener, LODING_PD);
     }
 
-    public void requestVideoDetail(Map<String, String> params, ZnzHttpListener znzHttpListener) {
-        params.put("request_code", "30001");
-        request(apiService.post(params), znzHttpListener, LODING_LODING);
+    public void requestLogin(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestLogin(params), znzHttpListener, LODING_PD);
     }
+
+//    public Observable<ResponseBody> requestVideoList(Map<String, String> params) {
+//        params.put("request_code", "30000");
+//        return apiService.post(params);
+//    }
 }
