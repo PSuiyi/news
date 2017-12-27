@@ -12,8 +12,7 @@ import com.znz.compass.znzlibray.views.recyclerview.entity.MultiItemEntity;
 public class MultiBean extends BaseZnzBean implements MultiItemEntity {
     private int itemType;
     private String section;
-    private ArticleBean articleBean;
-    private VideoBean videoBean;
+    private NewsBean articleBean;
 
     public MultiBean() {
     }
@@ -23,7 +22,7 @@ public class MultiBean extends BaseZnzBean implements MultiItemEntity {
     }
 
 
-    public MultiBean(int itemType, ArticleBean articleBean) {
+    public MultiBean(int itemType, NewsBean articleBean) {
         this.itemType = itemType;
         this.articleBean = articleBean;
     }
@@ -43,11 +42,11 @@ public class MultiBean extends BaseZnzBean implements MultiItemEntity {
     }
 
 
-    public ArticleBean getArticleBean() {
+    public NewsBean getArticleBean() {
         return articleBean;
     }
 
-    public void setArticleBean(ArticleBean articleBean) {
+    public void setArticleBean(NewsBean articleBean) {
         this.articleBean = articleBean;
     }
 

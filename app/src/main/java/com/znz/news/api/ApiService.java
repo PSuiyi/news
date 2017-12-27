@@ -25,4 +25,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("auth/login")
     Observable<ResponseBody> requestLogin(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("content/list")
+    Observable<ResponseBody> requestNewsList(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("content/detail")
+    Observable<ResponseBody> requestNewsDetail(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("banner/list")
+    Observable<ResponseBody> requestBannerList(@FieldMap Map<String, String> params);
 }

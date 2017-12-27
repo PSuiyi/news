@@ -9,6 +9,9 @@ import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
+import rx.Observable;
+
 /**
  * Date： 2017/12/11 2017
  * User： PSuiyi
@@ -35,8 +38,15 @@ public class ApiModel extends BaseModel {
         request(apiService.requestLogin(params), znzHttpListener, LODING_PD);
     }
 
-//    public Observable<ResponseBody> requestVideoList(Map<String, String> params) {
-//        params.put("request_code", "30000");
-//        return apiService.post(params);
-//    }
+    public void requestNewsDetail(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestNewsDetail(params), znzHttpListener, LODING_LODING);
+    }
+
+    public void requestBannerList(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestBannerList(params), znzHttpListener);
+    }
+
+    public Observable<ResponseBody> requestNewsList(Map<String, String> params) {
+        return apiService.requestNewsList(params);
+    }
 }

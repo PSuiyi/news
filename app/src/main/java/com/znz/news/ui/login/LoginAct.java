@@ -5,22 +5,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.common.ZnzConstants;
-import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.views.EditTextWithDel;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
-import com.znz.news.bean.UserBean;
 import com.znz.news.ui.TabHomeAct;
-import com.znz.news.utils.AppUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,6 +64,9 @@ public class LoginAct extends BaseAppActivity {
         if (!StringUtil.isBlank(mDataManager.readTempData(ZnzConstants.ACCOUNT))) {
             etUserName.setText(mDataManager.readTempData(ZnzConstants.ACCOUNT));
         }
+
+        etUserName.setText("15601585586");
+        etPsd.setText("123456");
     }
 
     @Override
@@ -104,27 +99,28 @@ public class LoginAct extends BaseAppActivity {
                     mDataManager.showToast("请输入密码");
                     return;
                 }
-                Map<String, String> params = new HashMap<>();
-                params.put("mobile", mDataManager.getValueFromView(etUserName));
-                params.put("password", mDataManager.getValueFromView(etPsd));
-                mModel.requestLogin(params, new ZnzHttpListener() {
-                    @Override
-                    public void onSuccess(JSONObject responseOriginal) {
-                        super.onSuccess(responseOriginal);
-                        UserBean bean = JSON.parseObject(responseOriginal.getString("object"), UserBean.class);
-                        mDataManager.saveBooleanTempData(ZnzConstants.IS_LOGIN, true);
-                        mDataManager.saveTempData(ZnzConstants.ACCESS_TOKEN, bean.getToken());
-                        AppUtils.getInstance(context).saveUserData(bean);
-                        gotoActivity(TabHomeAct.class);
-                        finish();
-                    }
-
-                    @Override
-                    public void onFail(String error) {
-                        super.onFail(error);
-                    }
-                });
                 gotoActivity(TabHomeAct.class);
+                finish();
+//                Map<String, String> params = new HashMap<>();
+//                params.put("mobile", mDataManager.getValueFromView(etUserName));
+//                params.put("password", mDataManager.getValueFromView(etPsd));
+//                mModel.requestLogin(params, new ZnzHttpListener() {
+//                    @Override
+//                    public void onSuccess(JSONObject responseOriginal) {
+//                        super.onSuccess(responseOriginal);
+//                        UserBean bean = JSON.parseObject(responseOriginal.getString("object"), UserBean.class);
+//                        mDataManager.saveBooleanTempData(ZnzConstants.IS_LOGIN, true);
+//                        mDataManager.saveTempData(ZnzConstants.ACCESS_TOKEN, bean.getToken());
+//                        AppUtils.getInstance(context).saveUserData(bean);
+//                        gotoActivity(TabHomeAct.class);
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onFail(String error) {
+//                        super.onFail(error);
+//                    }
+//                });
                 break;
             case R.id.tvRegister:
                 gotoActivity(RegisterAct.class);
