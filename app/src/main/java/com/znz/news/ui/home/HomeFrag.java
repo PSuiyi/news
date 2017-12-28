@@ -5,17 +5,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.bean.BaseZnzBean;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.adapter.TypeHorizontalAdapter;
 import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.bean.BannerBean;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.common.Constants;
 import com.znz.news.ui.common.SearchCommonActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 import okhttp3.ResponseBody;
@@ -115,16 +121,32 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 //        });
 
 
-        List<String> advUrls = new ArrayList<>();
-        List<String> advTitles = new ArrayList<>();
-
-        mBanner.setData(R.mipmap.banner);
-//        mBanner.setData(advUrls, advTitles);
     }
 
     @Override
     protected void loadDataFromServer() {
+        Map<String, String> params = new HashMap<>();
+        params.put("page", "1");
+        params.put("pagesize", "10");
+        mModel.requestBannerList(params, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                List<BannerBean> bannerBeanList = JSONArray.parseArray(responseObject.getString("list"), BannerBean.class);
+                List<String> advUrls = new ArrayList<>();
+                List<String> advTitles = new ArrayList<>();
+                for (BannerBean bannerBean : bannerBeanList) {
+                    advUrls.add(bannerBean.getAdBanner());
+                    advTitles.add(bannerBean.getAdName());
+                }
+                mBanner.setData(advUrls, advTitles);
+            }
 
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
+            }
+        });
     }
 
     @Override
