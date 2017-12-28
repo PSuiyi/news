@@ -33,11 +33,17 @@ public class PictureAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> i
     protected void convert(BaseViewHolder helper, NewsBean bean) {
         setOnItemClickListener(this);
         mDataManager.setValueToView(tvTitle, bean.getContentTitle());
-        List<String> urls = new ArrayList<>();
-        for (ImageBean imageBean : bean.getContentBanner()) {
-            urls.add(imageBean.getUrl());
+
+        if (!bean.getContentBanner().isEmpty()) {
+            List<String> urls = new ArrayList<>();
+            for (ImageBean imageBean : bean.getContentBanner()) {
+                urls.add(imageBean.getUrl());
+            }
+            nineGrid.setList(urls);
+            mDataManager.setViewVisibility(nineGrid, true);
+        } else {
+            mDataManager.setViewVisibility(nineGrid, false);
         }
-        nineGrid.setList(urls);
     }
 
     @Override

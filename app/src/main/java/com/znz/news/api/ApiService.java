@@ -37,6 +37,9 @@ public interface ApiService {
     @GET("banner/list")
     Observable<ResponseBody> requestBannerList(@QueryMap Map<String, String> params);
 
+    @GET("category/top")
+    Observable<ResponseBody> requestCateOneList(@QueryMap Map<String, String> params);
+
     @FormUrlEncoded
     @POST("user/verify/password")
     Observable<ResponseBody> requestCheckPsd(@FieldMap Map<String, String> params);

@@ -50,6 +50,10 @@ public class ApiModel extends BaseModel {
         request(apiService.requestBannerList(params), znzHttpListener);
     }
 
+    public void requestCateOneList(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestCateOneList(params), znzHttpListener);
+    }
+
     public Observable<ResponseBody> requestNewsList(Map<String, String> params) {
         return apiService.requestNewsList(params);
     }

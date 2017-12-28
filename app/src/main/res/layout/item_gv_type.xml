@@ -21,15 +21,13 @@
             android:paddingTop="@dimen/distance_view">
 
             <TextView
+                android:id="@+id/tvTitle"
                 style="@style/TitleTextStyle"
                 android:background="@mipmap/hong"
+                android:ems="2"
                 android:gravity="center"
                 android:text="情感" />
-
-
         </LinearLayout>
 
     </LinearLayout>
-
-    <View style="@style/Line" />
 </LinearLayout>

@@ -7,13 +7,13 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.znz.compass.znzlibray.bean.BaseZnzBean;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.adapter.TypeHorizontalAdapter;
 import com.znz.news.base.BaseAppListFragment;
 import com.znz.news.bean.BannerBean;
+import com.znz.news.bean.CateBean;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.common.Constants;
 import com.znz.news.ui.common.SearchCommonActivity;
@@ -40,7 +40,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     private LinearLayout llMore;
     private BGABanner mBanner;
 
-    private List<BaseZnzBean> typeList = new ArrayList<>();
+    private List<CateBean> cateBeanList = new ArrayList<>();
     private TypeHorizontalAdapter typeAdapter;
 
     @Override
@@ -60,13 +60,6 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         dataList.add(new MultiBean(Constants.MultiType.Article));
         dataList.add(new MultiBean(Constants.MultiType.Video));
         dataList.add(new MultiBean(Constants.MultiType.Picture));
-
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
     }
 
     @Override
@@ -103,7 +96,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvType.setLayoutManager(linearLayoutManager);
 
-        typeAdapter = new TypeHorizontalAdapter(typeList);
+        typeAdapter = new TypeHorizontalAdapter(cateBeanList);
         rvType.setAdapter(typeAdapter);
 
         mBanner = bindViewById(header, R.id.mBanner);
@@ -147,6 +140,24 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
                 super.onFail(error);
             }
         });
+
+        Map<String, String> params2 = new HashMap<>();
+        params2.put("page", "1");
+        params2.put("pagesize", "10");
+        mModel.requestCateOneList(params2, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                cateBeanList.addAll(JSONArray.parseArray(responseObject.getString("list"), CateBean.class));
+                typeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
+            }
+        });
+
     }
 
     @Override
