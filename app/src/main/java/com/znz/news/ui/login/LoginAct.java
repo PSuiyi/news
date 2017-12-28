@@ -71,8 +71,8 @@ public class LoginAct extends BaseAppActivity {
             etUserName.setText(mDataManager.readTempData(ZnzConstants.ACCOUNT));
         }
 
-        etUserName.setText("15601585586");
-        etPsd.setText("123456");
+        etUserName.setText("15601585581");
+        etPsd.setText("121212");
     }
 
     @Override
@@ -110,7 +110,7 @@ public class LoginAct extends BaseAppActivity {
                     @Override
                     public void onSuccess(JSONObject responseOriginal) {
                         super.onSuccess(responseOriginal);
-                        UserBean bean = JSON.parseObject(responseOriginal.getString("object"), UserBean.class);
+                        UserBean bean = JSON.parseObject(responseOriginal.getString("data"), UserBean.class);
                         mDataManager.saveBooleanTempData(ZnzConstants.IS_LOGIN, true);
                         mDataManager.saveTempData(ZnzConstants.ACCESS_TOKEN, bean.getToken());
                         AppUtils.getInstance(context).saveUserData(bean);

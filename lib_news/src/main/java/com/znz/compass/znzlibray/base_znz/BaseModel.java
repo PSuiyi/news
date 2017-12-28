@@ -109,8 +109,8 @@ public class BaseModel<V extends IView> implements IModel {
                     } else if (responseJson.getString("status_code").equals("00002")) {
                         listener.onSuccess(responseJson);
                     } else {
-                        listener.onFail(responseJson.getString("msg"));
-                        mDataManager.showToast(responseJson.getString("msg"));
+                        listener.onFail(responseJson.getString("message"));
+                        mDataManager.showToast(responseJson.getString("message"));
                         handleLoding(false, lodingType);
                     }
                 } catch (Exception e) {
