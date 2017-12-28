@@ -5,7 +5,9 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -26,9 +28,8 @@ public interface ApiService {
     @POST("auth/login")
     Observable<ResponseBody> requestLogin(@FieldMap Map<String, String> params);
 
-    @FormUrlEncoded
-    @POST("content/list")
-    Observable<ResponseBody> requestNewsList(@FieldMap Map<String, String> params);
+    @GET("content/list")
+    Observable<ResponseBody> requestNewsList(@QueryMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("content/detail")

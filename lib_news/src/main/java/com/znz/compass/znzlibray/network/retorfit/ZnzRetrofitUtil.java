@@ -95,7 +95,7 @@ public class ZnzRetrofitUtil {
                 request = originalRequest.newBuilder().url(modifiedUrl).build();
                 return chain.proceed(request);
             };
-            builder.addInterceptor(addQueryParameterInterceptor);
+//            builder.addInterceptor(addQueryParameterInterceptor);
 
             //设置头
             Interceptor headerInterceptor = chain -> {
@@ -103,6 +103,7 @@ public class ZnzRetrofitUtil {
                 Request.Builder requestBuilder = originalRequest.newBuilder()
                         .header("Content-Type", "application/json")
                         .header("Accept", "application/json")
+                        .addHeader("access_token", mDataManager.getAccessToken())
                         .method(originalRequest.method(), originalRequest.body());
                 Request request = requestBuilder.build();
                 return chain.proceed(request);

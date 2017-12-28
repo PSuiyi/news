@@ -1,6 +1,5 @@
 package com.znz.news.base;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -72,9 +71,9 @@ public abstract class BaseAppListActivity<T> extends BaseListActivity<T> {
             }
 
             if (isNormalList) {
-                params.put("limit", "100");
+                params.put("pagesize", "100");
             } else {
-                params.put("limit", "10");
+                params.put("pagesize", "10");
             }
             params.put("page", currentPageIndex + "");
 
@@ -109,17 +108,17 @@ public abstract class BaseAppListActivity<T> extends BaseListActivity<T> {
 
                         jsonObject = JSON.parseObject(responseStr);
                         int totalCount = 0;
-                        if (jsonObject.getString("status_code").equals("00000")) {
+                        if (jsonObject.getString("code").equals("00000")) {
                             try {
                                 if (!isNormalList) {
-                                    totalCount = StringUtil.stringToInt(JSON.parseObject(jsonObject.getString("page")).getString("total_count"));
+                                    totalCount = StringUtil.stringToInt(JSON.parseObject(jsonObject.getString("count")).getString("count"));
                                 }
-                                responseJson = JSON.parseObject(jsonObject.getString("object"));
+                                responseJson = JSON.parseObject(jsonObject.getString("data"));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             } finally {
-                                if (!StringUtil.isBlank(jsonObject.getString("object")) && !jsonObject.getString("object").equals("[]")) {
-                                    onRefreshSuccess(jsonObject.getString("object"));
+                                if (!StringUtil.isBlank(jsonObject.getString("data")) && !jsonObject.getString("data").equals("[]")) {
+                                    onRefreshSuccess(jsonObject.getString("data"));
                                 } else {
                                     onRefreshSuccess("[]");
                                 }
@@ -153,7 +152,7 @@ public abstract class BaseAppListActivity<T> extends BaseListActivity<T> {
                         } else if (jsonObject.getString("status_code").equals("90000")) {
                             mDataManager.tokenTimeOut(activity);
                         } else {
-                            mDataManager.showToast(jsonObject.getString("msg"));
+                            mDataManager.showToast(jsonObject.getString("message"));
                             Observable.timer(ZnzConstants.LODING_TIME, TimeUnit.MILLISECONDS)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .doOnCompleted(() -> mSwipeRefreshLayout.setRefreshing(false))

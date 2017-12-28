@@ -21,7 +21,7 @@ public interface DataManagerConst {
 
     String MUSIC_FILE_DIR = "music";
 
-    String FILENAMEDIR = "muyin";
+    String FILENAMEDIR = "yinling";
 
     String LOG_FILENAME = "log.txt";
 

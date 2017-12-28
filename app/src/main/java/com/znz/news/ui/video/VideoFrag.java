@@ -92,12 +92,13 @@ public class VideoFrag extends BaseAppListFragment<NewsBean> {
 
     @Override
     protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        params.put("contentType", "2");
         return mModel.requestNewsList(params);
     }
 
     @Override
     protected void onRefreshSuccess(String response) {
-        dataList.addAll(JSONArray.parseArray(responseJson.getString("lists"), NewsBean.class));
+        dataList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
         adapter.notifyDataSetChanged();
     }
 

@@ -2,13 +2,15 @@ package com.znz.news.bean;
 
 import com.znz.compass.znzlibray.bean.BaseZnzBean;
 
+import java.util.List;
+
 /**
  * Date： 2017/12/15 2017
  * User： PSuiyi
  * Description：
  */
 
-public class NewsBean extends BaseZnzBean{
+public class NewsBean extends BaseZnzBean {
 
     /**
      * addTime : 1513658827
@@ -16,12 +18,12 @@ public class NewsBean extends BaseZnzBean{
      * contentId : 1
      * updateTime : 1513658827
      * contentTitle : 内容标题
-     * recPosition : 1
+     * recPosition : 0
      * contentState : 1
      * areaId : 0
      * cateId : 10
-     * isTop : 1
-     * contentBanner : http://127.0.0.1/ae21f2b5-0b6b-4633-88fe-367f0ef2c154.jpg
+     * isTop : 0
+     * contentBanner : [{"url":"http://ktjxds.meirituan.cn/staticfiles/ae21f2b5-0b6b-4633-88fe-367f0ef2c154.jpg"}]
      * clickNum : 0
      * contentType : 0
      * evaluateNum : 0
@@ -37,10 +39,10 @@ public class NewsBean extends BaseZnzBean{
     private String areaId;
     private String cateId;
     private String isTop;
-    private String contentBanner;
     private String clickNum;
     private String contentType;
     private String evaluateNum;
+    private List<ImageBean> contentBanner;
 
     public String getAddTime() {
         return addTime;
@@ -86,6 +88,14 @@ public class NewsBean extends BaseZnzBean{
         return recPosition;
     }
 
+    public List<ImageBean> getContentBanner() {
+        return contentBanner;
+    }
+
+    public void setContentBanner(List<ImageBean> contentBanner) {
+        this.contentBanner = contentBanner;
+    }
+
     public void setRecPosition(String recPosition) {
         this.recPosition = recPosition;
     }
@@ -120,14 +130,6 @@ public class NewsBean extends BaseZnzBean{
 
     public void setIsTop(String isTop) {
         this.isTop = isTop;
-    }
-
-    public String getContentBanner() {
-        return contentBanner;
-    }
-
-    public void setContentBanner(String contentBanner) {
-        this.contentBanner = contentBanner;
     }
 
     public String getClickNum() {

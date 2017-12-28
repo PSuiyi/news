@@ -89,7 +89,7 @@ public class PsdSettingAct extends BaseAppActivity {
             mDataManager.showToast("请输入新密码");
             return;
         }
-        if (mDataManager.getValueFromView(etPsd).equals(mDataManager.getValueFromView(etPsdNew))) {
+        if (!mDataManager.getValueFromView(etPsd).equals(mDataManager.getValueFromView(etPsdNew))) {
             mDataManager.showToast("密码输入不一致");
             return;
         }
