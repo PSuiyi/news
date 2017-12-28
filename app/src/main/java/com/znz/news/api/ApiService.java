@@ -31,13 +31,11 @@ public interface ApiService {
     @GET("content/list")
     Observable<ResponseBody> requestNewsList(@QueryMap Map<String, String> params);
 
-    @FormUrlEncoded
-    @POST("content/detail")
-    Observable<ResponseBody> requestNewsDetail(@FieldMap Map<String, String> params);
+    @GET("content/detail")
+    Observable<ResponseBody> requestNewsDetail(@QueryMap Map<String, String> params);
 
-    @FormUrlEncoded
-    @POST("banner/list")
-    Observable<ResponseBody> requestBannerList(@FieldMap Map<String, String> params);
+    @GET("banner/list")
+    Observable<ResponseBody> requestBannerList(@QueryMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("user/verify/password")

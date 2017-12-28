@@ -9,6 +9,7 @@ import com.znz.compass.znzlibray.views.nine.NineGridView;
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
 import com.znz.news.R;
+import com.znz.news.bean.ImageBean;
 import com.znz.news.bean.NewsBean;
 import com.znz.news.ui.picture.PictureDetailAct;
 
@@ -31,11 +32,11 @@ public class PictureAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> i
     @Override
     protected void convert(BaseViewHolder helper, NewsBean bean) {
         setOnItemClickListener(this);
-
+        mDataManager.setValueToView(tvTitle, bean.getContentTitle());
         List<String> urls = new ArrayList<>();
-        urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
-        urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
-        urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
+        for (ImageBean imageBean : bean.getContentBanner()) {
+            urls.add(imageBean.getUrl());
+        }
         nineGrid.setList(urls);
     }
 

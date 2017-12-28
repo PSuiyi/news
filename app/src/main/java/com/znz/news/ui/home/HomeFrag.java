@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
+import okhttp3.ResponseBody;
+import rx.Observable;
 
 /**
  * Date： 2017/12/15 2017
@@ -123,6 +125,12 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     @Override
     protected void loadDataFromServer() {
 
+    }
+
+    @Override
+    protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        params.put("contentType", "1");
+        return mModel.requestNewsList(params);
     }
 
     @Override

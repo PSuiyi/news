@@ -4,7 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.fastjson.JSONArray;
-import com.znz.compass.znzlibray.bean.BaseZnzBean;
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.news.R;
 import com.znz.news.adapter.CoverFlowAdapter;
 import com.znz.news.adapter.PictureAdapter;
@@ -15,7 +16,9 @@ import com.znz.news.view.CoverFlowLayoutManger;
 import com.znz.news.view.RecyclerCoverFlow;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -31,6 +34,7 @@ public class PictureFrag extends BaseAppListFragment<NewsBean> {
     private View header;
     private RecyclerCoverFlow rvCoverFlow;
     private CoverFlowAdapter coverFlowAdapter;
+    private List<NewsBean> topList = new ArrayList<>();
 
     @Override
     protected int[] getLayoutResource() {
@@ -65,13 +69,7 @@ public class PictureFrag extends BaseAppListFragment<NewsBean> {
         adapter.addHeaderView(header);
         rvCoverFlow = bindViewById(header, R.id.rvCoverFlow);
 
-        List<BaseZnzBean> li = new ArrayList<>();
-        li.add(new BaseZnzBean());
-        li.add(new BaseZnzBean());
-        li.add(new BaseZnzBean());
-        li.add(new BaseZnzBean());
-        li.add(new BaseZnzBean());
-        coverFlowAdapter = new CoverFlowAdapter(li);
+        coverFlowAdapter = new CoverFlowAdapter(topList);
         rvCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
@@ -84,22 +82,41 @@ public class PictureFrag extends BaseAppListFragment<NewsBean> {
             }
         });
         rvCoverFlow.setAdapter(coverFlowAdapter);
-        rvCoverFlow.scrollToPosition(2);
     }
 
     @Override
     protected void loadDataFromServer() {
+        Map<String, String> params = new HashMap<>();
+        params.put("page", "1");
+        params.put("pagesize", "20");
+        params.put("recRosition", "2");
+        mModel.requestNewsList(params, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                topList.addAll(JSONArray.parseArray(responseObject.getString("list"), NewsBean.class));
+                coverFlowAdapter.notifyDataSetChanged();
+                if (topList.size() >= 2) {
+                    rvCoverFlow.scrollToPosition(1);
+                }
+            }
 
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
+            }
+        });
     }
 
     @Override
     protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        params.put("contentType", "1");
         return mModel.requestNewsList(params);
     }
 
     @Override
     protected void onRefreshSuccess(String response) {
-        dataList.addAll(JSONArray.parseArray(responseJson.getString("lists"), NewsBean.class));
+        dataList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
         adapter.notifyDataSetChanged();
     }
 
