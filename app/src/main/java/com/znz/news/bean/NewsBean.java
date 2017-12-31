@@ -41,8 +41,17 @@ public class NewsBean extends BaseZnzBean {
     private String isTop;
     private String clickNum;
     private String contentType;
+    private String videoUrl;
     private String evaluateNum;
     private List<ImageBean> contentBanner;
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
     public String getAddTime() {
         return addTime;

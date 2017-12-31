@@ -24,7 +24,7 @@
                 android:id="@+id/tvTitle"
                 style="@style/TitleTextStyle"
                 android:background="@mipmap/hong"
-                android:ems="2"
+                android:maxLength="2"
                 android:gravity="center"
                 android:text="情感" />
         </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ZnzRemind;
@@ -16,6 +17,7 @@ import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
+import com.znz.news.bean.CommentBean;
 import com.znz.news.ui.picture.CommentListAct;
 
 import java.util.HashMap;
@@ -24,6 +26,8 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
+import rx.Observable;
 
 /**
  * Date： 2017/12/15 2017
@@ -95,9 +99,17 @@ public class ArticleDetailAct extends BaseAppListActivity {
         });
     }
 
+
+    @Override
+    protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        params.put("contentId", id);
+        return mModel.requestCommentList(params);
+    }
+
     @Override
     protected void onRefreshSuccess(String response) {
-
+        dataList.addAll(JSONArray.parseArray(responseJson.getString("list"), CommentBean.class));
+        adapter.notifyDataSetChanged();
     }
 
     @Override

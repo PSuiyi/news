@@ -63,6 +63,7 @@ public class MineFrag extends BaseAppFragment {
                 .withIconResId(R.mipmap.wodeshoucang)
                 .withEnableLongLine(true)
                 .withEnableArraw(true)
+                .withValue("20")
                 .withOnClickListener(v -> {
                     gotoActivity(MineFavAct.class);
                 })

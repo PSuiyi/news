@@ -49,7 +49,7 @@ public class VideoAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> imp
         gsyVideoOptionBuilder
                 .setIsTouchWiget(false)
                 .setThumbImageView(ivImage)
-                .setUrl("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
+                .setUrl(bean.getVideoUrl())
                 .setVideoTitle(bean.getContentTitle())
                 .setCacheWithPlay(true)
                 .setRotateViewAuto(true)

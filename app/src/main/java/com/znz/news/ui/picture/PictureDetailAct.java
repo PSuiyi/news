@@ -104,7 +104,9 @@ public class PictureDetailAct extends BaseAppActivity {
                 finish();
                 break;
             case R.id.flComment:
-                gotoActivity(CommentListAct.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                gotoActivity(CommentListAct.class, bundle);
                 break;
             case R.id.ivFav:
                 break;

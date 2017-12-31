@@ -31,6 +31,9 @@ public interface ApiService {
     @GET("content/list")
     Observable<ResponseBody> requestNewsList(@QueryMap Map<String, String> params);
 
+    @GET("comment/list")
+    Observable<ResponseBody> requestCommentList(@QueryMap Map<String, String> params);
+
     @GET("content/detail")
     Observable<ResponseBody> requestNewsDetail(@QueryMap Map<String, String> params);
 

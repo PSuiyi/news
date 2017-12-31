@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ZnzRemind;
@@ -18,13 +19,14 @@ import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
 import com.znz.libvideo.listener.SampleListener;
 import com.znz.libvideo.videoplayer.builder.GSYVideoOptionBuilder;
 import com.znz.libvideo.videoplayer.listener.LockClickListener;
-import com.znz.libvideo.videoplayer.utils.Debuger;
 import com.znz.libvideo.videoplayer.utils.OrientationUtils;
 import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
+import com.znz.news.bean.CommentBean;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.ui.picture.CommentListAct;
 
 import java.util.HashMap;
@@ -33,6 +35,8 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
+import rx.Observable;
 
 /**
  * Date： 2017/12/15 2017
@@ -40,7 +44,7 @@ import butterknife.OnClick;
  * Description：
  */
 
-public class VideoDetailAct extends BaseAppListActivity {
+public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
 
     @Bind(R.id.znzToolBar)
     ZnzToolBar znzToolBar;
@@ -67,6 +71,7 @@ public class VideoDetailAct extends BaseAppListActivity {
     private boolean isPause;
     protected GSYVideoOptionBuilder gsyVideoOption;
     private String id;
+    private NewsBean bean;
 
     @Override
     protected int[] getLayoutResource() {
@@ -111,69 +116,6 @@ public class VideoDetailAct extends BaseAppListActivity {
         });
 
         gsyVideoOption = new GSYVideoOptionBuilder();
-        gsyVideoOption.setIsTouchWiget(true)
-                .setRotateViewAuto(false)
-                .setLockLand(false)
-                .setShowFullAnimation(false)
-                .setNeedLockFull(true)
-                .setSeekRatio(1)
-                .setCacheWithPlay(false)
-                .setStandardVideoAllCallBack(new SampleListener() {
-                    @Override
-                    public void onPrepared(String url, Object... objects) {
-                        Debuger.printfError("***** onPrepared **** " + objects[0]);
-                        Debuger.printfError("***** onPrepared **** " + objects[1]);
-                        super.onPrepared(url, objects);
-                        //开始播放了才能旋转和全屏
-                        orientationUtils.setEnable(true);
-                        isPlay = true;
-                    }
-
-                    @Override
-                    public void onEnterFullscreen(String url, Object... objects) {
-                        super.onEnterFullscreen(url, objects);
-                        Debuger.printfError("***** onEnterFullscreen **** " + objects[0]);//title
-                        Debuger.printfError("***** onEnterFullscreen **** " + objects[1]);//当前全屏player
-                    }
-
-                    @Override
-                    public void onAutoComplete(String url, Object... objects) {
-                        super.onAutoComplete(url, objects);
-                    }
-
-                    @Override
-                    public void onClickStartError(String url, Object... objects) {
-                        super.onClickStartError(url, objects);
-                    }
-
-                    @Override
-                    public void onQuitFullscreen(String url, Object... objects) {
-                        super.onQuitFullscreen(url, objects);
-                        Debuger.printfError("***** onQuitFullscreen **** " + objects[0]);//title
-                        Debuger.printfError("***** onQuitFullscreen **** " + objects[1]);//当前非全屏player
-                        if (orientationUtils != null) {
-                            orientationUtils.backToProtVideo();
-                        }
-                    }
-                })
-                .setLockClickListener(new LockClickListener() {
-                    @Override
-                    public void onClick(View view, boolean lock) {
-                        if (orientationUtils != null) {
-                            //配合下方的onConfigurationChanged
-                            orientationUtils.setEnable(!lock);
-                        }
-                    }
-                });
-
-
-        HttpImageView ivImage = new HttpImageView(activity);
-        ivImage.setImageResource(R.mipmap.default_image_rect);
-        ivImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-        gsyVideoOption.setThumbImageView(ivImage)
-                .setUrl("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
-                .build(detailPlayer);
     }
 
     @Override
@@ -182,15 +124,85 @@ public class VideoDetailAct extends BaseAppListActivity {
         params.put("contentId", id);
         mModel.requestNewsDetail(params, new ZnzHttpListener() {
             @Override
-            public void onSuccess(JSONObject response) {
-                super.onSuccess(response);
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                bean = JSONObject.parseObject(responseOriginal.getString("data"), NewsBean.class);
+                gsyVideoOption.setIsTouchWiget(true)
+                        .setRotateViewAuto(false)
+                        .setLockLand(false)
+                        .setShowFullAnimation(false)
+                        .setNeedLockFull(true)
+                        .setSeekRatio(1)
+                        .setCacheWithPlay(false)
+                        .setStandardVideoAllCallBack(new SampleListener() {
+                            @Override
+                            public void onPrepared(String url, Object... objects) {
+                                super.onPrepared(url, objects);
+                                //开始播放了才能旋转和全屏
+                                orientationUtils.setEnable(true);
+                                isPlay = true;
+                            }
+
+                            @Override
+                            public void onEnterFullscreen(String url, Object... objects) {
+                                super.onEnterFullscreen(url, objects);
+                            }
+
+                            @Override
+                            public void onAutoComplete(String url, Object... objects) {
+                                super.onAutoComplete(url, objects);
+                            }
+
+                            @Override
+                            public void onClickStartError(String url, Object... objects) {
+                                super.onClickStartError(url, objects);
+                            }
+
+                            @Override
+                            public void onQuitFullscreen(String url, Object... objects) {
+                                super.onQuitFullscreen(url, objects);
+                                if (orientationUtils != null) {
+                                    orientationUtils.backToProtVideo();
+                                }
+                            }
+                        })
+                        .setLockClickListener(new LockClickListener() {
+                            @Override
+                            public void onClick(View view, boolean lock) {
+                                if (orientationUtils != null) {
+                                    //配合下方的onConfigurationChanged
+                                    orientationUtils.setEnable(!lock);
+                                }
+                            }
+                        });
+
+
+                HttpImageView ivImage = new HttpImageView(activity);
+                ivImage.setImageResource(R.mipmap.default_image_rect);
+                ivImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+                gsyVideoOption.setThumbImageView(ivImage)
+                        .setUrl(bean.getVideoUrl())
+                        .build(detailPlayer);
+            }
+
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
             }
         });
     }
 
     @Override
-    protected void onRefreshSuccess(String response) {
+    protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        params.put("contentId", id);
+        return mModel.requestCommentList(params);
+    }
 
+    @Override
+    protected void onRefreshSuccess(String response) {
+        dataList.addAll(JSONArray.parseArray(responseJson.getString("list"), CommentBean.class));
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -209,7 +221,9 @@ public class VideoDetailAct extends BaseAppListActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.flComment:
-                gotoActivity(CommentListAct.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                gotoActivity(CommentListAct.class, bundle);
                 break;
         }
     }

@@ -108,10 +108,10 @@ public abstract class BaseAppListActivity<T> extends BaseListActivity<T> {
 
                         jsonObject = JSON.parseObject(responseStr);
                         int totalCount = 0;
-                        if (jsonObject.getString("code").equals("00000")) {
+                        if (jsonObject.getString("code").equals("000")) {
                             try {
                                 if (!isNormalList) {
-                                    totalCount = StringUtil.stringToInt(JSON.parseObject(jsonObject.getString("count")).getString("count"));
+                                    totalCount = StringUtil.stringToInt(JSON.parseObject(jsonObject.getString("data")).getString("count"));
                                 }
                                 responseJson = JSON.parseObject(jsonObject.getString("data"));
                             } catch (Exception e) {
@@ -149,7 +149,7 @@ public abstract class BaseAppListActivity<T> extends BaseListActivity<T> {
                                 //页码自增
                                 currentPageIndex++;
                             }
-                        } else if (jsonObject.getString("status_code").equals("90000")) {
+                        } else if (jsonObject.getString("code").equals("700")) {
                             mDataManager.tokenTimeOut(activity);
                         } else {
                             mDataManager.showToast(jsonObject.getString("message"));

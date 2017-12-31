@@ -104,10 +104,8 @@ public class BaseModel<V extends IView> implements IModel {
                     if (responseJson.getString("code").equals("000")) {
                         listener.onSuccess(responseJson);
                         handleLoding(false, lodingType);
-                    } else if (responseJson.getString("status_code").equals("90000")) {
+                    } else if (responseJson.getString("code").equals("700")) {
                         mDataManager.tokenTimeOut(context);
-                    } else if (responseJson.getString("status_code").equals("00002")) {
-                        listener.onSuccess(responseJson);
                     } else {
                         listener.onFail(responseJson.getString("message"));
                         mDataManager.showToast(responseJson.getString("message"));
