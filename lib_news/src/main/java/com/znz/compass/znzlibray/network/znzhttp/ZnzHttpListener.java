@@ -21,7 +21,7 @@ public abstract class ZnzHttpListener implements IZnzHttpListener {
     public void onSuccess(JSONObject responseOriginal) {
         try {
             responseObject = JSON.parseObject(responseOriginal.getString("data"));
-            message = responseOriginal.getString("msg");
+            message = responseOriginal.getString("message");
         } catch (Exception e) {
 //            e.printStackTrace();
         }

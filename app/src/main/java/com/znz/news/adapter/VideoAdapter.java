@@ -54,6 +54,7 @@ public class VideoAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> imp
                 .setCacheWithPlay(true)
                 .setRotateViewAuto(true)
                 .setLockLand(true)
+                .setThumbPlay(true)
                 .setPlayTag(TAG)
                 .setShowFullAnimation(true)
                 .setNeedLockFull(true)

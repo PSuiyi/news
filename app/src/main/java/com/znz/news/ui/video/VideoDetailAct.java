@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
@@ -126,13 +127,14 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
             @Override
             public void onSuccess(JSONObject responseOriginal) {
                 super.onSuccess(responseOriginal);
-                bean = JSONObject.parseObject(responseOriginal.getString("data"), NewsBean.class);
+                bean = JSON.parseObject(responseOriginal.getString("data"), NewsBean.class);
                 gsyVideoOption.setIsTouchWiget(true)
                         .setRotateViewAuto(false)
                         .setLockLand(false)
                         .setShowFullAnimation(false)
                         .setNeedLockFull(true)
                         .setSeekRatio(1)
+                        .setThumbPlay(true)
                         .setCacheWithPlay(false)
                         .setStandardVideoAllCallBack(new SampleListener() {
                             @Override
