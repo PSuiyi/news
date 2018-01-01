@@ -3,6 +3,7 @@ package com.znz.news.adapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
 import com.znz.compass.znzlibray.views.recyclerview.BaseQuickAdapter;
 import com.znz.compass.znzlibray.views.recyclerview.BaseViewHolder;
@@ -12,7 +13,12 @@ import com.znz.news.ui.home.ResultAct;
 
 import java.util.List;
 
+import butterknife.Bind;
+
 public class TypeSecondAdapter extends BaseQuickAdapter<CateBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
+
+    @Bind(R.id.tvTitle)
+    TextView tvTitle;
 
     public TypeSecondAdapter(@Nullable List dataList) {
         super(R.layout.item_gv_type_second, dataList);
@@ -21,6 +27,7 @@ public class TypeSecondAdapter extends BaseQuickAdapter<CateBean, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, CateBean bean) {
         setOnItemClickListener(this);
+        mDataManager.setValueToView(tvTitle, bean.getCateName());
     }
 
     @Override

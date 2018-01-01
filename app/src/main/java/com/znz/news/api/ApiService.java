@@ -46,9 +46,16 @@ public interface ApiService {
     @GET("category/top")
     Observable<ResponseBody> requestCateOneList(@QueryMap Map<String, String> params);
 
+    @GET("category/tree")
+    Observable<ResponseBody> requestCateTreeList(@QueryMap Map<String, String> params);
+
     @FormUrlEncoded
     @POST("user/verify/password")
     Observable<ResponseBody> requestCheckPsd(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("comment/post")
+    Observable<ResponseBody> requestCommentAdd(@FieldMap Map<String, String> params);
 
     @GET("favourite/count")
     Observable<ResponseBody> requestFavCount(@QueryMap Map<String, String> params);

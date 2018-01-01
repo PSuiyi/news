@@ -75,6 +75,8 @@ public class EditValueAct extends BaseAppActivity {
                 mDataManager.setViewVisibility(etValueMulti, true);
                 break;
         }
+
+        mDataManager.toggleInputSoft();
     }
 
     @Override

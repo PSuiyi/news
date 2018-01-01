@@ -7,6 +7,7 @@
     android:padding="@dimen/distance_view">
 
     <TextView
+        android:id="@+id/tvTitle"
         style="@style/TitleTextStyle"
         android:text="网传“十大垃圾食品”误导了多少中国父母" />
 

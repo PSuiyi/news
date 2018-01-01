@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
@@ -18,6 +20,7 @@ import com.znz.news.R;
 import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
 import com.znz.news.bean.CommentBean;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.ui.picture.CommentListAct;
 
 import java.util.HashMap;
@@ -55,6 +58,8 @@ public class ArticleDetailAct extends BaseAppListActivity {
     ImageView ivFav;
     private View header;
     private String id;
+    private TextView tvTitle;
+    private NewsBean bean;
 
     @Override
     protected int[] getLayoutResource() {
@@ -85,6 +90,7 @@ public class ArticleDetailAct extends BaseAppListActivity {
 
         header = View.inflate(activity, R.layout.header_article, null);
         adapter.addHeaderView(header);
+        tvTitle = bindViewById(header, R.id.tvTitle);
     }
 
     @Override
@@ -93,8 +99,15 @@ public class ArticleDetailAct extends BaseAppListActivity {
         params.put("contentId", id);
         mModel.requestNewsDetail(params, new ZnzHttpListener() {
             @Override
-            public void onSuccess(JSONObject response) {
-                super.onSuccess(response);
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                bean = JSON.parseObject(responseOriginal.getString("data"), NewsBean.class);
+                mDataManager.setValueToView(tvTitle, bean.getContentTitle());
+            }
+
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
             }
         });
     }

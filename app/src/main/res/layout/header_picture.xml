@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvTitle"
         style="@style/TitleTextStyle"
         android:padding="@dimen/distance_view"
         android:text="吊车很忙，亮出北京“城市天际线”。" />
@@ -16,6 +17,7 @@
         android:layout_height="210dp" />
 
     <TextView
+        android:id="@+id/tvContent"
         style="@style/TextGrayStyle"
         android:maxLines="2"
         android:padding="@dimen/distance_view"

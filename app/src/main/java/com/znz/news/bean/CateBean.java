@@ -2,6 +2,8 @@ package com.znz.news.bean;
 
 import com.znz.compass.znzlibray.bean.BaseZnzBean;
 
+import java.util.List;
+
 /**
  * Date： 2017/12/28 2017
  * User： PSuiyi
@@ -23,6 +25,15 @@ public class CateBean extends BaseZnzBean {
     private String cateLevel;
     private String cateName;
     private String catePid;
+    private List<CateBean> subCate;
+
+    public List<CateBean> getSubCate() {
+        return subCate;
+    }
+
+    public void setSubCate(List<CateBean> subCate) {
+        this.subCate = subCate;
+    }
 
     public String getCateDesc() {
         return cateDesc;

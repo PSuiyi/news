@@ -61,6 +61,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                 } else {
                     ivImage.setImageResource(R.mipmap.default_image_rect);
                 }
+                helper.setText(R.id.tvCountComment, bean.getNewsBean().getEvaluateNum());
                 break;
             case Constants.MultiType.Video:
                 StandardGSYVideoPlayer gsyVideoPlayer = helper.getView(R.id.detailPlayer);

@@ -19,20 +19,25 @@
             android:padding="@dimen/distance_view">
 
             <LinearLayout
+                android:id="@+id/llCate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tvType"
                     style="@style/TitleTextStyle"
                     android:layout_marginRight="@dimen/distance_view"
                     android:background="@mipmap/hong"
                     android:gravity="center"
+                    android:maxLength="2"
                     android:text="情感" />
 
                 <TextView
+                    android:id="@+id/tvTitle"
                     style="@style/TitleTextStyle"
+                    android:layout_weight="1"
                     android:text="分类简介分类简介分类简介分类简介" />
             </LinearLayout>
         </LinearLayout>

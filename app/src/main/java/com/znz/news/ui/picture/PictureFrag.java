@@ -2,6 +2,7 @@ package com.znz.news.ui.picture;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -35,6 +36,8 @@ public class PictureFrag extends BaseAppListFragment<NewsBean> {
     private RecyclerCoverFlow rvCoverFlow;
     private CoverFlowAdapter coverFlowAdapter;
     private List<NewsBean> topList = new ArrayList<>();
+    private TextView tvTitle;
+    private TextView tvContent;
 
     @Override
     protected int[] getLayoutResource() {
@@ -68,6 +71,8 @@ public class PictureFrag extends BaseAppListFragment<NewsBean> {
         header = View.inflate(activity, R.layout.header_picture, null);
         adapter.addHeaderView(header);
         rvCoverFlow = bindViewById(header, R.id.rvCoverFlow);
+        tvTitle = bindViewById(header, R.id.tvTitle);
+        tvContent = bindViewById(header, R.id.tvContent);
 
         coverFlowAdapter = new CoverFlowAdapter(topList);
         rvCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
@@ -79,6 +84,8 @@ public class PictureFrag extends BaseAppListFragment<NewsBean> {
                 if (position == 0) {
                     rvCoverFlow.scrollToPosition(dataList.size() - 2);
                 }
+
+//                mDataManager.setValueToView(tvTitle, dataList.get(position).getContentTitle());
             }
         });
         rvCoverFlow.setAdapter(coverFlowAdapter);
