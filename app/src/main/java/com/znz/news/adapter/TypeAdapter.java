@@ -30,12 +30,6 @@ public class TypeAdapter extends BaseQuickAdapter<BaseZnzBean, BaseViewHolder> i
 
         rvType.setLayoutManager(new GridLayoutManager(mContext, 3));
         List<BaseZnzBean> typeList = new ArrayList<>();
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
-        typeList.add(new BaseZnzBean());
         TypeSecondAdapter secondAdapter = new TypeSecondAdapter(typeList);
         rvType.setAdapter(secondAdapter);
     }

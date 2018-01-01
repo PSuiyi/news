@@ -63,6 +63,7 @@ public class MineFavAct extends BaseAppListActivity<MultiBean> {
 
     @Override
     protected void onRefreshSuccess(String response) {
+        newsBeanList.clear();
         newsBeanList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
         if (!newsBeanList.isEmpty()) {
             for (NewsBean newsBean : newsBeanList) {
@@ -79,6 +80,7 @@ public class MineFavAct extends BaseAppListActivity<MultiBean> {
                 }
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

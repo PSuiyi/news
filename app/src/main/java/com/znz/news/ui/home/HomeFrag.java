@@ -161,6 +161,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected void onRefreshSuccess(String response) {
+        newsBeanList.clear();
         newsBeanList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
         if (!newsBeanList.isEmpty()) {
             for (NewsBean newsBean : newsBeanList) {
@@ -177,6 +178,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
                 }
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

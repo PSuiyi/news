@@ -66,6 +66,10 @@ public class ApiModel extends BaseModel {
         return apiService.requestFavList(params);
     }
 
+    public Observable<ResponseBody> requestSearchList(Map<String, String> params) {
+        return apiService.requestSearchList(params);
+    }
+
     public void requestNewsList(Map<String, String> params, ZnzHttpListener znzHttpListener) {
         request(apiService.requestNewsList(params), znzHttpListener);
     }

@@ -57,7 +57,7 @@ public class SettingAct extends BaseAppActivity {
                                 .setNegativeButton("取消", null)
                                 .setPositiveButton("确定", v2 -> {
                                     DataCleanManager.clearAllCache(context);
-                                    rowDescriptionList.get(9).setValue("0.0MB");
+                                    rowDescriptionList.get(0).setValue("0.0MB");
                                     commonRowGroup.notifyDataChanged(rowDescriptionList);
                                 })
                                 .show();

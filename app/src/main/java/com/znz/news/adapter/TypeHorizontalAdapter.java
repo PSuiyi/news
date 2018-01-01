@@ -1,5 +1,6 @@
 package com.znz.news.adapter;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +32,9 @@ public class TypeHorizontalAdapter extends BaseQuickAdapter<CateBean, BaseViewHo
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        gotoActivity(ResultAct.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("cateId", bean.getCateId());
+        bundle.putString("cateName", bean.getCateName());
+        gotoActivity(ResultAct.class, bundle);
     }
 }
