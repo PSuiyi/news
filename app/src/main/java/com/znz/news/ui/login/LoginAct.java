@@ -70,9 +70,6 @@ public class LoginAct extends BaseAppActivity {
         if (!StringUtil.isBlank(mDataManager.readTempData(ZnzConstants.ACCOUNT))) {
             etUserName.setText(mDataManager.readTempData(ZnzConstants.ACCOUNT));
         }
-
-        etUserName.setText("15601585581");
-        etPsd.setText("121212");
     }
 
     @Override

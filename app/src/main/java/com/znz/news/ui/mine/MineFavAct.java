@@ -2,11 +2,19 @@ package com.znz.news.ui.mine;
 
 import android.support.v7.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.base.BaseAppListActivity;
 import com.znz.news.bean.MultiBean;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.common.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import rx.Observable;
 
 /**
  * Date： 2017/12/15 2017
@@ -16,6 +24,8 @@ import com.znz.news.common.Constants;
 
 public class MineFavAct extends BaseAppListActivity<MultiBean> {
 
+    private List<NewsBean> newsBeanList = new ArrayList<>();
+
     @Override
     protected int[] getLayoutResource() {
         return new int[]{R.layout.common_list_layout_withnav, 1};
@@ -23,15 +33,6 @@ public class MineFavAct extends BaseAppListActivity<MultiBean> {
 
     @Override
     protected void initializeVariate() {
-        dataList.add(new MultiBean(Constants.MultiType.Article));
-        dataList.add(new MultiBean(Constants.MultiType.Video));
-        dataList.add(new MultiBean(Constants.MultiType.Picture));
-        dataList.add(new MultiBean(Constants.MultiType.Article));
-        dataList.add(new MultiBean(Constants.MultiType.Video));
-        dataList.add(new MultiBean(Constants.MultiType.Picture));
-        dataList.add(new MultiBean(Constants.MultiType.Article));
-        dataList.add(new MultiBean(Constants.MultiType.Video));
-        dataList.add(new MultiBean(Constants.MultiType.Picture));
     }
 
     @Override
@@ -56,8 +57,28 @@ public class MineFavAct extends BaseAppListActivity<MultiBean> {
     }
 
     @Override
-    protected void onRefreshSuccess(String response) {
+    protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        return mModel.requestFavList(params);
+    }
 
+    @Override
+    protected void onRefreshSuccess(String response) {
+        newsBeanList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
+        if (!newsBeanList.isEmpty()) {
+            for (NewsBean newsBean : newsBeanList) {
+                switch (newsBean.getContentType()) {
+                    case "0":
+                        dataList.add(new MultiBean(Constants.MultiType.Article, newsBean));
+                        break;
+                    case "1":
+                        dataList.add(new MultiBean(Constants.MultiType.Picture, newsBean));
+                        break;
+                    case "2":
+                        dataList.add(new MultiBean(Constants.MultiType.Video, newsBean));
+                        break;
+                }
+            }
+        }
     }
 
     @Override

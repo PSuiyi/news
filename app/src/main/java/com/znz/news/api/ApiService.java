@@ -46,4 +46,26 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("user/verify/password")
     Observable<ResponseBody> requestCheckPsd(@FieldMap Map<String, String> params);
+
+    @GET("favourite/count")
+    Observable<ResponseBody> requestFavCount(@QueryMap Map<String, String> params);
+
+    @GET("favourite/list")
+    Observable<ResponseBody> requestFavList(@QueryMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("favourite/add")
+    Observable<ResponseBody> requestFavAdd(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("user/update/nickname")
+    Observable<ResponseBody> requestUpdateNickname(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("user/update/password")
+    Observable<ResponseBody> requestUpdatePsd(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("user/update/profile")
+    Observable<ResponseBody> requestUpdateRemark(@FieldMap Map<String, String> params);
 }

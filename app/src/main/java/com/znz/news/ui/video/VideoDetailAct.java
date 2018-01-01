@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -65,6 +66,14 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
     StandardGSYVideoPlayer detailPlayer;
     @Bind(R.id.etComment)
     EditText etComment;
+    @Bind(R.id.tvCountComment)
+    TextView tvCountComment;
+    @Bind(R.id.tvCountView)
+    TextView tvCountView;
+    @Bind(R.id.flView)
+    FrameLayout flView;
+    @Bind(R.id.tvTitle)
+    TextView tvTitle;
     private View header;
 
     private OrientationUtils orientationUtils;
@@ -128,6 +137,11 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
             public void onSuccess(JSONObject responseOriginal) {
                 super.onSuccess(responseOriginal);
                 bean = JSON.parseObject(responseOriginal.getString("data"), NewsBean.class);
+
+                mDataManager.setValueToView(tvTitle, bean.getContentTitle());
+                mDataManager.setValueToView(tvCountView, bean.getClickNum());
+                mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum());
+
                 gsyVideoOption.setIsTouchWiget(true)
                         .setRotateViewAuto(false)
                         .setLockLand(false)
@@ -219,17 +233,6 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.flComment})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.flComment:
-                Bundle bundle = new Bundle();
-                bundle.putString("id", id);
-                gotoActivity(CommentListAct.class, bundle);
-                break;
-        }
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -270,6 +273,34 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
         //如果旋转了就全屏
         if (isPlay && !isPause) {
             detailPlayer.onConfigurationChanged(this, newConfig, orientationUtils);
+        }
+    }
+
+    @OnClick({R.id.flComment, R.id.ivFav})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.flComment:
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                gotoActivity(CommentListAct.class, bundle);
+                break;
+            case R.id.ivFav:
+                Map<String, String> params = new HashMap<>();
+                params.put("contentId", id);
+                mModel.requestFavAdd(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("收藏成功");
+                        ivFav.setImageResource(R.mipmap.yishoucang);
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
+                break;
         }
     }
 }

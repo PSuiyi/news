@@ -15,6 +15,7 @@ import com.znz.news.base.BaseAppListFragment;
 import com.znz.news.bean.BannerBean;
 import com.znz.news.bean.CateBean;
 import com.znz.news.bean.MultiBean;
+import com.znz.news.bean.NewsBean;
 import com.znz.news.common.Constants;
 import com.znz.news.ui.common.SearchCommonActivity;
 
@@ -43,6 +44,8 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     private List<CateBean> cateBeanList = new ArrayList<>();
     private TypeHorizontalAdapter typeAdapter;
 
+    private List<NewsBean> newsBeanList = new ArrayList<>();
+
     @Override
     protected int[] getLayoutResource() {
         return new int[]{R.layout.frag_home, 2};
@@ -50,16 +53,6 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected void initializeVariate() {
-        dataList.add(new MultiBean(Constants.MultiType.Top));
-        dataList.add(new MultiBean(Constants.MultiType.Article));
-        dataList.add(new MultiBean(Constants.MultiType.Video));
-        dataList.add(new MultiBean(Constants.MultiType.Picture));
-        dataList.add(new MultiBean(Constants.MultiType.Article));
-        dataList.add(new MultiBean(Constants.MultiType.Video));
-        dataList.add(new MultiBean(Constants.MultiType.Picture));
-        dataList.add(new MultiBean(Constants.MultiType.Article));
-        dataList.add(new MultiBean(Constants.MultiType.Video));
-        dataList.add(new MultiBean(Constants.MultiType.Picture));
     }
 
     @Override
@@ -168,7 +161,22 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected void onRefreshSuccess(String response) {
-
+        newsBeanList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
+        if (!newsBeanList.isEmpty()) {
+            for (NewsBean newsBean : newsBeanList) {
+                switch (newsBean.getContentType()) {
+                    case "0":
+                        dataList.add(new MultiBean(Constants.MultiType.Article, newsBean));
+                        break;
+                    case "1":
+                        dataList.add(new MultiBean(Constants.MultiType.Picture, newsBean));
+                        break;
+                    case "2":
+                        dataList.add(new MultiBean(Constants.MultiType.Video, newsBean));
+                        break;
+                }
+            }
+        }
     }
 
     @Override

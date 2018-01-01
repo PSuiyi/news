@@ -39,17 +39,14 @@
                     android:maxLines="2"
                     android:text="吊车很忙，亮出北京城市天际线。" />
 
-
                 <TextView
+                    android:id="@+id/tvCountComment"
                     style="@style/TextDrawableStyle"
                     android:layout_marginTop="@dimen/distance_text"
                     android:drawableLeft="@mipmap/pinglun"
                     android:text="0"
                     android:textSize="@dimen/text_small_size" />
-
             </LinearLayout>
-
-
         </LinearLayout>
 
     </LinearLayout>

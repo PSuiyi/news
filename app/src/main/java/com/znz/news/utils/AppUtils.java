@@ -39,7 +39,7 @@ public class AppUtils {
         mDataManager.saveTempData(Constants.User.PHONE, bean.getMobile());
         mDataManager.saveTempData(Constants.User.NICK_NAME, bean.getNickname());
         mDataManager.saveTempData(Constants.User.HEAD_IMG_PATH, bean.getAvatar());
-        mDataManager.saveTempData(Constants.User.REMARK, bean.getRemarks());
+        mDataManager.saveTempData(Constants.User.REMARK, bean.getProfile());
     }
 
 

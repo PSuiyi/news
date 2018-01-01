@@ -13,6 +13,7 @@ import com.znz.libvideo.listener.SampleListener;
 import com.znz.libvideo.videoplayer.builder.GSYVideoOptionBuilder;
 import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.news.R;
+import com.znz.news.bean.ImageBean;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.common.Constants;
 import com.znz.news.ui.home.ArticleDetailAct;
@@ -45,6 +46,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, MultiBean bean) {
         setOnItemClickListener(this);
+        HttpImageView ivImage;
         switch (bean.getItemType()) {
             case Constants.MultiType.Section:
                 helper.setText(R.id.tvSection, bean.getSection());
@@ -52,18 +54,28 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
             case Constants.MultiType.Top:
                 break;
             case Constants.MultiType.Article:
+                helper.setText(R.id.tvTitle, bean.getNewsBean().getContentTitle());
+                ivImage = helper.getView(R.id.ivImage);
+                if (!bean.getNewsBean().getContentBanner().isEmpty()) {
+                    ivImage.loadRectImage(bean.getNewsBean().getContentBanner().get(0).getUrl());
+                } else {
+                    ivImage.setImageResource(R.mipmap.default_image_rect);
+                }
                 break;
             case Constants.MultiType.Video:
                 StandardGSYVideoPlayer gsyVideoPlayer = helper.getView(R.id.detailPlayer);
-                HttpImageView ivImage = new HttpImageView(mContext);
-                ivImage.setImageResource(R.mipmap.default_image_rect);
+                ivImage = new HttpImageView(mContext);
+                if (!bean.getNewsBean().getContentBanner().isEmpty()) {
+                    ivImage.loadRectImage(bean.getNewsBean().getContentBanner().get(0).getUrl());
+                } else {
+                    ivImage.setImageResource(R.mipmap.default_image_rect);
+                }
                 ivImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
                 gsyVideoOptionBuilder
                         .setIsTouchWiget(false)
                         .setThumbImageView(ivImage)
-                        .setUrl("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4")
-                        .setVideoTitle("测试视频")
+                        .setUrl(bean.getNewsBean().getVideoUrl())
+                        .setVideoTitle(bean.getNewsBean().getContentTitle())
                         .setCacheWithPlay(true)
                         .setRotateViewAuto(true)
                         .setLockLand(true)
@@ -94,12 +106,18 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                 gsyVideoPlayer.getFullscreenButton().setVisibility(View.GONE);
                 break;
             case Constants.MultiType.Picture:
+                helper.setText(R.id.tvTitle, bean.getNewsBean().getContentTitle());
                 NineGridView nineGrid = helper.getView(R.id.nineGrid);
-                List<String> urls = new ArrayList<>();
-                urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
-                urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
-                urls.add("http://upload-images.jianshu.io/upload_images/3347817-717ac59046411bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480");
-                nineGrid.setList(urls);
+                if (!bean.getNewsBean().getContentBanner().isEmpty()) {
+                    List<String> urls = new ArrayList<>();
+                    for (ImageBean imageBean : bean.getNewsBean().getContentBanner()) {
+                        urls.add(imageBean.getUrl());
+                    }
+                    nineGrid.setList(urls);
+                    mDataManager.setViewVisibility(nineGrid, true);
+                } else {
+                    mDataManager.setViewVisibility(nineGrid, false);
+                }
                 break;
         }
     }
@@ -111,16 +129,20 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
             case Constants.MultiType.Section:
                 break;
             case Constants.MultiType.Top:
-                gotoActivity(ArticleDetailAct.class);
+                bundle.putString("id", bean.getNewsBean().getContentId());
+                gotoActivity(ArticleDetailAct.class, bundle);
                 break;
             case Constants.MultiType.Article:
-                gotoActivity(ArticleDetailAct.class);
+                bundle.putString("id", bean.getNewsBean().getContentId());
+                gotoActivity(ArticleDetailAct.class, bundle);
                 break;
             case Constants.MultiType.Video:
-                gotoActivity(VideoDetailAct.class);
+                bundle.putString("id", bean.getNewsBean().getContentId());
+                gotoActivity(VideoDetailAct.class, bundle);
                 break;
             case Constants.MultiType.Picture:
-                gotoActivity(PictureDetailAct.class);
+                bundle.putString("id", bean.getNewsBean().getContentId());
+                gotoActivity(PictureDetailAct.class, bundle);
                 break;
 
         }

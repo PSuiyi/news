@@ -1,12 +1,12 @@
 package com.znz.news.ui.mine;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.eventbus.EventManager;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
@@ -15,13 +15,19 @@ import com.znz.compass.znzlibray.views.rowview.ZnzRowGroupView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppFragment;
 import com.znz.news.common.Constants;
+import com.znz.news.event.EventRefresh;
+import com.znz.news.event.EventTags;
 import com.znz.news.ui.setting.HelpAct;
 import com.znz.news.ui.setting.SettingAct;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -76,7 +82,7 @@ public class MineFrag extends BaseAppFragment {
                 .withIconResId(R.mipmap.wodeshoucang)
                 .withEnableLongLine(true)
                 .withEnableArraw(true)
-                .withValue("20")
+                .withValue("0")
                 .withOnClickListener(v -> {
                     gotoActivity(MineFavAct.class);
                 })
@@ -102,25 +108,45 @@ public class MineFrag extends BaseAppFragment {
 
     @Override
     protected void loadDataFromServer() {
+        Map<String, String> params = new HashMap<>();
+        mModel.requestFavCount(params, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                rowDescriptionList.get(0).setValue(responseOriginal.getString("data"));
+                commonRowGroup.notifyDataChanged(rowDescriptionList);
+            }
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
+            }
+        });
     }
 
     @OnClick(R.id.llMineInfo)
     public void onViewClicked() {
         gotoActivity(MineInfoAct.class);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventManager.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventManager.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventRefresh event) {
+        if (event.getFlag() == EventTags.REFRESH_EDIT_VALUE) {
+            mDataManager.setValueToView(tvNickName, mDataManager.readTempData(Constants.User.NICK_NAME), "暂无昵称");
+            mDataManager.setValueToView(tvRemark, mDataManager.readTempData(Constants.User.REMARK), "暂无签名");
+            ivUserHeader.loadHeaderImage(mDataManager.readTempData(Constants.User.HEAD_IMG_PATH));
+        }
     }
 }

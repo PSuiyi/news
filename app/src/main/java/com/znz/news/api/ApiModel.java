@@ -62,7 +62,31 @@ public class ApiModel extends BaseModel {
         return apiService.requestCommentList(params);
     }
 
+    public Observable<ResponseBody> requestFavList(Map<String, String> params) {
+        return apiService.requestFavList(params);
+    }
+
     public void requestNewsList(Map<String, String> params, ZnzHttpListener znzHttpListener) {
         request(apiService.requestNewsList(params), znzHttpListener);
+    }
+
+    public void requestFavCount(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestFavCount(params), znzHttpListener);
+    }
+
+    public void requestFavAdd(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestFavAdd(params), znzHttpListener);
+    }
+
+    public void requestUpdateNickname(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestUpdateNickname(params), znzHttpListener, LODING_PD);
+    }
+
+    public void requestUpdatePsd(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestUpdatePsd(params), znzHttpListener, LODING_PD);
+    }
+
+    public void requestUpdateRemark(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestUpdateRemark(params), znzHttpListener, LODING_PD);
     }
 }

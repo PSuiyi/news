@@ -157,6 +157,21 @@ public class PictureDetailAct extends BaseAppActivity {
                 gotoActivity(CommentListAct.class, bundle);
                 break;
             case R.id.ivFav:
+                Map<String, String> params = new HashMap<>();
+                params.put("contentId", id);
+                mModel.requestFavAdd(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("收藏成功");
+                        ivFav.setImageResource(R.mipmap.yishoucang);
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
                 break;
         }
     }

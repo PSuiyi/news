@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.compass.znzlibray.views.gallery.inter.IPhotoSelectCallback;
@@ -12,12 +13,16 @@ import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 import com.znz.news.common.Constants;
+import com.znz.news.event.EventRefresh;
+import com.znz.news.event.EventTags;
 import com.znz.news.ui.common.EditValueAct;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -73,12 +78,6 @@ public class MineInfoAct extends BaseAppActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.llUserHeader, R.id.llNickName, R.id.llSign})
     public void onViewClicked(View view) {
@@ -122,6 +121,27 @@ public class MineInfoAct extends BaseAppActivity {
                 bundle.putString("type", "修改签名");
                 gotoActivity(EditValueAct.class, bundle);
                 break;
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventManager.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventManager.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventRefresh event) {
+        if (event.getFlag() == EventTags.REFRESH_EDIT_VALUE) {
+            mDataManager.setValueToView(tvNickName, mDataManager.readTempData(Constants.User.NICK_NAME), "暂无昵称");
+            mDataManager.setValueToView(tvRemark, mDataManager.readTempData(Constants.User.REMARK), "暂无签名");
+            ivUserHeader.loadHeaderImage(mDataManager.readTempData(Constants.User.HEAD_IMG_PATH));
         }
     }
 }
