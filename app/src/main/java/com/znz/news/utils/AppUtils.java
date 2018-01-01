@@ -36,18 +36,10 @@ public class AppUtils {
      * @param bean
      */
     public void saveUserData(UserBean bean) {
-//        mDataManager.saveTempData(Constants.User.ID, bean.getUser_id());
-//        mDataManager.saveTempData(Constants.User.PHONE, bean.getPhone());
-//        mDataManager.saveTempData(Constants.User.NICK_NAME, bean.getNick_name());
-//        mDataManager.saveTempData(Constants.User.HEAD_IMG_PATH, bean.getHead_img_path());
-//        mDataManager.saveTempData(Constants.User.BIRTHDAY, bean.getBirthday());
-//        mDataManager.saveTempData(Constants.User.CITY_NAME, bean.getCity_name());
-//        mDataManager.saveTempData(Constants.User.IS_SGIN, bean.getIs_sgin());
-//        mDataManager.saveTempData(Constants.User.INV_CODE, bean.getInv_code());
-//        mDataManager.saveTempData(Constants.User.INTEGRAL, bean.getIntegral());
-//        mDataManager.saveTempData(Constants.User.SEX, bean.getSex());
-//        mDataManager.saveTempData(Constants.User.CITY_CODE, bean.getCity_code());
-//        mDataManager.saveTempData(Constants.User.DATA_STATE, bean.getData_state());
+        mDataManager.saveTempData(Constants.User.PHONE, bean.getMobile());
+        mDataManager.saveTempData(Constants.User.NICK_NAME, bean.getNickname());
+        mDataManager.saveTempData(Constants.User.HEAD_IMG_PATH, bean.getAvatar());
+        mDataManager.saveTempData(Constants.User.REMARK, bean.getRemarks());
     }
 
 

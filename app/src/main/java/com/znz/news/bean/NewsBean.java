@@ -44,6 +44,15 @@ public class NewsBean extends BaseZnzBean {
     private String videoUrl;
     private String evaluateNum;
     private List<ImageBean> contentBanner;
+    private List<ImageBean> contentBody;
+
+    public List<ImageBean> getContentBody() {
+        return contentBody;
+    }
+
+    public void setContentBody(List<ImageBean> contentBody) {
+        this.contentBody = contentBody;
+    }
 
     public String getVideoUrl() {
         return videoUrl;

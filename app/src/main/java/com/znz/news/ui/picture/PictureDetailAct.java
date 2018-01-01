@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ZnzRemind;
@@ -15,6 +18,8 @@ import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.adapter.ViewPageAdapter;
 import com.znz.news.base.BaseAppActivity;
+import com.znz.news.bean.ImageBean;
+import com.znz.news.bean.NewsBean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,9 +51,22 @@ public class PictureDetailAct extends BaseAppActivity {
     ImageView ivFav;
     @Bind(R.id.commonViewPager)
     ViewPager commonViewPager;
+    @Bind(R.id.tvTitle)
+    TextView tvTitle;
+    @Bind(R.id.tvContent)
+    TextView tvContent;
+    @Bind(R.id.etComment)
+    EditText etComment;
+    @Bind(R.id.tvCountComment)
+    TextView tvCountComment;
+    @Bind(R.id.tvCountView)
+    TextView tvCountView;
+    @Bind(R.id.flView)
+    FrameLayout flView;
 
     private List<Fragment> fragmentList = new ArrayList<>();
     private String id;
+    private NewsBean bean;
 
     @Override
     protected int[] getLayoutResource() {
@@ -69,23 +87,53 @@ public class PictureDetailAct extends BaseAppActivity {
 
     @Override
     protected void initializeView() {
-        fragmentList.add(new PictureDetailFrag());
-        fragmentList.add(new PictureDetailFrag());
-        fragmentList.add(new PictureDetailFrag());
-        fragmentList.add(new PictureDetailFrag());
 
-        commonViewPager.setAdapter(new ViewPageAdapter(getSupportFragmentManager(), fragmentList));
-        commonViewPager.setOffscreenPageLimit(fragmentList.size());
     }
 
     @Override
     protected void loadDataFromServer() {
+
         Map<String, String> params = new HashMap<>();
         params.put("contentId", id);
         mModel.requestNewsDetail(params, new ZnzHttpListener() {
             @Override
-            public void onSuccess(JSONObject response) {
-                super.onSuccess(response);
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                bean = JSON.parseObject(responseOriginal.getString("data"), NewsBean.class);
+
+                mDataManager.setValueToView(tvTitle, bean.getContentTitle());
+                mDataManager.setValueToView(tvCountView, bean.getClickNum());
+                mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum());
+
+                if (!bean.getContentBody().isEmpty()) {
+                    mDataManager.setValueToView(tvContent, bean.getContentBody().get(0).getDesc());
+                    for (ImageBean imageBean : bean.getContentBody()) {
+                        fragmentList.add(PictureDetailFrag.newInstance(imageBean));
+                    }
+                    commonViewPager.setAdapter(new ViewPageAdapter(getSupportFragmentManager(), fragmentList));
+                    commonViewPager.setOffscreenPageLimit(fragmentList.size());
+                    commonViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                        }
+
+                        @Override
+                        public void onPageSelected(int position) {
+                            mDataManager.setValueToView(tvContent, bean.getContentBody().get(position).getDesc());
+                        }
+
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
             }
         });
     }

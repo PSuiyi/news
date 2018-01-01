@@ -10,6 +10,7 @@ import com.znz.compass.znzlibray.bean.BaseZnzBean;
 
 public class ImageBean extends BaseZnzBean {
     private String url;
+    private String desc;
 
     public String getUrl() {
         return url;
@@ -17,5 +18,13 @@ public class ImageBean extends BaseZnzBean {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

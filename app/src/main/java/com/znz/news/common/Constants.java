@@ -23,6 +23,7 @@ public class Constants {
         String SEX = "sex";//性别
         String CITY_CODE = "city_code";//城市CODE
         String DATA_STATE = "data_state";//资料状态 1未完善 2已完善
+        String REMARK = "REMARK";
         String Latitude = "Latitude";
         String Longitude = "Longitude";
         String CITY = "city";

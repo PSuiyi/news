@@ -57,13 +57,15 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <com.znz.compass.znzlibray.views.imageloder.HttpImageView
+                            android:id="@+id/ivUserHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/distance_view"
                             android:src="@mipmap/default_header" />
 
                         <TextView
+                            android:id="@+id/tvNickName"
                             style="@style/TitleTextStyle"
                             android:text="巴山叶雨" />
                     </LinearLayout>
@@ -74,6 +76,7 @@
                         android:layout_marginTop="@dimen/distance_view" />
 
                     <TextView
+                        android:id="@+id/tvRemark"
                         style="@style/TextStyle"
                         android:text="那年,我们在青涩中相遇、却在漠然中诀别。" />
                 </LinearLayout>

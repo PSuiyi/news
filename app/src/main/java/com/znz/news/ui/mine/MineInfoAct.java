@@ -11,6 +11,7 @@ import com.znz.compass.znzlibray.views.gallery.inter.IPhotoSelectCallback;
 import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+import com.znz.news.common.Constants;
 import com.znz.news.ui.common.EditValueAct;
 
 import java.util.List;
@@ -40,10 +41,10 @@ public class MineInfoAct extends BaseAppActivity {
     TextView tvNickName;
     @Bind(R.id.llNickName)
     LinearLayout llNickName;
-    @Bind(R.id.tvSign)
-    TextView tvSign;
     @Bind(R.id.llSign)
     LinearLayout llSign;
+    @Bind(R.id.tvRemark)
+    TextView tvRemark;
 
     @Override
     protected int[] getLayoutResource() {
@@ -62,7 +63,9 @@ public class MineInfoAct extends BaseAppActivity {
 
     @Override
     protected void initializeView() {
-
+        mDataManager.setValueToView(tvNickName, mDataManager.readTempData(Constants.User.NICK_NAME), "暂无昵称");
+        mDataManager.setValueToView(tvRemark, mDataManager.readTempData(Constants.User.REMARK), "暂无签名");
+        ivUserHeader.loadHeaderImage(mDataManager.readTempData(Constants.User.HEAD_IMG_PATH));
     }
 
     @Override

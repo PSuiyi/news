@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
+import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
 import com.znz.compass.znzlibray.views.rowview.ZnzRowDescription;
 import com.znz.compass.znzlibray.views.rowview.ZnzRowGroupView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppFragment;
+import com.znz.news.common.Constants;
 import com.znz.news.ui.setting.HelpAct;
 import com.znz.news.ui.setting.SettingAct;
 
@@ -38,6 +41,12 @@ public class MineFrag extends BaseAppFragment {
     ZnzRowGroupView commonRowGroup;
     @Bind(R.id.llMineInfo)
     LinearLayout llMineInfo;
+    @Bind(R.id.ivUserHeader)
+    HttpImageView ivUserHeader;
+    @Bind(R.id.tvNickName)
+    TextView tvNickName;
+    @Bind(R.id.tvRemark)
+    TextView tvRemark;
     private ArrayList<ZnzRowDescription> rowDescriptionList;
 
     @Override
@@ -57,6 +66,10 @@ public class MineFrag extends BaseAppFragment {
 
     @Override
     protected void initializeView() {
+        mDataManager.setValueToView(tvNickName, mDataManager.readTempData(Constants.User.NICK_NAME), "暂无昵称");
+        mDataManager.setValueToView(tvRemark, mDataManager.readTempData(Constants.User.REMARK), "暂无签名");
+        ivUserHeader.loadHeaderImage(mDataManager.readTempData(Constants.User.HEAD_IMG_PATH));
+
         rowDescriptionList = new ArrayList<>();
         rowDescriptionList.add(new ZnzRowDescription.Builder()
                 .withTitle("我的收藏")
