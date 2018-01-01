@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.utils.StringUtil;
+import com.znz.compass.znzlibray.utils.ZnzLog;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
@@ -37,7 +38,7 @@ import butterknife.OnClick;
  * Description：
  */
 
-public class PictureDetailAct extends BaseAppActivity {
+public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutChangeListener  {
     @Bind(R.id.znzToolBar)
     ZnzToolBar znzToolBar;
     @Bind(R.id.znzRemind)
@@ -72,6 +73,8 @@ public class PictureDetailAct extends BaseAppActivity {
     TextView tvSend;
     @Bind(R.id.llComment2)
     LinearLayout llComment2;
+    @Bind(R.id.llContainer)
+    LinearLayout llContainer;
 
     private List<Fragment> fragmentList = new ArrayList<>();
     private String id;
@@ -96,6 +99,7 @@ public class PictureDetailAct extends BaseAppActivity {
 
     @Override
     protected void initializeView() {
+        llContainer.addOnLayoutChangeListener(this);
     }
 
     @Override
@@ -211,6 +215,23 @@ public class PictureDetailAct extends BaseAppActivity {
                     }
                 });
                 break;
+        }
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mDataManager.getDeviceHeight(activity) / 4)) {
+            ZnzLog.e("监听到软键盘---->" + "弹起....");
+            runOnUiThread(() -> {
+                mDataManager.setViewVisibility(llComment1, false);
+                mDataManager.setViewVisibility(llComment2, true);
+            });
+        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mDataManager.getDeviceHeight(activity) / 4)) {
+            ZnzLog.e("监听到软键盘---->" + "关闭....");
+            runOnUiThread(() -> {
+                mDataManager.setViewVisibility(llComment1, true);
+                mDataManager.setViewVisibility(llComment2, false);
+            });
         }
     }
 }

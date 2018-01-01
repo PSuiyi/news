@@ -143,10 +143,10 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
-        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mDataManager.getDeviceHeight(activity) / 3)) {
+        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mDataManager.getDeviceHeight(activity) / 4)) {
             ZnzLog.e("监听到软键盘---->" + "弹起....");
             mDataManager.setViewVisibility(tvSend, true);
-        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mDataManager.getDeviceHeight(activity) / 3)) {
+        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mDataManager.getDeviceHeight(activity) / 4)) {
             ZnzLog.e("监听到软键盘---->" + "关闭....");
             mDataManager.setViewVisibility(tvSend, false);
         }
