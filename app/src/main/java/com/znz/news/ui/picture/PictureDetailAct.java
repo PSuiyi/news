@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
+import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
@@ -63,6 +64,14 @@ public class PictureDetailAct extends BaseAppActivity {
     TextView tvCountView;
     @Bind(R.id.flView)
     FrameLayout flView;
+    @Bind(R.id.tvComment)
+    TextView tvComment;
+    @Bind(R.id.llComment1)
+    LinearLayout llComment1;
+    @Bind(R.id.tvSend)
+    TextView tvSend;
+    @Bind(R.id.llComment2)
+    LinearLayout llComment2;
 
     private List<Fragment> fragmentList = new ArrayList<>();
     private String id;
@@ -87,12 +96,10 @@ public class PictureDetailAct extends BaseAppActivity {
 
     @Override
     protected void initializeView() {
-
     }
 
     @Override
     protected void loadDataFromServer() {
-
         Map<String, String> params = new HashMap<>();
         params.put("contentId", id);
         mModel.requestNewsDetail(params, new ZnzHttpListener() {
@@ -102,8 +109,8 @@ public class PictureDetailAct extends BaseAppActivity {
                 bean = JSON.parseObject(responseOriginal.getString("data"), NewsBean.class);
 
                 mDataManager.setValueToView(tvTitle, bean.getContentTitle());
-                mDataManager.setValueToView(tvCountView, bean.getClickNum());
-                mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum());
+                mDataManager.setValueToView(tvCountView, bean.getClickNum(), "0");
+                mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
 
                 if (!bean.getContentBody().isEmpty()) {
                     mDataManager.setValueToView(tvContent, bean.getContentBody().get(0).getDesc());
@@ -145,8 +152,9 @@ public class PictureDetailAct extends BaseAppActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ivBack, R.id.flComment, R.id.ivFav})
+    @OnClick({R.id.ivBack, R.id.flComment, R.id.ivFav, R.id.tvSend, R.id.tvComment})
     public void onViewClicked(View view) {
+        Map<String, String> params = new HashMap<>();
         switch (view.getId()) {
             case R.id.ivBack:
                 finish();
@@ -157,7 +165,6 @@ public class PictureDetailAct extends BaseAppActivity {
                 gotoActivity(CommentListAct.class, bundle);
                 break;
             case R.id.ivFav:
-                Map<String, String> params = new HashMap<>();
                 params.put("contentId", id);
                 mModel.requestFavAdd(params, new ZnzHttpListener() {
                     @Override
@@ -165,6 +172,37 @@ public class PictureDetailAct extends BaseAppActivity {
                         super.onSuccess(responseOriginal);
                         mDataManager.showToast("收藏成功");
                         ivFav.setImageResource(R.mipmap.yishoucang);
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
+                break;
+            case R.id.tvComment:
+                mDataManager.setViewVisibility(llComment1, false);
+                mDataManager.setViewVisibility(llComment2, true);
+                mDataManager.toggleEditTextFocus(etComment, true);
+                break;
+            case R.id.tvSend:
+                if (StringUtil.isBlank(mDataManager.getValueFromView(etComment))) {
+                    mDataManager.showToast("请输入评论内容");
+                    return;
+                }
+                params.put("contentId", id);
+                params.put("EContent", mDataManager.getValueFromView(etComment));
+                mModel.requestCommentAdd(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("评论成功");
+                        etComment.setText("");
+                        mDataManager.setViewVisibility(llComment1, true);
+                        mDataManager.setViewVisibility(llComment2, false);
+
+                        bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
+                        mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
                     }
 
                     @Override

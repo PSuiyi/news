@@ -55,6 +55,7 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/llComment1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -64,8 +65,8 @@
             android:paddingRight="@dimen/distance_view"
             android:paddingTop="@dimen/distance_divider">
 
-            <EditText
-                android:id="@+id/etComment"
+            <TextView
+                android:id="@+id/tvComment"
                 style="@style/EditSingleStyle"
                 android:layout_weight="1"
                 android:background="@drawable/bg_comment_gray"
@@ -79,50 +80,99 @@
                 android:paddingTop="4dp"
                 android:textSize="20sp" />
 
-            <FrameLayout
-                android:id="@+id/flComment"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/distance_view">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/pinglunbai" />
-
-                <TextView
-                    android:id="@+id/tvCountComment"
-                    style="@style/DotStyle"
-                    android:layout_marginLeft="20dp"
-                    android:text="0" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/flView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/liulanbai" />
-
-                <TextView
-                    android:id="@+id/tvCountView"
-                    style="@style/DotStyle"
-                    android:layout_marginLeft="20dp"
-                    android:text="0" />
-            </FrameLayout>
-
-            <ImageView
-                android:id="@+id/ivFav"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:src="@mipmap/shoucangbai" />
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <FrameLayout
+                    android:id="@+id/flComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/distance_view">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/pinglunbai" />
+
+                    <TextView
+                        android:id="@+id/tvCountComment"
+                        style="@style/DotStyle"
+                        android:layout_marginLeft="20dp"
+                        android:text="0" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/flView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/liulanbai" />
+
+                    <TextView
+                        android:id="@+id/tvCountView"
+                        style="@style/DotStyle"
+                        android:layout_marginLeft="20dp"
+                        android:text="0" />
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/ivFav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@mipmap/shoucangbai" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llComment2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/distance_divider"
+            android:paddingLeft="@dimen/distance_view"
+            android:paddingRight="@dimen/distance_view"
+            android:paddingTop="@dimen/distance_divider"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/etComment"
+                style="@style/EditSingleStyle"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_comment_white"
+                android:drawableLeft="@mipmap/xiepinglunhei"
+                android:drawablePadding="@dimen/distance_divider"
+                android:gravity="center_vertical"
+                android:hint="写评论..."
+                android:paddingBottom="4dp"
+                android:paddingLeft="@dimen/distance_view"
+                android:paddingRight="@dimen/distance_view"
+                android:paddingTop="4dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvSend"
+                style="@style/TitleWhiteTextStyle"
+                android:layout_marginLeft="@dimen/distance_view"
+                android:background="@drawable/bg_comment_send"
+                android:paddingBottom="4dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="4dp"
+                android:text="发送"
+                android:textSize="20sp"
+                android:visibility="visible" />
         </LinearLayout>
     </LinearLayout>
 

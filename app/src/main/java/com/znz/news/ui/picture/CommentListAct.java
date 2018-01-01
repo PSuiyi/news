@@ -3,8 +3,7 @@ package com.znz.news.ui.picture;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.utils.StringUtil;
+import com.znz.compass.znzlibray.utils.ZnzLog;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
@@ -35,7 +35,7 @@ import rx.Observable;
  * Description：
  */
 
-public class CommentListAct extends BaseAppListActivity<CommentBean> {
+public class CommentListAct extends BaseAppListActivity<CommentBean> implements View.OnLayoutChangeListener {
 
     @Bind(R.id.znzToolBar)
     ZnzToolBar znzToolBar;
@@ -51,6 +51,8 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> {
     EditText etComment;
     @Bind(R.id.tvSend)
     TextView tvSend;
+    @Bind(R.id.llContainer)
+    LinearLayout llContainer;
     private String id;
 
     @Override
@@ -80,26 +82,7 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> {
         adapter = new CommentAdapter(dataList);
         rvRefresh.setAdapter(adapter);
 
-        etComment.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!StringUtil.isBlank(s.toString())) {
-                    mDataManager.setViewVisibility(tvSend, true);
-                } else {
-                    mDataManager.setViewVisibility(tvSend, false);
-                }
-            }
-        });
+        llContainer.addOnLayoutChangeListener(this);
     }
 
     @Override
@@ -155,5 +138,17 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> {
                 super.onFail(error);
             }
         });
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
+        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mDataManager.getDeviceHeight(activity) / 3)) {
+            ZnzLog.e("监听到软键盘---->" + "弹起....");
+            mDataManager.setViewVisibility(tvSend, true);
+        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mDataManager.getDeviceHeight(activity) / 3)) {
+            ZnzLog.e("监听到软键盘---->" + "关闭....");
+            mDataManager.setViewVisibility(tvSend, false);
+        }
     }
 }
