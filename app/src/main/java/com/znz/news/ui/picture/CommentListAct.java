@@ -61,7 +61,7 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
 
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.act_comment_list, 4};
+        return new int[]{R.layout.act_comment_list, 1};
     }
 
     @Override
