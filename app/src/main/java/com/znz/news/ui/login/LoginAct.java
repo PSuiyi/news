@@ -110,6 +110,7 @@ public class LoginAct extends BaseAppActivity {
                         UserBean bean = JSON.parseObject(responseOriginal.getString("data"), UserBean.class);
                         mDataManager.saveBooleanTempData(ZnzConstants.IS_LOGIN, true);
                         mDataManager.saveTempData(ZnzConstants.ACCESS_TOKEN, bean.getToken());
+                        mDataManager.saveTempData(ZnzConstants.ACCOUNT, mDataManager.getValueFromView(etUserName));
                         AppUtils.getInstance(context).saveUserData(bean);
                         gotoActivity(TabHomeAct.class);
                         finish();

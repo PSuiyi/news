@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/llComment1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -13,10 +14,11 @@
         android:paddingBottom="@dimen/distance_divider"
         android:paddingLeft="@dimen/distance_view"
         android:paddingRight="@dimen/distance_view"
-        android:paddingTop="@dimen/distance_divider">
+        android:paddingTop="@dimen/distance_divider"
+        android:visibility="visible">
 
-        <EditText
-            android:id="@+id/etComment"
+        <TextView
+            android:id="@+id/tvComment"
             style="@style/EditSingleStyle"
             android:layout_weight="1"
             android:background="@drawable/bg_comment_white"
@@ -74,6 +76,48 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:src="@mipmap/shoucanghei" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llComment2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/distance_divider"
+        android:paddingLeft="@dimen/distance_view"
+        android:paddingRight="@dimen/distance_view"
+        android:paddingTop="@dimen/distance_divider"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/etComment"
+            style="@style/EditSingleStyle"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_comment_white"
+            android:drawableLeft="@mipmap/xiepinglunhei"
+            android:drawablePadding="@dimen/distance_divider"
+            android:gravity="center_vertical"
+            android:hint="写评论..."
+            android:paddingBottom="4dp"
+            android:paddingLeft="@dimen/distance_view"
+            android:paddingRight="@dimen/distance_view"
+            android:paddingTop="4dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvSend"
+            style="@style/TitleWhiteTextStyle"
+            android:layout_marginLeft="@dimen/distance_view"
+            android:background="@drawable/bg_comment_send"
+            android:paddingBottom="4dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="4dp"
+            android:text="发送"
+            android:textSize="20sp"
+            android:visibility="visible" />
     </LinearLayout>
 
 </LinearLayout>

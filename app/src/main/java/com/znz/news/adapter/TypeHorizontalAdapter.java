@@ -28,6 +28,27 @@ public class TypeHorizontalAdapter extends BaseQuickAdapter<CateBean, BaseViewHo
     protected void convert(BaseViewHolder helper, CateBean bean) {
         setOnItemClickListener(this);
         mDataManager.setValueToView(tvTitle, bean.getCateName());
+
+        switch (helper.getLayoutPosition() % 6) {
+            case 0:
+                tvTitle.setBackgroundResource(R.mipmap.hong);
+                break;
+            case 1:
+                tvTitle.setBackgroundResource(R.mipmap.cheng);
+                break;
+            case 2:
+                tvTitle.setBackgroundResource(R.mipmap.huang);
+                break;
+            case 3:
+                tvTitle.setBackgroundResource(R.mipmap.lv);
+                break;
+            case 4:
+                tvTitle.setBackgroundResource(R.mipmap.lan);
+                break;
+            case 5:
+                tvTitle.setBackgroundResource(R.mipmap.zi);
+                break;
+        }
     }
 
     @Override

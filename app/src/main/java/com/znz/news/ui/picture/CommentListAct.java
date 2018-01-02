@@ -1,7 +1,6 @@
 package com.znz.news.ui.picture;
 
 import android.content.res.TypedArray;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -54,6 +52,12 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
     TextView tvSend;
     @Bind(R.id.llContainer)
     LinearLayout llContainer;
+    @Bind(R.id.tvComment)
+    TextView tvComment;
+    @Bind(R.id.llComment1)
+    LinearLayout llComment1;
+    @Bind(R.id.llComment2)
+    LinearLayout llComment2;
     private String id;
 
     protected int activityCloseEnterAnimation;
@@ -126,46 +130,19 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @OnClick(R.id.tvSend)
-    public void onViewClicked() {
-        if (StringUtil.isBlank(mDataManager.getValueFromView(etComment))) {
-            mDataManager.showToast("请输入评论内容");
-            return;
-        }
-        Map<String, String> params = new HashMap<>();
-        params.put("contentId", id);
-        params.put("EContent", mDataManager.getValueFromView(etComment));
-        mModel.requestCommentAdd(params, new ZnzHttpListener() {
-            @Override
-            public void onSuccess(JSONObject responseOriginal) {
-                super.onSuccess(responseOriginal);
-                mDataManager.showToast("评论成功");
-                etComment.setText("");
-                resetRefresh();
-            }
-
-            @Override
-            public void onFail(String error) {
-                super.onFail(error);
-            }
-        });
-    }
-
-    @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-        //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
         if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mDataManager.getDeviceHeight(activity) / 4)) {
             ZnzLog.e("监听到软键盘---->" + "弹起....");
-            mDataManager.setViewVisibility(tvSend, true);
+            runOnUiThread(() -> {
+                mDataManager.setViewVisibility(llComment1, false);
+                mDataManager.setViewVisibility(llComment2, true);
+            });
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mDataManager.getDeviceHeight(activity) / 4)) {
             ZnzLog.e("监听到软键盘---->" + "关闭....");
-            mDataManager.setViewVisibility(tvSend, false);
+            runOnUiThread(() -> {
+                mDataManager.setViewVisibility(llComment1, true);
+                mDataManager.setViewVisibility(llComment2, false);
+            });
         }
     }
 
@@ -173,5 +150,41 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
     public void finish() {
         super.finish();
         overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
+    }
+
+    @OnClick({R.id.tvComment, R.id.tvSend})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tvComment:
+                mDataManager.setViewVisibility(llComment1, false);
+                mDataManager.setViewVisibility(llComment2, true);
+                mDataManager.toggleEditTextFocus(etComment, true);
+                break;
+            case R.id.tvSend:
+                if (StringUtil.isBlank(mDataManager.getValueFromView(etComment))) {
+                    mDataManager.showToast("请输入评论内容");
+                    return;
+                }
+                Map<String, String> params = new HashMap<>();
+                params.put("contentId", id);
+                params.put("EContent", mDataManager.getValueFromView(etComment));
+                mModel.requestCommentAdd(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("评论成功");
+                        etComment.setText("");
+                        mDataManager.setViewVisibility(llComment1, true);
+                        mDataManager.setViewVisibility(llComment2, false);
+                        resetRefresh();
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
+                break;
+        }
     }
 }

@@ -45,7 +45,7 @@ public class NewsBean extends BaseZnzBean {
     private String evaluateNum;
     private String isCollected;
     private List<ImageBean> contentBanner;
-    private List<ImageBean> contentBody;
+    private String contentBody;
 
     public String getIsCollected() {
         return isCollected;
@@ -55,11 +55,11 @@ public class NewsBean extends BaseZnzBean {
         this.isCollected = isCollected;
     }
 
-    public List<ImageBean> getContentBody() {
+    public String getContentBody() {
         return contentBody;
     }
 
-    public void setContentBody(List<ImageBean> contentBody) {
+    public void setContentBody(String contentBody) {
         this.contentBody = contentBody;
     }
 

@@ -17,7 +17,7 @@
         app:banner_tipTextSize="0dp"
         app:banner_transitionEffect="alpha" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
@@ -25,14 +25,19 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            style="@style/Line"
+            android:layout_width="@dimen/line_space"
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/llMore"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:background="@drawable/bg_more"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -44,6 +49,8 @@
                 android:ems="1"
                 android:text="更多" />
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
+
+    <View style="@style/Line" />
 
 </LinearLayout>

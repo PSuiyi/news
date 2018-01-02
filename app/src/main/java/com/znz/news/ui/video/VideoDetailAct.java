@@ -15,6 +15,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
+import com.znz.compass.znzlibray.utils.StringUtil;
+import com.znz.compass.znzlibray.utils.ZnzLog;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.compass.znzlibray.views.imageloder.HttpImageView;
@@ -50,7 +52,7 @@ import rx.Observable;
  * Description：
  */
 
-public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
+public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements View.OnLayoutChangeListener {
 
     @Bind(R.id.znzToolBar)
     ZnzToolBar znzToolBar;
@@ -78,6 +80,16 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
     FrameLayout flView;
     @Bind(R.id.tvTitle)
     TextView tvTitle;
+    @Bind(R.id.tvComment)
+    TextView tvComment;
+    @Bind(R.id.llComment1)
+    LinearLayout llComment1;
+    @Bind(R.id.tvSend)
+    TextView tvSend;
+    @Bind(R.id.llComment2)
+    LinearLayout llComment2;
+    @Bind(R.id.llContainer)
+    LinearLayout llContainer;
     private View header;
 
     private OrientationUtils orientationUtils;
@@ -130,6 +142,8 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
         });
 
         gsyVideoOption = new GSYVideoOptionBuilder();
+
+        llContainer.addOnLayoutChangeListener(this);
     }
 
     @Override
@@ -290,7 +304,7 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
         }
     }
 
-    @OnClick({R.id.flComment, R.id.ivFav})
+    @OnClick({R.id.flComment, R.id.ivFav, R.id.tvSend, R.id.tvComment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.flComment:
@@ -337,6 +351,56 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
                     });
                 }
                 break;
+            case R.id.tvComment:
+                mDataManager.setViewVisibility(llComment1, false);
+                mDataManager.setViewVisibility(llComment2, true);
+                mDataManager.toggleEditTextFocus(etComment, true);
+                break;
+            case R.id.tvSend:
+                if (StringUtil.isBlank(mDataManager.getValueFromView(etComment))) {
+                    mDataManager.showToast("请输入评论内容");
+                    return;
+                }
+                params.put("contentId", id);
+                params.put("EContent", mDataManager.getValueFromView(etComment));
+                mModel.requestCommentAdd(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("评论成功");
+                        etComment.setText("");
+                        mDataManager.setViewVisibility(llComment1, true);
+                        mDataManager.setViewVisibility(llComment2, false);
+
+                        resetRefresh();
+
+                        bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
+                        mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
+                break;
+        }
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mDataManager.getDeviceHeight(activity) / 4)) {
+            ZnzLog.e("监听到软键盘---->" + "弹起....");
+            runOnUiThread(() -> {
+                mDataManager.setViewVisibility(llComment1, false);
+                mDataManager.setViewVisibility(llComment2, true);
+            });
+        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mDataManager.getDeviceHeight(activity) / 4)) {
+            ZnzLog.e("监听到软键盘---->" + "关闭....");
+            runOnUiThread(() -> {
+                mDataManager.setViewVisibility(llComment1, true);
+                mDataManager.setViewVisibility(llComment2, false);
+            });
         }
     }
 }

@@ -26,6 +26,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:id="@+id/llComment1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -35,9 +36,37 @@
         android:paddingRight="@dimen/distance_view"
         android:paddingTop="@dimen/distance_divider">
 
+        <TextView
+            android:id="@+id/tvComment"
+            style="@style/EditSingleStyle"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_comment_white"
+            android:drawableLeft="@mipmap/xiepinglunhei"
+            android:drawablePadding="@dimen/distance_divider"
+            android:gravity="center_vertical"
+            android:hint="写评论..."
+            android:paddingBottom="4dp"
+            android:paddingLeft="@dimen/distance_view"
+            android:paddingRight="@dimen/distance_view"
+            android:paddingTop="4dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llComment2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/distance_divider"
+        android:paddingLeft="@dimen/distance_view"
+        android:paddingRight="@dimen/distance_view"
+        android:paddingTop="@dimen/distance_divider"
+        android:visibility="gone">
+
         <EditText
             android:id="@+id/etComment"
-            style="@style/EditSingleStyle"
+            style="@style/EditStyle"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:background="@drawable/bg_comment_white"
@@ -61,8 +90,7 @@
             android:paddingRight="15dp"
             android:paddingTop="4dp"
             android:text="发送"
-            android:textSize="20sp"
-            android:visibility="gone" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>

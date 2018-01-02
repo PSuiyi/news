@@ -39,6 +39,27 @@ public class TypeAdapter extends BaseQuickAdapter<CateBean, BaseViewHolder> impl
         mDataManager.setValueToView(tvType, bean.getCateName());
         mDataManager.setValueToView(tvTitle, bean.getCateDesc());
 
+        switch (helper.getLayoutPosition() % 6) {
+            case 0:
+                tvType.setBackgroundResource(R.mipmap.hong);
+                break;
+            case 1:
+                tvType.setBackgroundResource(R.mipmap.cheng);
+                break;
+            case 2:
+                tvType.setBackgroundResource(R.mipmap.huang);
+                break;
+            case 3:
+                tvType.setBackgroundResource(R.mipmap.lv);
+                break;
+            case 4:
+                tvType.setBackgroundResource(R.mipmap.lan);
+                break;
+            case 5:
+                tvType.setBackgroundResource(R.mipmap.zi);
+                break;
+        }
+
         rvType.setLayoutManager(new GridLayoutManager(mContext, 3));
         TypeSecondAdapter secondAdapter = new TypeSecondAdapter(bean.getSubCate());
         rvType.setAdapter(secondAdapter);
