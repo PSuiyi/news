@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.znz.compass.znzlibray.eventbus.EventManager;
+import com.znz.libvideo.videoplayer.GSYVideoManager;
+import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.base.BaseAppListActivity;
@@ -101,17 +103,31 @@ public class MineFavAct extends BaseAppListActivity<MultiBean> {
         EventManager.register(this);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventManager.unregister(this);
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventRefresh event) {
         if (event.getFlag() == EventTags.REFRESH_FAV) {
             resetRefresh();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        GSYVideoPlayer.releaseAllVideos();
+        EventManager.unregister(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        GSYVideoManager.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GSYVideoManager.onResume();
     }
 
 }

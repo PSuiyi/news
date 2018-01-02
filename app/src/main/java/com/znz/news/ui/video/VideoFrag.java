@@ -106,4 +106,22 @@ public class VideoFrag extends BaseAppListFragment<NewsBean> {
     protected void onRefreshFail(String error) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        GSYVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        GSYVideoManager.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GSYVideoManager.onResume();
+    }
 }

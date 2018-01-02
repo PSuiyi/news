@@ -12,6 +12,7 @@ import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+import com.znz.news.ui.TabHomeAct;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,6 +107,7 @@ public class PsdSettingAct extends BaseAppActivity {
                 @Override
                 public void onSuccess(JSONObject responseOriginal) {
                     super.onSuccess(responseOriginal);
+                    gotoActivityWithClearStack(TabHomeAct.class);
                 }
 
                 @Override

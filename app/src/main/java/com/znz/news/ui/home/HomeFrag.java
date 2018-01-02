@@ -10,6 +10,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.imageloder.GlideApp;
+import com.znz.libvideo.videoplayer.GSYVideoManager;
+import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.adapter.TypeHorizontalAdapter;
@@ -195,6 +197,24 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     @Override
     protected void onRefreshFail(String error) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        GSYVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        GSYVideoManager.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GSYVideoManager.onResume();
     }
 
 }
