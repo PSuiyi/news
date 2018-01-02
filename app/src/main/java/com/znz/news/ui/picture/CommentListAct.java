@@ -1,5 +1,6 @@
 package com.znz.news.ui.picture;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -55,9 +56,12 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
     LinearLayout llContainer;
     private String id;
 
+    protected int activityCloseEnterAnimation;
+    protected int activityCloseExitAnimation;
+
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.act_comment_list, 1};
+        return new int[]{R.layout.act_comment_list, 4};
     }
 
     @Override
@@ -70,6 +74,11 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
     @Override
     protected void initializeNavigation() {
         setTitleName("评论");
+        setNavLeftGone();
+        znzToolBar.setNavLeft(R.mipmap.guanbi);
+        znzToolBar.setOnNavLeftClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     @Override
@@ -83,6 +92,14 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
         rvRefresh.setAdapter(adapter);
 
         llContainer.addOnLayoutChangeListener(this);
+
+        TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowAnimationStyle});
+        int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
+        activityStyle.recycle();
+        activityStyle = getTheme().obtainStyledAttributes(windowAnimationStyleResId, new int[]{android.R.attr.activityCloseEnterAnimation, android.R.attr.activityCloseExitAnimation});
+        activityCloseEnterAnimation = activityStyle.getResourceId(0, 0);
+        activityCloseExitAnimation = activityStyle.getResourceId(1, 0);
+        activityStyle.recycle();
     }
 
     @Override
@@ -150,5 +167,11 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
             ZnzLog.e("监听到软键盘---->" + "关闭....");
             mDataManager.setViewVisibility(tvSend, false);
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
     }
 }

@@ -49,9 +49,9 @@
 
 
     <style name="Anim_scale" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/actionsheet_dialog_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/actionsheet_dialog_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/actionsheet_dialog_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/actionsheet_dialog_out</item>
+        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
     </style>
 </resources>

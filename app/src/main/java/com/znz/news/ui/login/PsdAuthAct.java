@@ -83,7 +83,13 @@ public class PsdAuthAct extends BaseAppActivity {
             @Override
             public void onSuccess(JSONObject response) {
                 super.onSuccess(response);
-                gotoActivityWithClearStack(PsdSettingAct.class);
+                if (response.getString("data").equals("SUCCESS")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("page", "修改密码");
+                    gotoActivity(PsdSettingAct.class, bundle);
+                } else {
+                    mDataManager.showToast("密码不正确请重新输入");
+                }
             }
         });
     }

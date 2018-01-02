@@ -2,11 +2,14 @@ package com.znz.news.api;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -19,6 +22,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("auth/vercode")
     Observable<ResponseBody> requestCode(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("auth/findpwd/vercode")
+    Observable<ResponseBody> requestCodeForget(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("auth/register")
@@ -85,4 +92,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("user/update/profile")
     Observable<ResponseBody> requestUpdateRemark(@FieldMap Map<String, String> params);
+
+    @Multipart
+    @POST("upload/upload")
+    Observable<ResponseBody> uploadImageSingle(@QueryMap Map<String, String> params, @Part MultipartBody.Part file);
 }

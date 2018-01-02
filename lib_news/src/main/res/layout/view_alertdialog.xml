@@ -51,26 +51,30 @@
         <Button
             android:id="@+id/btn_neg"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/alertdialog_left_selector"
             android:gravity="center"
+            android:paddingBottom="@dimen/distance_divider"
+            android:paddingTop="@dimen/distance_divider"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/title_size" />
 
         <ImageView
             android:id="@+id/img_line"
             android:layout_width="0.5dp"
-            android:layout_height="43dp"
+            android:layout_height="match_parent"
             android:background="@color/alertdialog_line" />
 
         <Button
             android:id="@+id/btn_pos"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/alertdialog_right_selector"
             android:gravity="center"
+            android:paddingBottom="@dimen/distance_divider"
+            android:paddingTop="@dimen/distance_divider"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/title_size" />
 

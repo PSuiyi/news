@@ -96,7 +96,7 @@ public class AuthAct extends BaseAppActivity {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("mobile", mDataManager.getValueFromView(etUserName));
-                mModel.requestCode(params, new ZnzHttpListener() {
+                mModel.requestCodeForget(params, new ZnzHttpListener() {
                     @Override
                     public void onSuccess(JSONObject response) {
                         super.onSuccess(response);
@@ -140,6 +140,7 @@ public class AuthAct extends BaseAppActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("phone", mDataManager.getValueFromView(etUserName));
                 bundle.putString("code", mDataManager.getValueFromView(etPsd));
+                bundle.putString("page", "找回密码");
                 gotoActivity(PsdSettingAct.class, bundle);
                 break;
         }

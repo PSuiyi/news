@@ -7,10 +7,18 @@ import com.znz.compass.znzlibray.base_znz.IView;
 import com.znz.compass.znzlibray.network.retorfit.ZnzRetrofitUtil;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 /**
  * Date： 2017/12/11 2017
@@ -28,6 +36,10 @@ public class ApiModel extends BaseModel {
 
     public void requestCode(Map<String, String> params, ZnzHttpListener znzHttpListener) {
         request(apiService.requestCode(params), znzHttpListener, LODING_PD);
+    }
+
+    public void requestCodeForget(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestCodeForget(params), znzHttpListener, LODING_PD);
     }
 
     public void requestRegister(Map<String, String> params, ZnzHttpListener znzHttpListener) {
@@ -108,5 +120,25 @@ public class ApiModel extends BaseModel {
 
     public void requestUpdateRemark(Map<String, String> params, ZnzHttpListener znzHttpListener) {
         request(apiService.requestUpdateRemark(params), znzHttpListener, LODING_PD);
+    }
+
+    public void requestUploadImage(String url, ZnzHttpListener znzHttpListener) {
+        Map<String, String> params = new HashMap<>();
+        params.put("filetype", "1");
+        params.put("dirname", "avatar");
+        File file = new File(url);
+        Luban.get(context)
+                .load(file)
+                .putGear(Luban.THIRD_GEAR)
+                .asObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> throwable.printStackTrace())
+                .onErrorResumeNext(throwable -> Observable.empty())
+                .subscribe(file1 -> {
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"), file1);
+                    MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                    request(apiService.uploadImageSingle(params, body), znzHttpListener, LODING_PD);
+                });
     }
 }

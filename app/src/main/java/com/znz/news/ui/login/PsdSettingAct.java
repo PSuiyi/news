@@ -41,6 +41,7 @@ public class PsdSettingAct extends BaseAppActivity {
     EditTextWithDel etPsdNew;
     private String phone;
     private String code;
+    private String page;
 
     @Override
     protected int[] getLayoutResource() {
@@ -49,6 +50,9 @@ public class PsdSettingAct extends BaseAppActivity {
 
     @Override
     protected void initializeVariate() {
+        if (getIntent().hasExtra("page")) {
+            page = getIntent().getStringExtra("page");
+        }
         if (getIntent().hasExtra("code")) {
             code = getIntent().getStringExtra("code");
         }
@@ -93,22 +97,40 @@ public class PsdSettingAct extends BaseAppActivity {
             mDataManager.showToast("密码输入不一致");
             return;
         }
-        Map<String, String> param = new HashMap<>();
-        param.put("password", mDataManager.getValueFromView(etPsd));
-        param.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
-        param.put("code", code);
-        param.put("mobile", phone);
-        mModel.requestRegister(param, new ZnzHttpListener() {
-            @Override
-            public void onSuccess(JSONObject responseOriginal) {
-                super.onSuccess(responseOriginal);
-                gotoActivityWithClearStack(LoginAct.class);
-            }
 
-            @Override
-            public void onFail(String error) {
-                super.onFail(error);
-            }
-        });
+        if (page.equals("修改密码")) {
+            Map<String, String> params = new HashMap<>();
+            params.put("password", mDataManager.getValueFromView(etPsd));
+            params.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
+            mModel.requestUpdatePsd(params, new ZnzHttpListener() {
+                @Override
+                public void onSuccess(JSONObject responseOriginal) {
+                    super.onSuccess(responseOriginal);
+                }
+
+                @Override
+                public void onFail(String error) {
+                    super.onFail(error);
+                }
+            });
+        } else {
+            Map<String, String> param = new HashMap<>();
+            param.put("password", mDataManager.getValueFromView(etPsd));
+            param.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
+            param.put("code", code);
+            param.put("mobile", phone);
+            mModel.requestRegister(param, new ZnzHttpListener() {
+                @Override
+                public void onSuccess(JSONObject responseOriginal) {
+                    super.onSuccess(responseOriginal);
+                    gotoActivityWithClearStack(LoginAct.class);
+                }
+
+                @Override
+                public void onFail(String error) {
+                    super.onFail(error);
+                }
+            });
+        }
     }
 }

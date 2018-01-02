@@ -57,4 +57,5 @@ dependencies {
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile deps.cardviewV7
     compile project(':lib_video')
+    compile 'top.zibin:Luban:1.0.5'
 }

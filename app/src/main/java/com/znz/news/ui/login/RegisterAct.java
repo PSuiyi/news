@@ -143,6 +143,7 @@ public class RegisterAct extends BaseAppActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("phone", mDataManager.getValueFromView(etUserName));
                 bundle.putString("code", mDataManager.getValueFromView(etPsd));
+                bundle.putString("page", "设置密码");
                 gotoActivity(PsdSettingAct.class, bundle);
                 break;
             case R.id.tvAgreement:

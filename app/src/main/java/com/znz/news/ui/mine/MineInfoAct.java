@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.eventbus.EventManager;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ZnzRemind;
 import com.znz.compass.znzlibray.views.ZnzToolBar;
 import com.znz.compass.znzlibray.views.gallery.inter.IPhotoSelectCallback;
@@ -17,6 +19,7 @@ import com.znz.news.event.EventRefresh;
 import com.znz.news.event.EventTags;
 import com.znz.news.ui.common.EditValueAct;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -93,7 +96,20 @@ public class MineInfoAct extends BaseAppActivity {
                     @Override
                     public void onSuccess(List<String> photoList) {
                         if (!photoList.isEmpty()) {
-                            ivUserHeader.loadHeaderImage(photoList.get(0));
+                            mModel.requestUploadImage(photoList.get(0), new ZnzHttpListener() {
+                                @Override
+                                public void onSuccess(JSONObject responseOriginal) {
+                                    super.onSuccess(responseOriginal);
+                                    ivUserHeader.loadHeaderImage(photoList.get(0));
+                                    mDataManager.saveTempData(Constants.User.HEAD_IMG_PATH, photoList.get(0));
+                                    EventBus.getDefault().post(new EventRefresh(EventTags.REFRESH_EDIT_VALUE));
+                                }
+
+                                @Override
+                                public void onFail(String error) {
+                                    super.onFail(error);
+                                }
+                            });
                         }
                     }
 
