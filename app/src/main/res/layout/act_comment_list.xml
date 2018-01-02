@@ -80,17 +80,24 @@
             android:paddingTop="4dp"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/tvSend"
-            style="@style/TitleWhiteTextStyle"
-            android:layout_marginLeft="@dimen/distance_view"
-            android:background="@drawable/bg_comment_send"
-            android:paddingBottom="4dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="4dp"
-            android:text="发送"
-            android:textSize="20sp" />
+        <LinearLayout
+            android:id="@+id/llSend"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSend"
+                style="@style/TitleWhiteTextStyle"
+                android:layout_marginLeft="@dimen/distance_view"
+                android:background="@drawable/bg_comment_send"
+                android:paddingBottom="4dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="4dp"
+                android:text="发送"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

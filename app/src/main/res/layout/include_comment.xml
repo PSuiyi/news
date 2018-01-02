@@ -92,7 +92,7 @@
 
         <EditText
             android:id="@+id/etComment"
-            style="@style/EditSingleStyle"
+            style="@style/EditStyle"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:background="@drawable/bg_comment_white"

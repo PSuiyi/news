@@ -152,7 +152,7 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
         overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
     }
 
-    @OnClick({R.id.tvComment, R.id.tvSend})
+    @OnClick({R.id.tvComment, R.id.llSend})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvComment:
@@ -160,7 +160,7 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
                 mDataManager.setViewVisibility(llComment2, true);
                 mDataManager.toggleEditTextFocus(etComment, true);
                 break;
-            case R.id.tvSend:
+            case R.id.llSend:
                 if (StringUtil.isBlank(mDataManager.getValueFromView(etComment))) {
                     mDataManager.showToast("请输入评论内容");
                     return;

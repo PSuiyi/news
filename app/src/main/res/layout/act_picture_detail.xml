@@ -29,8 +29,7 @@
             style="@style/TitleWhiteTextStyle"
             android:layout_marginBottom="@dimen/distance_view"
             android:paddingLeft="@dimen/distance_view"
-            android:paddingRight="@dimen/distance_view"
-            android:text="吊车很忙，亮出北京“城市天际线”。" />
+            android:paddingRight="@dimen/distance_view" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -48,8 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/gray50"
-                android:padding="@dimen/distance_view"
-                android:text="1/4说起“垃圾食品”，我们脑子里总会蹦出汉堡薯条大辣翅，炸鸡可乐大辣条，烤肠披萨方便面。" />
+                android:padding="@dimen/distance_view" />
 
         </FrameLayout>
 
@@ -146,7 +144,7 @@
 
             <EditText
                 android:id="@+id/etComment"
-                style="@style/EditSingleStyle"
+                style="@style/EditStyle"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/bg_comment_white"
