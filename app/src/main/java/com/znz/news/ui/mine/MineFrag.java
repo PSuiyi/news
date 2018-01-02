@@ -108,6 +108,10 @@ public class MineFrag extends BaseAppFragment {
 
     @Override
     protected void loadDataFromServer() {
+        requestFavCount();
+    }
+
+    private void requestFavCount() {
         Map<String, String> params = new HashMap<>();
         mModel.requestFavCount(params, new ZnzHttpListener() {
             @Override
@@ -147,6 +151,10 @@ public class MineFrag extends BaseAppFragment {
             mDataManager.setValueToView(tvNickName, mDataManager.readTempData(Constants.User.NICK_NAME), "暂无昵称");
             mDataManager.setValueToView(tvRemark, mDataManager.readTempData(Constants.User.REMARK), "暂无签名");
             ivUserHeader.loadHeaderImage(mDataManager.readTempData(Constants.User.HEAD_IMG_PATH));
+        }
+
+        if (event.getFlag() == EventTags.REFRESH_FAV) {
+            requestFavCount();
         }
     }
 }

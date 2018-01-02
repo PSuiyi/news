@@ -8,6 +8,7 @@ public interface EventTags {
     int REFRESH_SEARCH_VALUE = 0x100;
     int REFRESH_SEARCH_HISTORY = 0x101;//搜索历史记录刷新
     int REFRESH_EDIT_VALUE = 0x102;
+    int REFRESH_FAV = 0x103;
 
     int GOTO_SHOP = 0x200;
     int GOTO_POST = 0x201;

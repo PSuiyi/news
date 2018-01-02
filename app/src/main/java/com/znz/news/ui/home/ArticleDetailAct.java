@@ -24,7 +24,11 @@ import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
 import com.znz.news.bean.CommentBean;
 import com.znz.news.bean.NewsBean;
+import com.znz.news.event.EventRefresh;
+import com.znz.news.event.EventTags;
 import com.znz.news.ui.picture.CommentListAct;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -205,6 +209,7 @@ public class ArticleDetailAct extends BaseAppListActivity {
                             mDataManager.showToast("取消收藏成功");
                             ivFav.setImageResource(R.mipmap.shoucanghei);
                             bean.setIsCollected("0");
+                            EventBus.getDefault().post(new EventRefresh(EventTags.REFRESH_FAV));
                         }
 
                         @Override
@@ -222,6 +227,7 @@ public class ArticleDetailAct extends BaseAppListActivity {
                             mDataManager.showToast("收藏成功");
                             ivFav.setImageResource(R.mipmap.yishoucang);
                             bean.setIsCollected("1");
+                            EventBus.getDefault().post(new EventRefresh(EventTags.REFRESH_FAV));
                         }
 
                         @Override

@@ -1,14 +1,21 @@
 package com.znz.news.ui.mine;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.base.BaseAppListActivity;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.bean.NewsBean;
 import com.znz.news.common.Constants;
+import com.znz.news.event.EventRefresh;
+import com.znz.news.event.EventTags;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +93,25 @@ public class MineFavAct extends BaseAppListActivity<MultiBean> {
     @Override
     protected void onRefreshFail(String error) {
 
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventManager.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventManager.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventRefresh event) {
+        if (event.getFlag() == EventTags.REFRESH_FAV) {
+            resetRefresh();
+        }
     }
 
 }

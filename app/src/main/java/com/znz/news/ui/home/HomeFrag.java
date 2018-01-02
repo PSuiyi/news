@@ -3,11 +3,13 @@ package com.znz.news.ui.home;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
+import com.znz.compass.znzlibray.views.imageloder.GlideApp;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.adapter.TypeHorizontalAdapter;
@@ -94,8 +96,17 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
         mBanner = bindViewById(header, R.id.mBanner);
 
-        mBanner.setAdapter((banner, itemView, model, position) -> {
-
+        mBanner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
+                GlideApp.with(activity)
+                        .load(model)
+                        .placeholder(R.mipmap.default_image_rect)
+                        .error(R.mipmap.default_image_rect)
+                        .centerCrop()
+                        .dontAnimate()
+                        .into(itemView);
+            }
         });
 
 
