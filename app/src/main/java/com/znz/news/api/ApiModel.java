@@ -58,6 +58,10 @@ public class ApiModel extends BaseModel {
         request(apiService.requestCateTreeList(params), znzHttpListener);
     }
 
+    public void requestVersion(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestVersion(params), znzHttpListener, LODING_PD);
+    }
+
     public Observable<ResponseBody> requestNewsList(Map<String, String> params) {
         return apiService.requestNewsList(params);
     }
@@ -88,6 +92,10 @@ public class ApiModel extends BaseModel {
 
     public void requestFavAdd(Map<String, String> params, ZnzHttpListener znzHttpListener) {
         request(apiService.requestFavAdd(params), znzHttpListener);
+    }
+
+    public void requestFavCancel(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestFavCancel(params), znzHttpListener);
     }
 
     public void requestUpdateNickname(Map<String, String> params, ZnzHttpListener znzHttpListener) {

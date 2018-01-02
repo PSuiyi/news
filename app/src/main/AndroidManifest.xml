@@ -58,7 +58,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.picture.CommentListAct"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogActStyle" />
         <activity
             android:name=".ui.home.TypeListAct"
             android:screenOrientation="portrait" />

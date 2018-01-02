@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -38,7 +37,7 @@ import butterknife.OnClick;
  * Description：
  */
 
-public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutChangeListener  {
+public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutChangeListener {
     @Bind(R.id.znzToolBar)
     ZnzToolBar znzToolBar;
     @Bind(R.id.znzRemind)
@@ -116,9 +115,15 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
                 mDataManager.setValueToView(tvCountView, bean.getClickNum(), "0");
                 mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
 
-                if (!bean.getContentBody().isEmpty()) {
-                    mDataManager.setValueToView(tvContent, bean.getContentBody().get(0).getDesc());
-                    for (ImageBean imageBean : bean.getContentBody()) {
+                if (bean.getIsCollected().equals("1")) {
+                    ivFav.setImageResource(R.mipmap.yishoucang);
+                } else {
+                    ivFav.setImageResource(R.mipmap.shoucangbai);
+                }
+
+                if (!bean.getContentBanner().isEmpty()) {
+                    mDataManager.setValueToView(tvContent, bean.getContentBanner().get(0).getDesc());
+                    for (ImageBean imageBean : bean.getContentBanner()) {
                         fragmentList.add(PictureDetailFrag.newInstance(imageBean));
                     }
                     commonViewPager.setAdapter(new ViewPageAdapter(getSupportFragmentManager(), fragmentList));
@@ -131,7 +136,7 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
 
                         @Override
                         public void onPageSelected(int position) {
-                            mDataManager.setValueToView(tvContent, bean.getContentBody().get(position).getDesc());
+                            mDataManager.setValueToView(tvContent, bean.getContentBanner().get(position).getDesc());
                         }
 
                         @Override
@@ -149,13 +154,6 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick({R.id.ivBack, R.id.flComment, R.id.ivFav, R.id.tvSend, R.id.tvComment})
     public void onViewClicked(View view) {
         Map<String, String> params = new HashMap<>();
@@ -169,20 +167,39 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
                 gotoActivity(CommentListAct.class, bundle);
                 break;
             case R.id.ivFav:
-                params.put("contentId", id);
-                mModel.requestFavAdd(params, new ZnzHttpListener() {
-                    @Override
-                    public void onSuccess(JSONObject responseOriginal) {
-                        super.onSuccess(responseOriginal);
-                        mDataManager.showToast("收藏成功");
-                        ivFav.setImageResource(R.mipmap.yishoucang);
-                    }
+                if (bean.getIsCollected().equals("1")) {
+                    params.put("contentId", id);
+                    mModel.requestFavCancel(params, new ZnzHttpListener() {
+                        @Override
+                        public void onSuccess(JSONObject responseOriginal) {
+                            super.onSuccess(responseOriginal);
+                            mDataManager.showToast("取消收藏成功");
+                            ivFav.setImageResource(R.mipmap.shoucangbai);
+                            bean.setIsCollected("0");
+                        }
 
-                    @Override
-                    public void onFail(String error) {
-                        super.onFail(error);
-                    }
-                });
+                        @Override
+                        public void onFail(String error) {
+                            super.onFail(error);
+                        }
+                    });
+                } else {
+                    params.put("contentId", id);
+                    mModel.requestFavAdd(params, new ZnzHttpListener() {
+                        @Override
+                        public void onSuccess(JSONObject responseOriginal) {
+                            super.onSuccess(responseOriginal);
+                            mDataManager.showToast("收藏成功");
+                            ivFav.setImageResource(R.mipmap.yishoucang);
+                            bean.setIsCollected("1");
+                        }
+
+                        @Override
+                        public void onFail(String error) {
+                            super.onFail(error);
+                        }
+                    });
+                }
                 break;
             case R.id.tvComment:
                 mDataManager.setViewVisibility(llComment1, false);

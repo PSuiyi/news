@@ -2,16 +2,22 @@ package com.znz.news.ui.setting;
 
 import android.os.Bundle;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.ios.ActionSheetDialog.UIAlertDialog;
 import com.znz.compass.znzlibray.views.rowview.ZnzRowDescription;
 import com.znz.compass.znzlibray.views.rowview.ZnzRowGroupView;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
+import com.znz.news.bean.VersionBean;
 import com.znz.news.ui.login.LoginAct;
 import com.znz.news.ui.login.PsdAuthAct;
 import com.znz.news.utils.DataCleanManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +32,7 @@ public class SettingAct extends BaseAppActivity {
     @Bind(R.id.commonRowGroup)
     ZnzRowGroupView commonRowGroup;
     private ArrayList<ZnzRowDescription> rowDescriptionList;
+    private VersionBean bean;
 
     @Override
     protected int[] getLayoutResource() {
@@ -71,18 +78,18 @@ public class SettingAct extends BaseAppActivity {
                 .withValue("已是最新版")
                 .withEnableArraw(true)
                 .withOnClickListener(v -> {
-//                    if (versionBean.getIs_update().equals("1")) {
-//                        mDataManager.showToast("已经是最新版");
-//                    } else {
-//                        new UIAlertDialog(activity)
-//                                .builder()
-//                                .setMsg("检测到有最新版本，是否更新")
-//                                .setNegativeButton("取消", null)
-//                                .setPositiveButton("确定", v2 -> {
-//                                    mDataManager.openUrl(versionBean.getUrl());
-//                                })
-//                                .show();
-//                    }
+                    if (bean.getIsUpdate().equals("1")) {
+                        mDataManager.showToast("已经是最新版");
+                    } else {
+                        new UIAlertDialog(activity)
+                                .builder()
+                                .setMsg("检测到有最新版本，是否更新")
+                                .setNegativeButton("取消", null)
+                                .setPositiveButton("确定", v2 -> {
+                                    mDataManager.openUrl(bean.getUrl());
+                                })
+                                .show();
+                    }
                 })
                 .build());
         rowDescriptionList.add(new ZnzRowDescription.Builder()
@@ -97,7 +104,20 @@ public class SettingAct extends BaseAppActivity {
 
     @Override
     protected void loadDataFromServer() {
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "1");
+        mModel.requestVersion(params, new ZnzHttpListener() {
+            @Override
+            public void onSuccess(JSONObject responseOriginal) {
+                super.onSuccess(responseOriginal);
+                bean = JSON.parseObject(responseOriginal.getString("data"), VersionBean.class);
+            }
 
+            @Override
+            public void onFail(String error) {
+                super.onFail(error);
+            }
+        });
     }
 
     @Override

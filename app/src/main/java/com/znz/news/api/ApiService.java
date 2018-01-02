@@ -49,6 +49,9 @@ public interface ApiService {
     @GET("category/tree")
     Observable<ResponseBody> requestCateTreeList(@QueryMap Map<String, String> params);
 
+    @GET("version/check")
+    Observable<ResponseBody> requestVersion(@QueryMap Map<String, String> params);
+
     @FormUrlEncoded
     @POST("user/verify/password")
     Observable<ResponseBody> requestCheckPsd(@FieldMap Map<String, String> params);
@@ -66,6 +69,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("favourite/add")
     Observable<ResponseBody> requestFavAdd(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("favourite/cancel")
+    Observable<ResponseBody> requestFavCancel(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("user/update/nickname")

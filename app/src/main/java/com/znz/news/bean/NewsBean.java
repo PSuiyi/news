@@ -43,8 +43,17 @@ public class NewsBean extends BaseZnzBean {
     private String contentType;
     private String videoUrl;
     private String evaluateNum;
+    private String isCollected;
     private List<ImageBean> contentBanner;
     private List<ImageBean> contentBody;
+
+    public String getIsCollected() {
+        return isCollected;
+    }
+
+    public void setIsCollected(String isCollected) {
+        this.isCollected = isCollected;
+    }
 
     public List<ImageBean> getContentBody() {
         return contentBody;

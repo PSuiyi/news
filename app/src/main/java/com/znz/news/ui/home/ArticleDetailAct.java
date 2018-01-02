@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -56,9 +59,16 @@ public class ArticleDetailAct extends BaseAppListActivity {
     FrameLayout flComment;
     @Bind(R.id.ivFav)
     ImageView ivFav;
+    @Bind(R.id.tvCountComment)
+    TextView tvCountComment;
+    @Bind(R.id.tvCountView)
+    TextView tvCountView;
+    @Bind(R.id.flView)
+    FrameLayout flView;
     private View header;
     private String id;
     private TextView tvTitle;
+    private WebView wvHtml;
     private NewsBean bean;
 
     @Override
@@ -91,6 +101,40 @@ public class ArticleDetailAct extends BaseAppListActivity {
         header = View.inflate(activity, R.layout.header_article, null);
         adapter.addHeaderView(header);
         tvTitle = bindViewById(header, R.id.tvTitle);
+        wvHtml = bindViewById(header, R.id.wvHtml);
+
+        WebSettings settings = wvHtml.getSettings();
+        settings.setSupportZoom(true);//是否支持缩放,默认为true
+        settings.setBuiltInZoomControls(false);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        //版本号控制，使图片能够适配
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion <= 19) {
+        } else {
+            settings.setUseWideViewPort(true);
+        }
+
+        settings.setLoadWithOverviewMode(true);
+        settings.setJavaScriptEnabled(true);
+        wvHtml.setWebViewClient(new WebViewClient() {
+            // 点击网页里面的链接还是在当前的webView内部跳转，不跳转外部浏览器
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+
+            // 可以让webView处理https请求
+            @Override
+            public void onReceivedSslError(WebView view, android.webkit.SslErrorHandler handler, android.net.http.SslError error) {
+                handler.proceed();
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+
+        });
     }
 
     @Override
@@ -103,6 +147,11 @@ public class ArticleDetailAct extends BaseAppListActivity {
                 super.onSuccess(responseOriginal);
                 bean = JSON.parseObject(responseOriginal.getString("data"), NewsBean.class);
                 mDataManager.setValueToView(tvTitle, bean.getContentTitle());
+                if (bean.getIsCollected().equals("1")) {
+                    ivFav.setImageResource(R.mipmap.yishoucang);
+                } else {
+                    ivFav.setImageResource(R.mipmap.shoucanghei);
+                }
             }
 
             @Override
@@ -137,8 +186,51 @@ public class ArticleDetailAct extends BaseAppListActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.flComment)
-    public void onViewClicked() {
-        gotoActivity(CommentListAct.class);
+    @OnClick({R.id.flComment, R.id.ivFav})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.flComment:
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                gotoActivity(CommentListAct.class, bundle);
+                break;
+            case R.id.ivFav:
+                if (bean.getIsCollected().equals("1")) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("contentId", id);
+                    mModel.requestFavCancel(params, new ZnzHttpListener() {
+                        @Override
+                        public void onSuccess(JSONObject responseOriginal) {
+                            super.onSuccess(responseOriginal);
+                            mDataManager.showToast("取消收藏成功");
+                            ivFav.setImageResource(R.mipmap.shoucanghei);
+                            bean.setIsCollected("0");
+                        }
+
+                        @Override
+                        public void onFail(String error) {
+                            super.onFail(error);
+                        }
+                    });
+                } else {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("contentId", id);
+                    mModel.requestFavAdd(params, new ZnzHttpListener() {
+                        @Override
+                        public void onSuccess(JSONObject responseOriginal) {
+                            super.onSuccess(responseOriginal);
+                            mDataManager.showToast("收藏成功");
+                            ivFav.setImageResource(R.mipmap.yishoucang);
+                            bean.setIsCollected("1");
+                        }
+
+                        @Override
+                        public void onFail(String error) {
+                            super.onFail(error);
+                        }
+                    });
+                }
+                break;
+        }
     }
 }

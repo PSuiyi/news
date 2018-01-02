@@ -142,6 +142,12 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
                 mDataManager.setValueToView(tvCountView, bean.getClickNum());
                 mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum());
 
+                if (bean.getIsCollected().equals("1")) {
+                    ivFav.setImageResource(R.mipmap.yishoucang);
+                } else {
+                    ivFav.setImageResource(R.mipmap.shoucanghei);
+                }
+
                 gsyVideoOption.setIsTouchWiget(true)
                         .setRotateViewAuto(false)
                         .setLockLand(false)
@@ -194,7 +200,11 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
 
 
                 HttpImageView ivImage = new HttpImageView(activity);
-                ivImage.setImageResource(R.mipmap.default_image_rect);
+                if (!bean.getContentBanner().isEmpty()) {
+                    ivImage.loadRectImage(bean.getContentBanner().get(0).getUrl());
+                } else {
+                    ivImage.setImageResource(R.mipmap.default_image_rect);
+                }
                 ivImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 gsyVideoOption.setThumbImageView(ivImage)
@@ -285,21 +295,41 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> {
                 gotoActivity(CommentListAct.class, bundle);
                 break;
             case R.id.ivFav:
-                Map<String, String> params = new HashMap<>();
-                params.put("contentId", id);
-                mModel.requestFavAdd(params, new ZnzHttpListener() {
-                    @Override
-                    public void onSuccess(JSONObject responseOriginal) {
-                        super.onSuccess(responseOriginal);
-                        mDataManager.showToast("收藏成功");
-                        ivFav.setImageResource(R.mipmap.yishoucang);
-                    }
+                if (bean.getIsCollected().equals("1")) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("contentId", id);
+                    mModel.requestFavCancel(params, new ZnzHttpListener() {
+                        @Override
+                        public void onSuccess(JSONObject responseOriginal) {
+                            super.onSuccess(responseOriginal);
+                            mDataManager.showToast("取消收藏成功");
+                            ivFav.setImageResource(R.mipmap.shoucanghei);
+                            bean.setIsCollected("0");
+                        }
 
-                    @Override
-                    public void onFail(String error) {
-                        super.onFail(error);
-                    }
-                });
+                        @Override
+                        public void onFail(String error) {
+                            super.onFail(error);
+                        }
+                    });
+                } else {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("contentId", id);
+                    mModel.requestFavAdd(params, new ZnzHttpListener() {
+                        @Override
+                        public void onSuccess(JSONObject responseOriginal) {
+                            super.onSuccess(responseOriginal);
+                            mDataManager.showToast("收藏成功");
+                            ivFav.setImageResource(R.mipmap.yishoucang);
+                            bean.setIsCollected("1");
+                        }
+
+                        @Override
+                        public void onFail(String error) {
+                            super.onFail(error);
+                        }
+                    });
+                }
                 break;
         }
     }

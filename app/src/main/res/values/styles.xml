@@ -39,4 +39,19 @@
         <item name="android:layout_marginBottom">1dp</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="DialogActStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Anim_scale</item>
+    </style>
+
+
+    <style name="Anim_scale" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/actionsheet_dialog_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
 </resources>
