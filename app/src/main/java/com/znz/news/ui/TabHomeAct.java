@@ -14,6 +14,7 @@ import com.znz.compass.znzlibray.common.DataManager;
 import com.znz.compass.znzlibray.eventbus.BaseEvent;
 import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.compass.znzlibray.utils.FragmentUtil;
+import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 import com.znz.news.ui.home.HomeFrag;
@@ -154,6 +155,7 @@ public class TabHomeAct extends BaseAppActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        GSYVideoPlayer.releaseAllVideos();
         EventManager.unregister(this);
     }
 

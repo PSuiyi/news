@@ -90,7 +90,6 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
     LinearLayout llComment2;
     @Bind(R.id.llContainer)
     LinearLayout llContainer;
-    private View header;
 
     private OrientationUtils orientationUtils;
     private boolean isPlay;

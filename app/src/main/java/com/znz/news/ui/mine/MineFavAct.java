@@ -1,11 +1,14 @@
 package com.znz.news.ui.mine;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.libvideo.videoplayer.GSYVideoManager;
+import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
@@ -34,6 +37,7 @@ import rx.Observable;
 public class MineFavAct extends BaseAppListActivity<MultiBean> {
 
     private List<NewsBean> newsBeanList = new ArrayList<>();
+    private boolean mFull;
 
     @Override
     protected int[] getLayoutResource() {
@@ -128,6 +132,26 @@ public class MineFavAct extends BaseAppListActivity<MultiBean> {
     public void onResume() {
         super.onResume();
         GSYVideoManager.onResume();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //如果旋转了就全屏
+        if (newConfig.orientation != ActivityInfo.SCREEN_ORIENTATION_USER) {
+            mFull = false;
+        } else {
+            mFull = true;
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (StandardGSYVideoPlayer.backFromWindowFull(this)) {
+            return;
+        }
+        super.onBackPressed();
     }
 
 }

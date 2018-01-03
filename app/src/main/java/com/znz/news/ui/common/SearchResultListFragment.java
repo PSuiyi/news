@@ -1,10 +1,13 @@
 package com.znz.news.ui.common;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.znz.compass.znzlibray.eventbus.EventManager;
+import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.base.BaseAppListFragment;
@@ -36,6 +39,7 @@ public class SearchResultListFragment extends BaseAppListFragment<MultiBean> {
     private String searchContent;
 
     private List<NewsBean> newsBeanList = new ArrayList<>();
+    private boolean mFull;
 
     @Override
     protected int[] getLayoutResource() {
@@ -130,5 +134,24 @@ public class SearchResultListFragment extends BaseAppListFragment<MultiBean> {
                 resetRefresh();
                 break;
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //如果旋转了就全屏
+        if (newConfig.orientation != ActivityInfo.SCREEN_ORIENTATION_USER) {
+            mFull = false;
+        } else {
+            mFull = true;
+        }
+
+    }
+
+    public boolean onBackPressed() {
+        if (StandardGSYVideoPlayer.backFromWindowFull(getActivity())) {
+            return true;
+        }
+        return false;
     }
 }

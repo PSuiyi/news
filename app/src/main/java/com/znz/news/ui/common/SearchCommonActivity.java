@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.compass.znzlibray.utils.FragmentUtil;
 import com.znz.compass.znzlibray.utils.StringUtil;
+import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.base.BaseAppActivity;
 import com.znz.news.bean.SearchHistoryBean;
@@ -60,6 +61,7 @@ public class SearchCommonActivity extends BaseAppActivity implements TextWatcher
 
     @Override
     protected void initializeNavigation() {
+        znzToolBar.setSearchBackRight();
     }
 
     @Override
@@ -124,6 +126,7 @@ public class SearchCommonActivity extends BaseAppActivity implements TextWatcher
     @Override
     public void onDestroy() {
         super.onDestroy();
+        GSYVideoPlayer.releaseAllVideos();
         EventManager.unregister(this);
     }
 
@@ -156,5 +159,15 @@ public class SearchCommonActivity extends BaseAppActivity implements TextWatcher
             fragmentUtil.switchContent(fragment, R.id.container, fragmentManager);
             EventBus.getDefault().post(new EventRefresh(EventTags.REFRESH_SEARCH_HISTORY));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragment2 != null) {
+            if (fragment2.onBackPressed()) {
+                return;
+            }
+        }
+        finish();
     }
 }

@@ -2,18 +2,21 @@ package com.znz.news.ui.video;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONArray;
-import com.znz.libvideo.videoplayer.GSYVideoManager;
 import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
-import com.znz.news.adapter.VideoAdapter;
+import com.znz.news.adapter.MultiAdapter;
 import com.znz.news.base.BaseAppListFragment;
+import com.znz.news.bean.MultiBean;
 import com.znz.news.bean.NewsBean;
+import com.znz.news.common.Constants;
 import com.znz.news.ui.common.SearchCommonActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -24,9 +27,10 @@ import rx.Observable;
  * Description：
  */
 
-public class VideoFrag extends BaseAppListFragment<NewsBean> {
+public class VideoFrag extends BaseAppListFragment<MultiBean> {
 
     private boolean mFull;
+    private List<NewsBean> newsBeanList = new ArrayList<>();
 
     @Override
     protected int[] getLayoutResource() {
@@ -53,39 +57,8 @@ public class VideoFrag extends BaseAppListFragment<NewsBean> {
 
     @Override
     protected void initializeView() {
-        adapter = new VideoAdapter(dataList, activity);
+        adapter = new MultiAdapter(dataList);
         rvRefresh.setAdapter(adapter);
-
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) rvRefresh.getLayoutManager();
-        rvRefresh.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int firstVisibleItem, lastVisibleItem;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                //大于0说明有播放
-                if (GSYVideoManager.instance().getPlayPosition() >= 0) {
-                    //当前播放的位置
-                    int position = GSYVideoManager.instance().getPlayPosition();
-                    //对应的播放列表TAG
-                    if (GSYVideoManager.instance().getPlayTag().equals("11")
-                            && (position < firstVisibleItem || position > lastVisibleItem)) {
-                        //如果滑出去了上面和下面就是否，和今日头条一样
-                        if (!mFull) {
-                            GSYVideoPlayer.releaseAllVideos();
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -101,38 +74,19 @@ public class VideoFrag extends BaseAppListFragment<NewsBean> {
 
     @Override
     protected void onRefreshSuccess(String response) {
-        dataList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
+        newsBeanList.clear();
+        newsBeanList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
+        if (!newsBeanList.isEmpty()) {
+            for (NewsBean newsBean : newsBeanList) {
+                dataList.add(new MultiBean(Constants.MultiType.Video, newsBean));
+            }
+        }
         adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onRefreshFail(String error) {
 
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        GSYVideoPlayer.releaseAllVideos();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        GSYVideoManager.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        GSYVideoManager.onResume();
-    }
-
-    public boolean onBackPressed() {
-        if (StandardGSYVideoPlayer.backFromWindowFull(getActivity())) {
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -144,6 +98,14 @@ public class VideoFrag extends BaseAppListFragment<NewsBean> {
         } else {
             mFull = true;
         }
+
+    }
+
+    public boolean onBackPressed() {
+        if (StandardGSYVideoPlayer.backFromWindowFull(getActivity())) {
+            return true;
+        }
+        return false;
     }
 
     @Override

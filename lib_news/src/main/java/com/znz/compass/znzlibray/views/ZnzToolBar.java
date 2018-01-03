@@ -395,6 +395,12 @@ public class ZnzToolBar extends LinearLayout {
         llSearchRight2.setVisibility(VISIBLE);
     }
 
+
+    public void setSearchBackRight(){
+        llSearchRight2.setVisibility(GONE);
+        llSearchRight.setVisibility(VISIBLE);
+    }
+
     /**
      * 设置搜索框点击事件
      *
