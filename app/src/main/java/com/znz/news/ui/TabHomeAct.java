@@ -133,6 +133,11 @@ public class TabHomeAct extends BaseAppActivity {
 
     @Override
     public void onBackPressed() {
+        if (homeFrag != null) {
+            if (homeFrag.onBackPressed()) {
+                return;
+            }
+        }
         if (videoFrag != null) {
             if (videoFrag.onBackPressed()) {
                 return;

@@ -1,5 +1,7 @@
 package com.znz.news.ui.home;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.views.imageloder.GlideApp;
 import com.znz.libvideo.videoplayer.GSYVideoManager;
+import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.libvideo.videoplayer.video.base.GSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
@@ -49,6 +52,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     private TypeHorizontalAdapter typeAdapter;
 
     private List<NewsBean> newsBeanList = new ArrayList<>();
+    private boolean mFull;
 
     @Override
     protected int[] getLayoutResource() {
@@ -223,4 +227,30 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         GSYVideoManager.onResume();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //如果旋转了就全屏
+        if (newConfig.orientation != ActivityInfo.SCREEN_ORIENTATION_USER) {
+            mFull = false;
+        } else {
+            mFull = true;
+        }
+
+    }
+
+    public boolean onBackPressed() {
+        if (StandardGSYVideoPlayer.backFromWindowFull(getActivity())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            GSYVideoPlayer.releaseAllVideos();
+        }
+    }
 }
