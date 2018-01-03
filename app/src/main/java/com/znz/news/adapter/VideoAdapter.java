@@ -1,5 +1,6 @@
 package com.znz.news.adapter;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -22,6 +23,7 @@ import butterknife.Bind;
 
 public class VideoAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
 
+    private final Activity activity;
     @Bind(R.id.tvTitle)
     TextView tvTitle;
     @Bind(R.id.detailPlayer)
@@ -29,9 +31,10 @@ public class VideoAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> imp
 
     GSYVideoOptionBuilder gsyVideoOptionBuilder;
 
-    public VideoAdapter(@Nullable List dataList) {
+    public VideoAdapter(@Nullable List dataList, Activity activity) {
         super(R.layout.item_lv_video, dataList);
         gsyVideoOptionBuilder = new GSYVideoOptionBuilder();
+        this.activity = activity;
     }
 
     @Override
@@ -80,7 +83,14 @@ public class VideoAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> imp
         gsyVideoPlayer.getTitleTextView().setVisibility(View.GONE);
         //设置返回键
         gsyVideoPlayer.getBackButton().setVisibility(View.GONE);
-        gsyVideoPlayer.getFullscreenButton().setVisibility(View.GONE);
+
+        //设置全屏按键功能
+        gsyVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gsyVideoPlayer.startWindowFullscreen(activity, true, true);
+            }
+        });
     }
 
     @Override

@@ -20,6 +20,7 @@
                 style="@style/TitleTextStyle"
                 android:paddingBottom="@dimen/distance_view"
                 android:paddingTop="@dimen/distance_view"
+                android:singleLine="true"
                 android:text="cehsi" />
 
             <com.znz.compass.znzlibray.views.imageloder.HttpImageView
@@ -34,6 +35,7 @@
                 style="@style/TitleTextStyle"
                 android:paddingBottom="@dimen/distance_view"
                 android:paddingTop="@dimen/distance_view"
+                android:singleLine="true"
                 android:text="cehsi" />
         </LinearLayout>
     </LinearLayout>

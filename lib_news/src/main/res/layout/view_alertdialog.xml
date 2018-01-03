@@ -55,8 +55,8 @@
             android:layout_weight="1"
             android:background="@drawable/alertdialog_left_selector"
             android:gravity="center"
-            android:paddingBottom="@dimen/distance_divider"
-            android:paddingTop="@dimen/distance_divider"
+            android:paddingBottom="@dimen/distance_view"
+            android:paddingTop="@dimen/distance_view"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/title_size" />
 
@@ -73,8 +73,8 @@
             android:layout_weight="1"
             android:background="@drawable/alertdialog_right_selector"
             android:gravity="center"
-            android:paddingBottom="@dimen/distance_divider"
-            android:paddingTop="@dimen/distance_divider"
+            android:paddingBottom="@dimen/distance_view"
+            android:paddingTop="@dimen/distance_view"
             android:textColor="@color/text_alert_color"
             android:textSize="@dimen/title_size" />
 

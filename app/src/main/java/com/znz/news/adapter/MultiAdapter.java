@@ -52,6 +52,8 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                 helper.setText(R.id.tvSection, bean.getSection());
                 break;
             case Constants.MultiType.Top:
+                helper.setText(R.id.tvTitle, bean.getNewsBean().getContentTitle());
+                helper.setText(R.id.tvCountComment, bean.getNewsBean().getEvaluateNum());
                 break;
             case Constants.MultiType.Article:
                 helper.setText(R.id.tvTitle, bean.getNewsBean().getContentTitle());
@@ -104,7 +106,13 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                 gsyVideoPlayer.getTitleTextView().setVisibility(View.GONE);
                 //设置返回键
                 gsyVideoPlayer.getBackButton().setVisibility(View.GONE);
-                gsyVideoPlayer.getFullscreenButton().setVisibility(View.GONE);
+                //设置全屏按键功能
+                gsyVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gsyVideoPlayer.startWindowFullscreen(mContext, true, true);
+                    }
+                });
                 break;
             case Constants.MultiType.Picture:
                 helper.setText(R.id.tvTitle, bean.getNewsBean().getContentTitle());

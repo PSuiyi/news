@@ -122,6 +122,10 @@ public class ApiModel extends BaseModel {
         request(apiService.requestUpdateRemark(params), znzHttpListener, LODING_PD);
     }
 
+    public void requestUpdateHeader(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestUpdateHeader(params), znzHttpListener);
+    }
+
     public void requestUploadImage(String url, ZnzHttpListener znzHttpListener) {
         Map<String, String> params = new HashMap<>();
         params.put("filetype", "1");

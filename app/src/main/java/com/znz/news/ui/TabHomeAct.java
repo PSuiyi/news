@@ -132,6 +132,11 @@ public class TabHomeAct extends BaseAppActivity {
 
     @Override
     public void onBackPressed() {
+        if (videoFrag != null) {
+            if (videoFrag.onBackPressed()) {
+                return;
+            }
+        }
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
             DataManager.getInstance(this).showToast(R.string.app_exit_again);
             mExitTime = System.currentTimeMillis();

@@ -23,7 +23,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -100,9 +102,23 @@ public class MineInfoAct extends BaseAppActivity {
                                 @Override
                                 public void onSuccess(JSONObject responseOriginal) {
                                     super.onSuccess(responseOriginal);
-                                    ivUserHeader.loadHeaderImage(photoList.get(0));
-                                    mDataManager.saveTempData(Constants.User.HEAD_IMG_PATH, photoList.get(0));
-                                    EventBus.getDefault().post(new EventRefresh(EventTags.REFRESH_EDIT_VALUE));
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("avatar", responseObject.getString("savePath"));
+                                    mModel.requestUpdateHeader(params, new ZnzHttpListener() {
+                                        @Override
+                                        public void onSuccess(JSONObject responseOriginal) {
+                                            super.onSuccess(responseOriginal);
+                                            hidePd();
+                                            ivUserHeader.loadHeaderImage(photoList.get(0));
+                                            mDataManager.saveTempData(Constants.User.HEAD_IMG_PATH, photoList.get(0));
+                                            EventBus.getDefault().post(new EventRefresh(EventTags.REFRESH_EDIT_VALUE));
+                                        }
+
+                                        @Override
+                                        public void onFail(String error) {
+                                            super.onFail(error);
+                                        }
+                                    });
                                 }
 
                                 @Override

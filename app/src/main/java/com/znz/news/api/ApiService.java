@@ -93,6 +93,10 @@ public interface ApiService {
     @POST("user/update/profile")
     Observable<ResponseBody> requestUpdateRemark(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("user/update/avatar")
+    Observable<ResponseBody> requestUpdateHeader(@FieldMap Map<String, String> params);
+
     @Multipart
     @POST("upload/upload")
     Observable<ResponseBody> uploadImageSingle(@QueryMap Map<String, String> params, @Part MultipartBody.Part file);

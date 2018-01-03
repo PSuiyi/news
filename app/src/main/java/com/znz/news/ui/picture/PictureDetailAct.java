@@ -126,7 +126,13 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
                 }
 
                 if (!bean.getContentBanner().isEmpty()) {
-                    mDataManager.setValueToView(tvContent, bean.getContentBanner().get(0).getDesc());
+                    int total = bean.getContentBanner().size();
+                    if (!StringUtil.isBlank(bean.getContentBanner().get(0).getDesc())) {
+                        tvContent.setText(1 + "/" + total + bean.getContentBanner().get(0).getDesc());
+                    } else {
+                        tvContent.setText(1 + "/" + total);
+                    }
+
                     for (ImageBean imageBean : bean.getContentBanner()) {
                         fragmentList.add(PictureDetailFrag.newInstance(imageBean));
                     }
@@ -140,7 +146,11 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
 
                         @Override
                         public void onPageSelected(int position) {
-                            mDataManager.setValueToView(tvContent, bean.getContentBanner().get(position).getDesc());
+                            if (!StringUtil.isBlank(bean.getContentBanner().get(position).getDesc())) {
+                                tvContent.setText(position + 1 + "/" + total + bean.getContentBanner().get(position).getDesc());
+                            } else {
+                                tvContent.setText(position + 1 + "/" + total);
+                            }
                         }
 
                         @Override
