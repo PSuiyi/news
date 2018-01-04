@@ -128,7 +128,7 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
                 if (!bean.getContentBanner().isEmpty()) {
                     int total = bean.getContentBanner().size();
                     if (!StringUtil.isBlank(bean.getContentBanner().get(0).getDesc())) {
-                        tvContent.setText(1 + "/" + total + bean.getContentBanner().get(0).getDesc());
+                        tvContent.setText(1 + "/" + total + " " + bean.getContentBanner().get(0).getDesc());
                     } else {
                         tvContent.setText(1 + "/" + total);
                     }
@@ -147,7 +147,7 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
                         @Override
                         public void onPageSelected(int position) {
                             if (!StringUtil.isBlank(bean.getContentBanner().get(position).getDesc())) {
-                                tvContent.setText(position + 1 + "/" + total + bean.getContentBanner().get(position).getDesc());
+                                tvContent.setText(position + 1 + "/" + total + " " + bean.getContentBanner().get(position).getDesc());
                             } else {
                                 tvContent.setText(position + 1 + "/" + total);
                             }

@@ -3,18 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:padding="@dimen/distance_view">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/TitleTextStyle"
-        android:text="网传“十大垃圾食品”误导了多少中国父母" />
-
-
-    <WebView
-        android:id="@+id/wvHtml"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance_view"></WebView>
+        android:orientation="vertical"
+        android:padding="@dimen/distance_view">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TitleTextStyle"
+            android:text="网传“十大垃圾食品”误导了多少中国父母" />
+
+
+        <WebView
+            android:id="@+id/wvHtml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_view"></WebView>
+    </LinearLayout>
+
+    <View style="@style/Line" />
 </LinearLayout>

@@ -36,8 +36,14 @@ public class PictureAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> i
 
         if (!bean.getContentBanner().isEmpty()) {
             List<String> urls = new ArrayList<>();
-            for (ImageBean imageBean : bean.getContentBanner()) {
-                urls.add(imageBean.getUrl());
+            if (bean.getContentBanner().size() >= 3) {
+                for (int i = 0; i < 3; i++) {
+                    urls.add(bean.getContentBanner().get(i).getUrl());
+                }
+            } else {
+                for (ImageBean imageBean : bean.getContentBanner()) {
+                    urls.add(imageBean.getUrl());
+                }
             }
             nineGrid.setList(urls);
             mDataManager.setViewVisibility(nineGrid, true);

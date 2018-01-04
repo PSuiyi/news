@@ -120,8 +120,14 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                 NineGridView nineGrid = helper.getView(R.id.nineGrid);
                 if (!bean.getNewsBean().getContentBanner().isEmpty()) {
                     List<String> urls = new ArrayList<>();
-                    for (ImageBean imageBean : bean.getNewsBean().getContentBanner()) {
-                        urls.add(imageBean.getUrl());
+                    if (bean.getNewsBean().getContentBanner().size() >= 3) {
+                        for (int i = 0; i < 3; i++) {
+                            urls.add(bean.getNewsBean().getContentBanner().get(i).getUrl());
+                        }
+                    } else {
+                        for (ImageBean imageBean : bean.getNewsBean().getContentBanner()) {
+                            urls.add(imageBean.getUrl());
+                        }
                     }
                     nineGrid.setList(urls);
                     mDataManager.setViewVisibility(nineGrid, true);

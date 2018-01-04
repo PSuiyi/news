@@ -5,10 +5,24 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TitleTextStyle"
+        android:layout_width="match_parent"
+        android:maxLines="2"
+        android:padding="@dimen/distance_view" />
+
     <com.znz.news.view.RecyclerCoverFlow
         android:id="@+id/rvCoverFlow"
         android:layout_width="match_parent"
-        android:layout_height="310dp" />
+        android:layout_height="@dimen/video_height" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        style="@style/TextGrayStyle"
+        android:layout_width="match_parent"
+        android:maxLines="2"
+        android:padding="@dimen/distance_view" />
 
     <View style="@style/Line" />
 </LinearLayout>

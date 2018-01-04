@@ -15,28 +15,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                style="@style/TitleTextStyle"
-                android:paddingBottom="@dimen/distance_view"
-                android:paddingTop="@dimen/distance_view"
-                android:singleLine="true"
-                android:text="cehsi" />
-
             <com.znz.compass.znzlibray.views.imageloder.HttpImageView
                 android:id="@+id/ivImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/video_height"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/default_image_rect" />
-
-            <TextView
-                android:id="@+id/tvContent"
-                style="@style/TitleTextStyle"
-                android:paddingBottom="@dimen/distance_view"
-                android:paddingTop="@dimen/distance_view"
-                android:singleLine="true"
-                android:text="cehsi" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
