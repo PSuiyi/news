@@ -113,6 +113,7 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
     @Override
     protected void initializeNavigation() {
         setTitleName("视频详情");
+        setNoDataDes("暂无评论");
     }
 
     @Override

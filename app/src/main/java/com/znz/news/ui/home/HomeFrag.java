@@ -2,6 +2,7 @@ package com.znz.news.ui.home;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.znz.news.bean.MultiBean;
 import com.znz.news.bean.NewsBean;
 import com.znz.news.common.Constants;
 import com.znz.news.ui.common.SearchCommonActivity;
+import com.znz.news.ui.common.WebViewAct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +55,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     private List<NewsBean> newsBeanList = new ArrayList<>();
     private boolean mFull;
+    private List<BannerBean> bannerBeanList = new ArrayList<>();
 
     @Override
     protected int[] getLayoutResource() {
@@ -116,18 +119,20 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         });
 
 
-//        mBanner.setDelegate((banner, itemView, model, position) -> {
-//            Bundle bundle = new Bundle();
-//            bundle.putString("url", advList.get(position).getUrl());
-//            bundle.putString("title", advList.get(position).getName());
-//            gotoActivity(WebViewAct.class, bundle);
-//        });
-
-
+        mBanner.setDelegate((banner, itemView, model, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("url", bannerBeanList.get(position).getAdLink());
+            bundle.putString("title", bannerBeanList.get(position).getAdName());
+            gotoActivity(WebViewAct.class, bundle);
+        });
     }
 
     @Override
     protected void loadDataFromServer() {
+
+    }
+
+    private void requestBanner() {
         Map<String, String> params = new HashMap<>();
         params.put("page", "1");
         params.put("pagesize", "10");
@@ -135,7 +140,8 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
             @Override
             public void onSuccess(JSONObject responseOriginal) {
                 super.onSuccess(responseOriginal);
-                List<BannerBean> bannerBeanList = JSONArray.parseArray(responseObject.getString("list"), BannerBean.class);
+                bannerBeanList.clear();
+                bannerBeanList.addAll(JSONArray.parseArray(responseObject.getString("list"), BannerBean.class));
                 List<String> advUrls = new ArrayList<>();
                 List<String> advTitles = new ArrayList<>();
                 for (BannerBean bannerBean : bannerBeanList) {
@@ -158,6 +164,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
             @Override
             public void onSuccess(JSONObject responseOriginal) {
                 super.onSuccess(responseOriginal);
+                cateBeanList.clear();
                 cateBeanList.addAll(JSONArray.parseArray(responseObject.getString("list"), CateBean.class));
                 typeAdapter.notifyDataSetChanged();
             }
@@ -167,7 +174,6 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
                 super.onFail(error);
             }
         });
-
     }
 
     @Override
@@ -186,6 +192,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
                         dataList.add(new MultiBean(Constants.MultiType.Top, newsBean));
                     }
                 }
+                requestBanner();
             }
             for (NewsBean newsBean : newsBeanList) {
                 switch (newsBean.getContentType()) {

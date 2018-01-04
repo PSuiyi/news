@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.socks.library.KLog;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.utils.ZnzLog;
@@ -34,6 +35,10 @@ import com.znz.news.event.EventTags;
 import com.znz.news.ui.picture.CommentListAct;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,6 +111,7 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
     @Override
     protected void initializeNavigation() {
         setTitleName("文章详情");
+        setNoDataDes("暂无评论");
     }
 
     @Override
@@ -159,6 +165,7 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
         });
     }
 
+
     @Override
     protected void loadDataFromServer() {
         Map<String, String> params = new HashMap<>();
@@ -175,8 +182,11 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
                     ivFav.setImageResource(R.mipmap.shoucanghei);
                 }
 
+                mDataManager.setValueToView(tvCountView, bean.getClickNum());
+                mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum());
+
                 if (!StringUtil.isBlank(bean.getContentBody())) {
-                    wvHtml.loadDataWithBaseURL(null, bean.getContentBody(), "text/html", "utf-8", null);
+                    wvHtml.loadDataWithBaseURL(null, getNewContent(bean.getContentBody()), "text/html", "utf-8", null);
                     if (Build.VERSION.SDK_INT > 19) {
                         settings.setTextZoom(400);
                     }
@@ -188,6 +198,22 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
                 super.onFail(error);
             }
         });
+    }
+
+    /**
+     * 处理html文本
+     *
+     * @param htmltext
+     * @return
+     */
+    public String getNewContent(String htmltext) {
+        Document doc = Jsoup.parse(htmltext);
+        Elements elements = doc.getElementsByTag("img");
+        for (Element element : elements) {
+            element.attr("width", "100%").attr("height", "auto");
+        }
+        KLog.e("doc.toString()---->" + doc.toString());
+        return doc.toString();
     }
 
 

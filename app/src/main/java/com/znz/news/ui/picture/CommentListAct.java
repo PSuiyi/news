@@ -83,6 +83,7 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
         znzToolBar.setOnNavLeftClickListener(v -> {
             onBackPressed();
         });
+        setNoDataDes("暂无评论");
     }
 
     @Override

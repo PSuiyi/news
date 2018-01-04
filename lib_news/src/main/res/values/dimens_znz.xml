@@ -31,7 +31,7 @@
     <dimen name="head_width">30dp</dimen>
     <dimen name="head_height">30dp</dimen>
 
-    <dimen name="empty_icon_size">90dp</dimen>
+    <dimen name="empty_icon_size">100dp</dimen>
 
     <dimen name="nav_height">54dp</dimen>
     <dimen name="tab_height">48dp</dimen>
