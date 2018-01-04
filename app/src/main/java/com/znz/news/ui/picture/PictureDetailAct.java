@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.utils.ZnzLog;
@@ -22,10 +23,13 @@ import com.znz.news.adapter.ViewPageAdapter;
 import com.znz.news.base.BaseAppActivity;
 import com.znz.news.bean.ImageBean;
 import com.znz.news.bean.NewsBean;
+import com.znz.news.event.EventList;
 import com.znz.news.event.EventRefresh;
 import com.znz.news.event.EventTags;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -240,6 +244,8 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
 
                         bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
                         mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
+
+                        EventBus.getDefault().post(new EventList(EventTags.LIST_COMMENT, bean.getContentId()));
                     }
 
                     @Override
@@ -265,6 +271,28 @@ public class PictureDetailAct extends BaseAppActivity implements View.OnLayoutCh
                 mDataManager.setViewVisibility(llComment1, true);
                 mDataManager.setViewVisibility(llComment2, false);
             });
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventManager.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventManager.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventList event) {
+        if (event.getFlag() == EventTags.LIST_COMMENT_DETAIL) {
+            if (event.getValue().equals(id)) {
+                bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
+                mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
+            }
         }
     }
 }

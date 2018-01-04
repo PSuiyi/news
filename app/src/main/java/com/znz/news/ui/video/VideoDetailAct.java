@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
 import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.utils.ZnzLog;
@@ -31,17 +32,19 @@ import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
 import com.znz.news.bean.CommentBean;
 import com.znz.news.bean.NewsBean;
+import com.znz.news.event.EventList;
 import com.znz.news.event.EventRefresh;
 import com.znz.news.event.EventTags;
 import com.znz.news.ui.picture.CommentListAct;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -254,11 +257,11 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
 
     }
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        EventManager.register(this);
     }
 
     @Override
@@ -293,6 +296,7 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
         }
         if (orientationUtils != null)
             orientationUtils.releaseListener();
+        EventManager.unregister(this);
     }
 
     @Override
@@ -376,6 +380,8 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
 
                         bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
                         mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
+
+                        EventBus.getDefault().post(new EventList(EventTags.LIST_COMMENT, bean.getContentId()));
                     }
 
                     @Override
@@ -401,6 +407,16 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
                 mDataManager.setViewVisibility(llComment1, true);
                 mDataManager.setViewVisibility(llComment2, false);
             });
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventList event) {
+        if (event.getFlag() == EventTags.LIST_COMMENT_DETAIL) {
+            if (event.getValue().equals(id)) {
+                bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
+                mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
+            }
         }
     }
 }

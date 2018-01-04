@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.znz.compass.znzlibray.eventbus.EventManager;
+import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
 import com.znz.news.R;
 import com.znz.news.adapter.MultiAdapter;
@@ -14,6 +15,7 @@ import com.znz.news.base.BaseAppListFragment;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.bean.NewsBean;
 import com.znz.news.common.Constants;
+import com.znz.news.event.EventList;
 import com.znz.news.event.EventRefresh;
 import com.znz.news.event.EventTags;
 
@@ -133,6 +135,21 @@ public class SearchResultListFragment extends BaseAppListFragment<MultiBean> {
                 hideNoData();
                 resetRefresh();
                 break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventList event) {
+        if (event.getFlag() == EventTags.LIST_COMMENT || event.getFlag() == EventTags.LIST_COMMENT_DETAIL) {
+            for (MultiBean multiBean : dataList) {
+                if (multiBean.getNewsBean() != null) {
+                    if (multiBean.getNewsBean().getContentId().equals(event.getValue())) {
+                        multiBean.getNewsBean().setEvaluateNum(StringUtil.getNumUP(multiBean.getNewsBean().getEvaluateNum()));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+            }
         }
     }
 

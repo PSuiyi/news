@@ -18,7 +18,6 @@ public interface EventTags {
     int GOTO_HOME_CITY = 0x205;
     int GOTO_EXCHANGE_CITY = 0x206;
 
-    int LIST_POST_VIEW_COUNT = 0x300;
-    int FINISH_LAST_PAGE = 0x400;//关闭上一个界面
-
+    int LIST_COMMENT_DETAIL = 0x300;
+    int LIST_COMMENT = 0x301;
 }

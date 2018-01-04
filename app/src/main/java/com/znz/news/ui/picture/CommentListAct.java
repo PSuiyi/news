@@ -19,6 +19,10 @@ import com.znz.news.R;
 import com.znz.news.adapter.CommentAdapter;
 import com.znz.news.base.BaseAppListActivity;
 import com.znz.news.bean.CommentBean;
+import com.znz.news.event.EventList;
+import com.znz.news.event.EventTags;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -178,6 +182,8 @@ public class CommentListAct extends BaseAppListActivity<CommentBean> implements 
                         mDataManager.setViewVisibility(llComment1, true);
                         mDataManager.setViewVisibility(llComment2, false);
                         resetRefresh();
+
+                        EventBus.getDefault().post(new EventList(EventTags.LIST_COMMENT_DETAIL, id));
                     }
 
                     @Override

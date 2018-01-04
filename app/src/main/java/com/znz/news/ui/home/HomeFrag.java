@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.znz.compass.znzlibray.eventbus.EventManager;
 import com.znz.compass.znzlibray.network.znzhttp.ZnzHttpListener;
+import com.znz.compass.znzlibray.utils.StringUtil;
 import com.znz.compass.znzlibray.views.imageloder.GlideApp;
 import com.znz.libvideo.videoplayer.GSYVideoManager;
 import com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer;
@@ -25,8 +27,13 @@ import com.znz.news.bean.CateBean;
 import com.znz.news.bean.MultiBean;
 import com.znz.news.bean.NewsBean;
 import com.znz.news.common.Constants;
+import com.znz.news.event.EventList;
+import com.znz.news.event.EventTags;
 import com.znz.news.ui.common.SearchCommonActivity;
 import com.znz.news.ui.common.WebViewAct;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -220,6 +227,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
     public void onDestroy() {
         super.onDestroy();
         GSYVideoPlayer.releaseAllVideos();
+        EventManager.unregister(this);
     }
 
     @Override
@@ -258,6 +266,27 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         super.onHiddenChanged(hidden);
         if (hidden) {
             GSYVideoPlayer.releaseAllVideos();
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventManager.register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventList event) {
+        if (event.getFlag() == EventTags.LIST_COMMENT || event.getFlag() == EventTags.LIST_COMMENT_DETAIL) {
+            for (MultiBean multiBean : dataList) {
+                if (multiBean.getNewsBean() != null) {
+                    if (multiBean.getNewsBean().getContentId().equals(event.getValue())) {
+                        multiBean.getNewsBean().setEvaluateNum(StringUtil.getNumUP(multiBean.getNewsBean().getEvaluateNum()));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+            }
         }
     }
 }
