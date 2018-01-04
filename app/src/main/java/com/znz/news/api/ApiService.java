@@ -90,6 +90,10 @@ public interface ApiService {
     Observable<ResponseBody> requestUpdatePsd(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
+    @POST("auth/findpwd/setnewpwd")
+    Observable<ResponseBody> requestForgetPsd(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
     @POST("user/update/profile")
     Observable<ResponseBody> requestUpdateRemark(@FieldMap Map<String, String> params);
 

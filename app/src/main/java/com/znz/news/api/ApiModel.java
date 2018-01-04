@@ -118,6 +118,10 @@ public class ApiModel extends BaseModel {
         request(apiService.requestUpdatePsd(params), znzHttpListener, LODING_PD);
     }
 
+    public void requestForgetPsd(Map<String, String> params, ZnzHttpListener znzHttpListener) {
+        request(apiService.requestForgetPsd(params), znzHttpListener, LODING_PD);
+    }
+
     public void requestUpdateRemark(Map<String, String> params, ZnzHttpListener znzHttpListener) {
         request(apiService.requestUpdateRemark(params), znzHttpListener, LODING_PD);
     }

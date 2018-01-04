@@ -89,6 +89,7 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
     private TextView tvTitle;
     private WebView wvHtml;
     private NewsBean bean;
+    private WebSettings settings;
 
     @Override
     protected int[] getLayoutResource() {
@@ -124,7 +125,7 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
 
         llContainer.addOnLayoutChangeListener(this);
 
-        WebSettings settings = wvHtml.getSettings();
+        settings = wvHtml.getSettings();
         settings.setSupportZoom(true);//是否支持缩放,默认为true
         settings.setBuiltInZoomControls(false);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -172,6 +173,13 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
                     ivFav.setImageResource(R.mipmap.yishoucang);
                 } else {
                     ivFav.setImageResource(R.mipmap.shoucanghei);
+                }
+
+                if (!StringUtil.isBlank(bean.getContentBody())) {
+                    wvHtml.loadDataWithBaseURL(null, bean.getContentBody(), "text/html", "utf-8", null);
+                    if (Build.VERSION.SDK_INT > 19) {
+                        settings.setTextZoom(400);
+                    }
                 }
             }
 

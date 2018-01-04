@@ -15,7 +15,6 @@
     <WebView
         android:id="@+id/wvHtml"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></WebView>
-
-    <View style="@style/Line" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_view"></WebView>
 </LinearLayout>

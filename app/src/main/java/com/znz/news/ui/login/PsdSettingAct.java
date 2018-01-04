@@ -99,40 +99,63 @@ public class PsdSettingAct extends BaseAppActivity {
             return;
         }
 
-        if (page.equals("修改密码")) {
-            Map<String, String> params = new HashMap<>();
-            params.put("password", mDataManager.getValueFromView(etPsd));
-            params.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
-            mModel.requestUpdatePsd(params, new ZnzHttpListener() {
-                @Override
-                public void onSuccess(JSONObject responseOriginal) {
-                    super.onSuccess(responseOriginal);
-                    gotoActivityWithClearStack(TabHomeAct.class);
-                }
+        Map<String, String> params = new HashMap<>();
+        switch (page) {
+            case "修改密码":
+                params.put("password", mDataManager.getValueFromView(etPsd));
+                params.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
+                mModel.requestUpdatePsd(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("修改成功");
+                        gotoActivityWithClearStack(TabHomeAct.class);
+                    }
 
-                @Override
-                public void onFail(String error) {
-                    super.onFail(error);
-                }
-            });
-        } else {
-            Map<String, String> param = new HashMap<>();
-            param.put("password", mDataManager.getValueFromView(etPsd));
-            param.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
-            param.put("code", code);
-            param.put("mobile", phone);
-            mModel.requestRegister(param, new ZnzHttpListener() {
-                @Override
-                public void onSuccess(JSONObject responseOriginal) {
-                    super.onSuccess(responseOriginal);
-                    gotoActivityWithClearStack(LoginAct.class);
-                }
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
+                break;
+            case "找回密码":
+                params.put("code", code);
+                params.put("mobile", phone);
+                params.put("password", mDataManager.getValueFromView(etPsd));
+                params.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
+                mModel.requestForgetPsd(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("修改成功");
+                        gotoActivityWithClearStack(LoginAct.class);
+                    }
 
-                @Override
-                public void onFail(String error) {
-                    super.onFail(error);
-                }
-            });
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
+                break;
+            default:
+                params.put("password", mDataManager.getValueFromView(etPsd));
+                params.put("confirmPassword", mDataManager.getValueFromView(etPsdNew));
+                params.put("code", code);
+                params.put("mobile", phone);
+                mModel.requestRegister(params, new ZnzHttpListener() {
+                    @Override
+                    public void onSuccess(JSONObject responseOriginal) {
+                        super.onSuccess(responseOriginal);
+                        mDataManager.showToast("注册成功");
+                        gotoActivityWithClearStack(LoginAct.class);
+                    }
+
+                    @Override
+                    public void onFail(String error) {
+                        super.onFail(error);
+                    }
+                });
+                break;
         }
     }
 }
