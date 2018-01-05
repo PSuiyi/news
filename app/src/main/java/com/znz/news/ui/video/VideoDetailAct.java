@@ -417,6 +417,7 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
                 bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
                 mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
             }
+            resetRefresh();
         }
     }
 }

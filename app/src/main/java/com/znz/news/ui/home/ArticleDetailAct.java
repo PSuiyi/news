@@ -358,6 +358,7 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
                 bean.setEvaluateNum(StringUtil.getNumUP(bean.getEvaluateNum()));
                 mDataManager.setValueToView(tvCountComment, bean.getEvaluateNum(), "0");
             }
+            resetRefresh();
         }
     }
 }
