@@ -45,7 +45,7 @@ public class SearchResultListFragment extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected int[] getLayoutResource() {
-        return new int[]{R.layout.frag_search_history, 1};
+        return new int[]{R.layout.common_list_layout, 1};
     }
 
     public static SearchResultListFragment newinstance(String searchContent) {

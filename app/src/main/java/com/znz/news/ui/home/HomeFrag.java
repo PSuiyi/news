@@ -185,6 +185,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected Observable<ResponseBody> requestCustomeRefreshObservable() {
+        params.put("recRosition", "1");
         return mModel.requestNewsList(params);
     }
 
