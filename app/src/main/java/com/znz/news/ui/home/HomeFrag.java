@@ -185,7 +185,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
 
     @Override
     protected Observable<ResponseBody> requestCustomeRefreshObservable() {
-        params.put("recRosition", "1");
+        params.put("recPosition", "1");
         return mModel.requestNewsList(params);
     }
 
@@ -198,6 +198,8 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
                 for (NewsBean newsBean : newsBeanList) {
                     if (newsBean.getIsTop().equals("1")) {
                         dataList.add(new MultiBean(Constants.MultiType.Top, newsBean));
+                        newsBeanList.remove(newsBean);
+                        break;
                     }
                 }
                 requestBanner();

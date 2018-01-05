@@ -71,7 +71,7 @@ public class ApiModel extends BaseModel {
     }
 
     public void requestVersion(Map<String, String> params, ZnzHttpListener znzHttpListener) {
-        request(apiService.requestVersion(params), znzHttpListener, LODING_PD);
+        request(apiService.requestVersion(params), znzHttpListener);
     }
 
     public Observable<ResponseBody> requestNewsList(Map<String, String> params) {
