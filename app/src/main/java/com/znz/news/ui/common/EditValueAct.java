@@ -70,9 +70,12 @@ public class EditValueAct extends BaseAppActivity {
         switch (type) {
             case "修改昵称":
                 mDataManager.setViewVisibility(etValue, true);
+                mDataManager.setValueToView(etValue, mDataManager.readTempData(Constants.User.NICK_NAME));
+                mDataManager.moveCursorEnd(etValue);
                 break;
             case "修改签名":
                 mDataManager.setViewVisibility(etValueMulti, true);
+                mDataManager.setValueToView(etValueMulti, mDataManager.readTempData(Constants.User.REMARK));
                 break;
         }
 

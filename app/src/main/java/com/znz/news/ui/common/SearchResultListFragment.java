@@ -85,6 +85,11 @@ public class SearchResultListFragment extends BaseAppListFragment<MultiBean> {
     @Override
     protected Observable<ResponseBody> requestCustomeRefreshObservable() {
         params.put("key", searchContent);
+        if (!StringUtil.isBlank(mDataManager.readTempData(Constants.SearchType.SEARCHTYPE))) {
+            if (!mDataManager.readTempData(Constants.SearchType.SEARCHTYPE).equals("-1")) {
+                params.put("contentType", mDataManager.readTempData(Constants.SearchType.SEARCHTYPE));
+            }
+        }
         return mModel.requestSearchList(params);
     }
 

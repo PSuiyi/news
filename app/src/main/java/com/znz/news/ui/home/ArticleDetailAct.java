@@ -170,6 +170,13 @@ public class ArticleDetailAct extends BaseAppListActivity implements View.OnLayo
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        wvHtml.reload();
+    }
+
+
+    @Override
     protected void loadDataFromServer() {
         Map<String, String> params = new HashMap<>();
         params.put("contentId", id);

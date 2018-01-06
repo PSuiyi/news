@@ -15,34 +15,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:orientation="vertical"
-            android:padding="@dimen/distance_view">
+            android:orientation="vertical">
+
+            <com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer
+                android:id="@+id/detailPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/video_height"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/tvTitle"
                 style="@style/TitleTextStyle"
                 android:layout_width="match_parent"
                 android:maxLines="2"
+                android:padding="@dimen/distance_view"
                 android:text="吊车很忙，" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/video_height"
-                android:layout_marginTop="@dimen/distance_view"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/default_image_rect"
-                android:visibility="gone" />
-
-            <com.znz.libvideo.videoplayer.video.StandardGSYVideoPlayer
-                android:id="@+id/detailPlayer"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/video_height"
-                android:layout_marginTop="@dimen/distance_view"
-                android:visibility="visible" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <View style="@style/Line" />
 </LinearLayout>

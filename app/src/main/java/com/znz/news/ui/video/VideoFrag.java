@@ -46,6 +46,7 @@ public class VideoFrag extends BaseAppListFragment<MultiBean> {
         znzToolBar.setSearchHint("搜您想要的视频内容");
         znzToolBar.setEnableEdit(false);
         znzToolBar.setOnSearchClickListener(v -> {
+            mDataManager.saveTempData(Constants.SearchType.SEARCHTYPE, "2");
             gotoActivity(SearchCommonActivity.class);
         });
     }
@@ -78,7 +79,7 @@ public class VideoFrag extends BaseAppListFragment<MultiBean> {
         newsBeanList.addAll(JSONArray.parseArray(responseJson.getString("list"), NewsBean.class));
         if (!newsBeanList.isEmpty()) {
             for (NewsBean newsBean : newsBeanList) {
-                dataList.add(new MultiBean(Constants.MultiType.Video, newsBean));
+                dataList.add(new MultiBean(Constants.MultiType.VideoHot, newsBean));
             }
         }
         adapter.notifyDataSetChanged();

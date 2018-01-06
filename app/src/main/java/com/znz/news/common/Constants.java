@@ -63,6 +63,7 @@ public class Constants {
         int Video = 3;
         int Picture = 4;
         int Top = 5;
+        int VideoHot = 6;
     }
 
     public interface TreeType {

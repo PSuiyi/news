@@ -78,6 +78,7 @@ public class HomeFrag extends BaseAppListFragment<MultiBean> {
         znzToolBar.setSearchHint("搜索");
         znzToolBar.setEnableEdit(false);
         znzToolBar.setOnSearchClickListener(v -> {
+            mDataManager.saveTempData(Constants.SearchType.SEARCHTYPE, "-1");
             gotoActivity(SearchCommonActivity.class);
         });
     }

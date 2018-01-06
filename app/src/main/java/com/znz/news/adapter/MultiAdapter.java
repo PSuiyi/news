@@ -39,6 +39,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
         addItemType(Constants.MultiType.Top, R.layout.item_lv_top);
         addItemType(Constants.MultiType.Article, R.layout.item_lv_article);
         addItemType(Constants.MultiType.Video, R.layout.item_lv_video);
+        addItemType(Constants.MultiType.VideoHot, R.layout.item_lv_video_hot);
         addItemType(Constants.MultiType.Picture, R.layout.item_lv_picture);
         gsyVideoOptionBuilder = new GSYVideoOptionBuilder();
     }
@@ -66,6 +67,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                 helper.setText(R.id.tvCountComment, bean.getNewsBean().getEvaluateNum());
                 break;
             case Constants.MultiType.Video:
+            case Constants.MultiType.VideoHot:
                 helper.setText(R.id.tvTitle, bean.getNewsBean().getContentTitle());
                 StandardGSYVideoPlayer gsyVideoPlayer = helper.getView(R.id.detailPlayer);
                 ivImage = new HttpImageView(mContext);
@@ -153,6 +155,7 @@ public class MultiAdapter extends BaseMultiItemQuickAdapter<MultiBean, BaseViewH
                 gotoActivity(ArticleDetailAct.class, bundle);
                 break;
             case Constants.MultiType.Video:
+            case Constants.MultiType.VideoHot:
                 bundle.putString("id", bean.getNewsBean().getContentId());
                 gotoActivity(VideoDetailAct.class, bundle);
                 break;

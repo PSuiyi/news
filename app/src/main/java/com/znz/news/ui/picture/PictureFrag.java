@@ -11,6 +11,7 @@ import com.znz.news.adapter.PictureAdapter;
 import com.znz.news.base.BaseAppListFragment;
 import com.znz.news.bean.ImageBean;
 import com.znz.news.bean.NewsBean;
+import com.znz.news.common.Constants;
 import com.znz.news.ui.common.SearchCommonActivity;
 import com.znz.news.view.RecyclerCoverFlow;
 
@@ -51,6 +52,7 @@ public class PictureFrag extends BaseAppListFragment<NewsBean> {
         znzToolBar.setSearchHint("搜您想要的图片内容");
         znzToolBar.setEnableEdit(false);
         znzToolBar.setOnSearchClickListener(v -> {
+            mDataManager.saveTempData(Constants.SearchType.SEARCHTYPE, "1");
             gotoActivity(SearchCommonActivity.class);
         });
     }
