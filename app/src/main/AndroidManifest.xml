@@ -33,7 +33,7 @@
             android:name=".ui.video.VideoDetailAct"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.mine.MineFavAct"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -59,7 +59,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.picture.PictureDetailAct"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".ui.picture.CommentListAct"
             android:screenOrientation="portrait"

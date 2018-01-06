@@ -91,8 +91,8 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
     TextView tvSend;
     @Bind(R.id.llComment2)
     LinearLayout llComment2;
-    @Bind(R.id.llContainer)
-    LinearLayout llContainer;
+    @Bind(R.id.llVideo)
+    LinearLayout llVideo;
 
     private OrientationUtils orientationUtils;
     private boolean isPlay;
@@ -100,6 +100,8 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
     protected GSYVideoOptionBuilder gsyVideoOption;
     private String id;
     private NewsBean bean;
+
+    private int limit;
 
     @Override
     protected int[] getLayoutResource() {
@@ -111,6 +113,8 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
         if (getIntent().hasExtra("id")) {
             id = getIntent().getStringExtra("id");
         }
+
+        limit = mDataManager.getDeviceHeight(activity) / 3;
     }
 
     @Override
@@ -139,14 +143,12 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
         detailPlayer.getFullscreenButton().setOnClickListener(v -> {
             //直接横屏
             orientationUtils.resolveByClick();
-
             //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
             detailPlayer.startWindowFullscreen(activity, true, true);
         });
 
         gsyVideoOption = new GSYVideoOptionBuilder();
-
-        llContainer.addOnLayoutChangeListener(this);
+        llVideo.addOnLayoutChangeListener(this);
     }
 
     @Override
@@ -395,18 +397,15 @@ public class VideoDetailAct extends BaseAppListActivity<CommentBean> implements 
 
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mDataManager.getDeviceHeight(activity) / 4)) {
+        ZnzLog.e("监听到软键盘---->");
+        if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > limit)) {
             ZnzLog.e("监听到软键盘---->" + "弹起....");
-            runOnUiThread(() -> {
-                mDataManager.setViewVisibility(llComment1, false);
-                mDataManager.setViewVisibility(llComment2, true);
-            });
-        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mDataManager.getDeviceHeight(activity) / 4)) {
+            mDataManager.setViewVisibility(llComment1, false);
+            mDataManager.setViewVisibility(llComment2, true);
+        } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > limit)) {
             ZnzLog.e("监听到软键盘---->" + "关闭....");
-            runOnUiThread(() -> {
-                mDataManager.setViewVisibility(llComment1, true);
-                mDataManager.setViewVisibility(llComment2, false);
-            });
+            mDataManager.setViewVisibility(llComment1, true);
+            mDataManager.setViewVisibility(llComment2, false);
         }
     }
 
